@@ -1,0 +1,27 @@
+# Archivos de desarrollo interno
+PLAN.md
+PROMPT_ANTIGRAVITY.md
+
+# Variables de entorno
+.env
+
+# Datos crudos (demasiado grandes para git)
+data/
+normalized/
+
+# Logs
+logs/
+descarga.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# Editor
+.vscode/
+.idea/
+*.swp

@@ -1,0 +1,37 @@
+{
+  "odebrecht": {
+    "encontrado": false
+  },
+  "centros_poblados": {
+    "encontrado": false
+  },
+  "corficolombiana_ruta_sol": {
+    "nit": "860002964",
+    "info": {
+      "nit": "860002964",
+      "nombre": "",
+      "total_contratos": 73,
+      "valor_total": 603121909542.0,
+      "primer_contrato": "2016-10-25",
+      "ultimo_contrato": "2026-02-26",
+      "entidades_muestra": [
+        ""
+      ]
+    },
+    "anomalias": {
+      "carrusel": {
+        "entidades_distintas": 38,
+        "total_contratos": 72,
+        "total_valor": 602864265942.0
+      },
+      "prorrogas_excesivas": {
+        "contratos_prorrogados": 2,
+        "max_dias": 395,
+        "valor_prorrogado": 4650008.0
+      }
+    }
+  },
+  "ungrd_hidroituango": {
+    "encontrado": false
+  }
+}

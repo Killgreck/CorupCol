@@ -1,0 +1,3691 @@
+{
+  "metadata": {
+    "fecha_generacion": "2026-03-05T11:58:48.660884",
+    "estadisticas_generales": {
+      "total_nodos": 32169469,
+      "total_relaciones": 52239049,
+      "valor_total_contratos": 7056924376789010.0
+    }
+  },
+  "top_resumenes": {
+    "top_20_contratistas_por_valor": [
+      {
+        "contratista": "",
+        "total": 5037096732245739.0
+      }
+    ],
+    "top_20_entidades_unico_oferente": [
+      {
+        "entidad": "",
+        "procesos_unico": 187002
+      }
+    ],
+    "top_20_recurrentes_ordenador_contratista": [
+      {
+        "ordenador": "Angela Lorena Ortiz Rosero",
+        "contratista": "",
+        "recurrentes": 26458
+      },
+      {
+        "ordenador": "Maria Teresa Fernandez Iglesias",
+        "contratista": "",
+        "recurrentes": 21424
+      },
+      {
+        "ordenador": "Liliana Patricia Restrepo",
+        "contratista": "",
+        "recurrentes": 21337
+      },
+      {
+        "ordenador": "Maria Elena Estrada Osorio",
+        "contratista": "",
+        "recurrentes": 18225
+      },
+      {
+        "ordenador": "Ana Lucia Largo",
+        "contratista": "",
+        "recurrentes": 17849
+      },
+      {
+        "ordenador": "Maria Monica Hernandez Ucros",
+        "contratista": "",
+        "recurrentes": 17127
+      },
+      {
+        "ordenador": "Olga Lucia Gomez Hoyos",
+        "contratista": "",
+        "recurrentes": 15921
+      },
+      {
+        "ordenador": "Jaqueline Campos Rincon",
+        "contratista": "",
+        "recurrentes": 14994
+      },
+      {
+        "ordenador": "Ana Milena Orozco Cañas",
+        "contratista": "",
+        "recurrentes": 13347
+      },
+      {
+        "ordenador": "Eduardo Silva Meluk",
+        "contratista": "",
+        "recurrentes": 11244
+      },
+      {
+        "ordenador": "Carlos Alberto Diago Alzate",
+        "contratista": "",
+        "recurrentes": 11053
+      },
+      {
+        "ordenador": "Juan Esteban Alzate Ortiz",
+        "contratista": "",
+        "recurrentes": 10681
+      },
+      {
+        "ordenador": "Yair De Jesus Soto Builes",
+        "contratista": "",
+        "recurrentes": 10542
+      },
+      {
+        "ordenador": "Emily Vanessa Velez Avila",
+        "contratista": "",
+        "recurrentes": 10330
+      },
+      {
+        "ordenador": "Astrid Salamanca Rahin",
+        "contratista": "",
+        "recurrentes": 10127
+      },
+      {
+        "ordenador": "Martha Lucia Parra Garcia",
+        "contratista": "",
+        "recurrentes": 9901
+      },
+      {
+        "ordenador": "William Yesid Archila Cardenas",
+        "contratista": "",
+        "recurrentes": 9614
+      },
+      {
+        "ordenador": "Jose Luis Sanchez Cardona",
+        "contratista": "",
+        "recurrentes": 9369
+      },
+      {
+        "ordenador": "Deyanira Barrero Leon",
+        "contratista": "",
+        "recurrentes": 9027
+      },
+      {
+        "ordenador": "Maria Isabel Carrillo Hinojosa",
+        "contratista": "",
+        "recurrentes": 8841
+      }
+    ]
+  },
+  "anomalias": {
+    "empresa_reciente_contrato_millonario": [
+      {
+        "c.doc_id": "78745794",
+        "c.nombre": "",
+        "primer_contrato": "2014-10-01",
+        "total_ganado": 226600296014500.0,
+        "num_contratos": 8
+      },
+      {
+        "c.doc_id": "70055714",
+        "c.nombre": "",
+        "primer_contrato": "2014-10-01",
+        "total_ganado": 226600284254718.0,
+        "num_contratos": 8
+      },
+      {
+        "c.doc_id": "52457976",
+        "c.nombre": "",
+        "primer_contrato": "2012-01-25",
+        "total_ganado": 205484274690840.0,
+        "num_contratos": 11
+      },
+      {
+        "c.doc_id": "17643201",
+        "c.nombre": "",
+        "primer_contrato": "2012-04-09",
+        "total_ganado": 171300249983332.0,
+        "num_contratos": 5
+      },
+      {
+        "c.doc_id": "53009489",
+        "c.nombre": "",
+        "primer_contrato": "2017-01-02",
+        "total_ganado": 75000372726152.0,
+        "num_contratos": 17
+      },
+      {
+        "c.doc_id": "59860832",
+        "c.nombre": "",
+        "primer_contrato": "2013-04-15",
+        "total_ganado": 63825006382500.0,
+        "num_contratos": 1
+      },
+      {
+        "c.doc_id": "66902234",
+        "c.nombre": "",
+        "primer_contrato": "2012-08-28",
+        "total_ganado": 55000005500000.0,
+        "num_contratos": 1
+      },
+      {
+        "c.doc_id": "899999090",
+        "c.nombre": "",
+        "primer_contrato": "2016-09-14",
+        "total_ganado": 46508119407002.0,
+        "num_contratos": 27
+      },
+      {
+        "c.doc_id": "899999094",
+        "c.nombre": "",
+        "primer_contrato": "2007-05-22",
+        "total_ganado": 28260434903098.0,
+        "num_contratos": 62
+      },
+      {
+        "c.doc_id": "123456",
+        "c.nombre": "",
+        "primer_contrato": "2017-04-24",
+        "total_ganado": 25001515047483.0,
+        "num_contratos": 36
+      },
+      {
+        "c.doc_id": "26946093",
+        "c.nombre": "",
+        "primer_contrato": "2018-12-14",
+        "total_ganado": 25000000000000.0,
+        "num_contratos": 1
+      },
+      {
+        "c.doc_id": "1049621657",
+        "c.nombre": "",
+        "primer_contrato": "2016-02-01",
+        "total_ganado": 24410403551105.0,
+        "num_contratos": 8
+      },
+      {
+        "c.doc_id": "8999991158",
+        "c.nombre": "",
+        "primer_contrato": "2001-01-02",
+        "total_ganado": 21778665505171.0,
+        "num_contratos": 825
+      },
+      {
+        "c.doc_id": "52837416",
+        "c.nombre": "",
+        "primer_contrato": "2013-01-02",
+        "total_ganado": 21750258549456.0,
+        "num_contratos": 47
+      },
+      {
+        "c.doc_id": "27473492",
+        "c.nombre": "",
+        "primer_contrato": "2021-09-02",
+        "total_ganado": 20342463200700.0,
+        "num_contratos": 7
+      },
+      {
+        "c.doc_id": "901148094",
+        "c.nombre": "",
+        "primer_contrato": "2018-04-02",
+        "total_ganado": 18000529440033.0,
+        "num_contratos": 56
+      },
+      {
+        "c.doc_id": "1007556308",
+        "c.nombre": "",
+        "primer_contrato": "2024-02-23",
+        "total_ganado": 18000003000000.0,
+        "num_contratos": 3
+      },
+      {
+        "c.doc_id": "52692131",
+        "c.nombre": "",
+        "primer_contrato": "2019-05-22",
+        "total_ganado": 17770539301714.0,
+        "num_contratos": 13
+      },
+      {
+        "c.doc_id": "1067731199",
+        "c.nombre": "",
+        "primer_contrato": "2023-02-22",
+        "total_ganado": 17287215141000.0,
+        "num_contratos": 6
+      },
+      {
+        "c.doc_id": "15347128",
+        "c.nombre": "",
+        "primer_contrato": "2020-09-23",
+        "total_ganado": 17285296991696.0,
+        "num_contratos": 15
+      },
+      {
+        "c.doc_id": "4119742",
+        "c.nombre": "",
+        "primer_contrato": "2017-04-03",
+        "total_ganado": 17280337260000.0,
+        "num_contratos": 32
+      },
+      {
+        "c.doc_id": "1007702593",
+        "c.nombre": "",
+        "primer_contrato": "2023-10-05",
+        "total_ganado": 16820008700000.0,
+        "num_contratos": 4
+      },
+      {
+        "c.doc_id": "16888971",
+        "c.nombre": "",
+        "primer_contrato": "2013-02-25",
+        "total_ganado": 16000451000000.0,
+        "num_contratos": 27
+      },
+      {
+        "c.doc_id": "55199871",
+        "c.nombre": "",
+        "primer_contrato": "2017-01-02",
+        "total_ganado": 15680139407801.0,
+        "num_contratos": 13
+      },
+      {
+        "c.doc_id": "1018414153",
+        "c.nombre": "",
+        "primer_contrato": "2017-01-02",
+        "total_ganado": 15680131658044.0,
+        "num_contratos": 14
+      },
+      {
+        "c.doc_id": "49733678",
+        "c.nombre": "",
+        "primer_contrato": "2018-12-06",
+        "total_ganado": 15000000000000.0,
+        "num_contratos": 1
+      },
+      {
+        "c.doc_id": "41104437",
+        "c.nombre": "",
+        "primer_contrato": "2015-07-01",
+        "total_ganado": 14000124900000.0,
+        "num_contratos": 32
+      },
+      {
+        "c.doc_id": "8000910635",
+        "c.nombre": "",
+        "primer_contrato": "2009-07-24",
+        "total_ganado": 13695991847200.0,
+        "num_contratos": 49
+      },
+      {
+        "c.doc_id": "89000765",
+        "c.nombre": "",
+        "primer_contrato": "2013-12-02",
+        "total_ganado": 12410515645289.0,
+        "num_contratos": 2
+      },
+      {
+        "c.doc_id": "50892207",
+        "c.nombre": "",
+        "primer_contrato": "2018-03-12",
+        "total_ganado": 12245903660130.0,
+        "num_contratos": 34
+      },
+      {
+        "c.doc_id": "811027516",
+        "c.nombre": "",
+        "primer_contrato": "2014-02-28",
+        "total_ganado": 11830118429708.0,
+        "num_contratos": 132
+      },
+      {
+        "c.doc_id": "890903938",
+        "c.nombre": "",
+        "primer_contrato": "2011-09-06",
+        "total_ganado": 11456247045386.0,
+        "num_contratos": 981
+      },
+      {
+        "c.doc_id": "8000910294",
+        "c.nombre": "",
+        "primer_contrato": "2005-12-21",
+        "total_ganado": 11230837587795.0,
+        "num_contratos": 19
+      },
+      {
+        "c.doc_id": "1010235055",
+        "c.nombre": "",
+        "primer_contrato": "2018-07-03",
+        "total_ganado": 10951275182183.0,
+        "num_contratos": 10
+      },
+      {
+        "c.doc_id": "800096329",
+        "c.nombre": "",
+        "primer_contrato": "2000-04-04",
+        "total_ganado": 10862226701211.0,
+        "num_contratos": 545
+      },
+      {
+        "c.doc_id": "1123633797",
+        "c.nombre": "",
+        "primer_contrato": "2024-05-10",
+        "total_ganado": 10101915532431.0,
+        "num_contratos": 5
+      },
+      {
+        "c.doc_id": "1201220212",
+        "c.nombre": "",
+        "primer_contrato": "2024-02-09",
+        "total_ganado": 9999999999999.0,
+        "num_contratos": 1
+      },
+      {
+        "c.doc_id": "52483529",
+        "c.nombre": "",
+        "primer_contrato": "2017-01-11",
+        "total_ganado": 9974399914238.0,
+        "num_contratos": 9
+      },
+      {
+        "c.doc_id": "1085249318",
+        "c.nombre": "",
+        "primer_contrato": "2016-02-17",
+        "total_ganado": 9948285210955.0,
+        "num_contratos": 16
+      },
+      {
+        "c.doc_id": "94532842",
+        "c.nombre": "",
+        "primer_contrato": "2020-02-14",
+        "total_ganado": 9947837838728.0,
+        "num_contratos": 13
+      },
+      {
+        "c.doc_id": "1018434557",
+        "c.nombre": "",
+        "primer_contrato": "2018-09-17",
+        "total_ganado": 9922710270389.0,
+        "num_contratos": 28
+      },
+      {
+        "c.doc_id": "1002608793",
+        "c.nombre": "",
+        "primer_contrato": "2023-12-07",
+        "total_ganado": 9922531050000.0,
+        "num_contratos": 8
+      },
+      {
+        "c.doc_id": "39809553",
+        "c.nombre": "",
+        "primer_contrato": "2014-05-01",
+        "total_ganado": 9792886515510.0,
+        "num_contratos": 33
+      },
+      {
+        "c.doc_id": "1075255768",
+        "c.nombre": "",
+        "primer_contrato": "2021-03-15",
+        "total_ganado": 9653470251500.0,
+        "num_contratos": 8
+      },
+      {
+        "c.doc_id": "17582419",
+        "c.nombre": "",
+        "primer_contrato": "2007-06-01",
+        "total_ganado": 9645857434682.0,
+        "num_contratos": 9
+      },
+      {
+        "c.doc_id": "1121840417",
+        "c.nombre": "",
+        "primer_contrato": "2012-02-27",
+        "total_ganado": 9610583553709.0,
+        "num_contratos": 30
+      },
+      {
+        "c.doc_id": "40325885",
+        "c.nombre": "",
+        "primer_contrato": "2014-01-02",
+        "total_ganado": 9610338978800.0,
+        "num_contratos": 19
+      },
+      {
+        "c.doc_id": "80016950",
+        "c.nombre": "",
+        "primer_contrato": "2017-01-02",
+        "total_ganado": 9610169212874.0,
+        "num_contratos": 15
+      },
+      {
+        "c.doc_id": "52360868",
+        "c.nombre": "",
+        "primer_contrato": "2024-02-21",
+        "total_ganado": 9506923892362.0,
+        "num_contratos": 6
+      },
+      {
+        "c.doc_id": "55178436",
+        "c.nombre": "",
+        "primer_contrato": "2016-03-12",
+        "total_ganado": 9363716580000.0,
+        "num_contratos": 11
+      },
+      {
+        "c.doc_id": "3178862",
+        "c.nombre": "",
+        "primer_contrato": "2022-02-03",
+        "total_ganado": 9308765400869.0,
+        "num_contratos": 3
+      },
+      {
+        "c.doc_id": "40420072",
+        "c.nombre": "",
+        "primer_contrato": "2019-04-01",
+        "total_ganado": 9241703130000.0,
+        "num_contratos": 33
+      },
+      {
+        "c.doc_id": "901557898",
+        "c.nombre": "",
+        "primer_contrato": "2022-01-28",
+        "total_ganado": 9241606040000.0,
+        "num_contratos": 4
+      },
+      {
+        "c.doc_id": "1124858940",
+        "c.nombre": "",
+        "primer_contrato": "2018-01-02",
+        "total_ganado": 9240780881173.0,
+        "num_contratos": 13
+      },
+      {
+        "c.doc_id": "900524871",
+        "c.nombre": "",
+        "primer_contrato": "2012-05-25",
+        "total_ganado": 9070701034585.0,
+        "num_contratos": 1
+      },
+      {
+        "c.doc_id": "91185196",
+        "c.nombre": "",
+        "primer_contrato": "2015-02-26",
+        "total_ganado": 9000196869200.0,
+        "num_contratos": 13
+      },
+      {
+        "c.doc_id": "2472694",
+        "c.nombre": "",
+        "primer_contrato": "2019-06-19",
+        "total_ganado": 9000167190000.0,
+        "num_contratos": 14
+      },
+      {
+        "c.doc_id": "50915221",
+        "c.nombre": "",
+        "primer_contrato": "2012-01-02",
+        "total_ganado": 9000125947600.0,
+        "num_contratos": 7
+      },
+      {
+        "c.doc_id": "40185748",
+        "c.nombre": "",
+        "primer_contrato": "2014-11-06",
+        "total_ganado": 9000103215855.0,
+        "num_contratos": 7
+      },
+      {
+        "c.doc_id": "1111750571",
+        "c.nombre": "",
+        "primer_contrato": "2021-08-19",
+        "total_ganado": 9000074200000.0,
+        "num_contratos": 12
+      },
+      {
+        "c.doc_id": "75095881",
+        "c.nombre": "",
+        "primer_contrato": "2019-04-24",
+        "total_ganado": 9000015800000.0,
+        "num_contratos": 4
+      },
+      {
+        "c.doc_id": "79799118",
+        "c.nombre": "",
+        "primer_contrato": "2014-12-09",
+        "total_ganado": 8929997269267.0,
+        "num_contratos": 7
+      },
+      {
+        "c.doc_id": "34974466",
+        "c.nombre": "",
+        "primer_contrato": "2020-01-13",
+        "total_ganado": 8642672064717.0,
+        "num_contratos": 11
+      },
+      {
+        "c.doc_id": "8319006",
+        "c.nombre": "",
+        "primer_contrato": "2014-01-15",
+        "total_ganado": 8418150292052.0,
+        "num_contratos": 14
+      },
+      {
+        "c.doc_id": "25024572",
+        "c.nombre": "",
+        "primer_contrato": "2017-05-03",
+        "total_ganado": 8323332696067.0,
+        "num_contratos": 12
+      },
+      {
+        "c.doc_id": "1022926917",
+        "c.nombre": "",
+        "primer_contrato": "2024-04-10",
+        "total_ganado": 8294454148608.0,
+        "num_contratos": 5
+      },
+      {
+        "c.doc_id": "1001504927",
+        "c.nombre": "",
+        "primer_contrato": "2022-01-28",
+        "total_ganado": 8122599336992.0,
+        "num_contratos": 9
+      },
+      {
+        "c.doc_id": "1119889878",
+        "c.nombre": "",
+        "primer_contrato": "2022-05-17",
+        "total_ganado": 8054248818000.0,
+        "num_contratos": 3
+      },
+      {
+        "c.doc_id": "1152712468",
+        "c.nombre": "",
+        "primer_contrato": "2022-08-12",
+        "total_ganado": 8027939588342.0,
+        "num_contratos": 11
+      },
+      {
+        "c.doc_id": "73139769",
+        "c.nombre": "",
+        "primer_contrato": "2008-07-01",
+        "total_ganado": 8014736032395.0,
+        "num_contratos": 21
+      },
+      {
+        "c.doc_id": "8301288941",
+        "c.nombre": "",
+        "primer_contrato": "2007-08-15",
+        "total_ganado": 8006191205121.0,
+        "num_contratos": 28
+      },
+      {
+        "c.doc_id": "8001135546",
+        "c.nombre": "",
+        "primer_contrato": "2014-12-23",
+        "total_ganado": 7986000791663.0,
+        "num_contratos": 1
+      },
+      {
+        "c.doc_id": "1127080244",
+        "c.nombre": "",
+        "primer_contrato": "2024-04-12",
+        "total_ganado": 7984028781600.0,
+        "num_contratos": 4
+      },
+      {
+        "c.doc_id": "1088275867",
+        "c.nombre": "",
+        "primer_contrato": "2023-02-14",
+        "total_ganado": 7952448433400.0,
+        "num_contratos": 7
+      },
+      {
+        "c.doc_id": "899999162",
+        "c.nombre": "",
+        "primer_contrato": "2009-08-31",
+        "total_ganado": 7904900247282.0,
+        "num_contratos": 317
+      },
+      {
+        "c.doc_id": "806010043",
+        "c.nombre": "",
+        "primer_contrato": "2013-11-06",
+        "total_ganado": 7893866276164.0,
+        "num_contratos": 46
+      },
+      {
+        "c.doc_id": "1121865195",
+        "c.nombre": "",
+        "primer_contrato": "2014-10-14",
+        "total_ganado": 7840675867870.0,
+        "num_contratos": 17
+      },
+      {
+        "c.doc_id": "39582363",
+        "c.nombre": "",
+        "primer_contrato": "2013-01-02",
+        "total_ganado": 7840628171907.0,
+        "num_contratos": 54
+      },
+      {
+        "c.doc_id": "52476885",
+        "c.nombre": "",
+        "primer_contrato": "2017-01-02",
+        "total_ganado": 7840421607781.0,
+        "num_contratos": 20
+      },
+      {
+        "c.doc_id": "1033677130",
+        "c.nombre": "",
+        "primer_contrato": "2013-05-06",
+        "total_ganado": 7840421038283.0,
+        "num_contratos": 19
+      },
+      {
+        "c.doc_id": "1018412424",
+        "c.nombre": "",
+        "primer_contrato": "2014-01-17",
+        "total_ganado": 7840375969640.0,
+        "num_contratos": 18
+      },
+      {
+        "c.doc_id": "80135801",
+        "c.nombre": "",
+        "primer_contrato": "2017-03-01",
+        "total_ganado": 7840223631172.0,
+        "num_contratos": 15
+      },
+      {
+        "c.doc_id": "79970691",
+        "c.nombre": "",
+        "primer_contrato": "2013-06-17",
+        "total_ganado": 7840209643404.0,
+        "num_contratos": 15
+      },
+      {
+        "c.doc_id": "1056781592",
+        "c.nombre": "",
+        "primer_contrato": "2017-03-07",
+        "total_ganado": 7840175308947.0,
+        "num_contratos": 39
+      },
+      {
+        "c.doc_id": "52010820",
+        "c.nombre": "",
+        "primer_contrato": "2013-01-02",
+        "total_ganado": 7840170504248.0,
+        "num_contratos": 40
+      },
+      {
+        "c.doc_id": "7537935",
+        "c.nombre": "",
+        "primer_contrato": "2019-11-05",
+        "total_ganado": 7840089635733.0,
+        "num_contratos": 15
+      },
+      {
+        "c.doc_id": "1013640011",
+        "c.nombre": "",
+        "primer_contrato": "2017-06-01",
+        "total_ganado": 7840081767604.0,
+        "num_contratos": 9
+      },
+      {
+        "c.doc_id": "1018437831",
+        "c.nombre": "",
+        "primer_contrato": "2017-10-02",
+        "total_ganado": 7840065354000.0,
+        "num_contratos": 8
+      },
+      {
+        "c.doc_id": "1096220052",
+        "c.nombre": "",
+        "primer_contrato": "2020-07-10",
+        "total_ganado": 7840063250000.0,
+        "num_contratos": 12
+      },
+      {
+        "c.doc_id": "1063950301",
+        "c.nombre": "",
+        "primer_contrato": "2020-01-02",
+        "total_ganado": 7840046908515.0,
+        "num_contratos": 17
+      },
+      {
+        "c.doc_id": "23183911",
+        "c.nombre": "",
+        "primer_contrato": "2017-01-02",
+        "total_ganado": 7840039833333.0,
+        "num_contratos": 5
+      },
+      {
+        "c.doc_id": "1192741577",
+        "c.nombre": "",
+        "primer_contrato": "2021-08-01",
+        "total_ganado": 7840024577330.0,
+        "num_contratos": 9
+      },
+      {
+        "c.doc_id": "1026261099",
+        "c.nombre": "",
+        "primer_contrato": "2014-06-05",
+        "total_ganado": 7769612768016.0,
+        "num_contratos": 6
+      },
+      {
+        "c.doc_id": "1094934770",
+        "c.nombre": "",
+        "primer_contrato": "2019-08-06",
+        "total_ganado": 7711966235333.0,
+        "num_contratos": 27
+      },
+      {
+        "c.doc_id": "1114821930",
+        "c.nombre": "",
+        "primer_contrato": "2022-10-14",
+        "total_ganado": 7562594398000.0,
+        "num_contratos": 6
+      },
+      {
+        "c.doc_id": "86012377",
+        "c.nombre": "",
+        "primer_contrato": "2016-12-07",
+        "total_ganado": 7562592901508.0,
+        "num_contratos": 12
+      },
+      {
+        "c.doc_id": "1049632399",
+        "c.nombre": "",
+        "primer_contrato": "2024-02-09",
+        "total_ganado": 7562563064000.0,
+        "num_contratos": 7
+      },
+      {
+        "c.doc_id": "1085293765",
+        "c.nombre": "",
+        "primer_contrato": "2016-02-01",
+        "total_ganado": 7562562166000.0,
+        "num_contratos": 9
+      },
+      {
+        "c.doc_id": "69007610",
+        "c.nombre": "",
+        "primer_contrato": "2020-03-24",
+        "total_ganado": 7480130675306.0,
+        "num_contratos": 3
+      },
+      {
+        "c.doc_id": "830119711",
+        "c.nombre": "",
+        "primer_contrato": "2016-09-08",
+        "total_ganado": 7434852542518.0,
+        "num_contratos": 13
+      }
+    ],
+    "carrusel_contratista_multiples_entidades": [
+      {
+        "c.doc_id": "899999090",
+        "c.nombre": "",
+        "entidades_distintas": 19,
+        "total_contratos": 23,
+        "total_valor": 41533428204867.0
+      },
+      {
+        "c.doc_id": "899999094",
+        "c.nombre": "",
+        "entidades_distintas": 16,
+        "total_contratos": 28,
+        "total_valor": 28141681145841.0
+      },
+      {
+        "c.doc_id": "8999991158",
+        "c.nombre": "",
+        "entidades_distintas": 170,
+        "total_contratos": 582,
+        "total_valor": 21466595029582.0
+      },
+      {
+        "c.doc_id": "901148094",
+        "c.nombre": "",
+        "entidades_distintas": 10,
+        "total_contratos": 56,
+        "total_valor": 18000529440033.0
+      },
+      {
+        "c.doc_id": "4119742",
+        "c.nombre": "",
+        "entidades_distintas": 7,
+        "total_contratos": 25,
+        "total_valor": 17280246730000.0
+      },
+      {
+        "c.doc_id": "16888971",
+        "c.nombre": "",
+        "entidades_distintas": 6,
+        "total_contratos": 27,
+        "total_valor": 16000451000000.0
+      },
+      {
+        "c.doc_id": "811027516",
+        "c.nombre": "",
+        "entidades_distintas": 50,
+        "total_contratos": 132,
+        "total_valor": 11830118429708.0
+      },
+      {
+        "c.doc_id": "800096329",
+        "c.nombre": "",
+        "entidades_distintas": 281,
+        "total_contratos": 525,
+        "total_valor": 10817441347818.0
+      },
+      {
+        "c.doc_id": "1018434557",
+        "c.nombre": "",
+        "entidades_distintas": 7,
+        "total_contratos": 28,
+        "total_valor": 9922710270389.0
+      },
+      {
+        "c.doc_id": "890903938",
+        "c.nombre": "",
+        "entidades_distintas": 440,
+        "total_contratos": 911,
+        "total_valor": 9758808434236.0
+      },
+      {
+        "c.doc_id": "1121840417",
+        "c.nombre": "",
+        "entidades_distintas": 10,
+        "total_contratos": 30,
+        "total_valor": 9610583553709.0
+      },
+      {
+        "c.doc_id": "91185196",
+        "c.nombre": "",
+        "entidades_distintas": 6,
+        "total_contratos": 13,
+        "total_valor": 9000196869200.0
+      },
+      {
+        "c.doc_id": "73139769",
+        "c.nombre": "",
+        "entidades_distintas": 13,
+        "total_contratos": 19,
+        "total_valor": 8014034918973.0
+      },
+      {
+        "c.doc_id": "8301288941",
+        "c.nombre": "",
+        "entidades_distintas": 14,
+        "total_contratos": 24,
+        "total_valor": 8004906018356.0
+      },
+      {
+        "c.doc_id": "806010043",
+        "c.nombre": "",
+        "entidades_distintas": 10,
+        "total_contratos": 41,
+        "total_valor": 7889115860798.0
+      },
+      {
+        "c.doc_id": "1018412424",
+        "c.nombre": "",
+        "entidades_distintas": 6,
+        "total_contratos": 16,
+        "total_valor": 7840346483240.0
+      },
+      {
+        "c.doc_id": "800008545",
+        "c.nombre": "",
+        "entidades_distintas": 10,
+        "total_contratos": 12,
+        "total_valor": 7334648269600.0
+      },
+      {
+        "c.doc_id": "899999316",
+        "c.nombre": "",
+        "entidades_distintas": 111,
+        "total_contratos": 226,
+        "total_valor": 6913703119540.0
+      },
+      {
+        "c.doc_id": "890303666",
+        "c.nombre": "",
+        "entidades_distintas": 6,
+        "total_contratos": 20,
+        "total_valor": 6598064649732.0
+      },
+      {
+        "c.doc_id": "899999162",
+        "c.nombre": "",
+        "entidades_distintas": 52,
+        "total_contratos": 294,
+        "total_valor": 6389129655639.0
+      },
+      {
+        "c.doc_id": "51944636",
+        "c.nombre": "",
+        "entidades_distintas": 5,
+        "total_contratos": 16,
+        "total_valor": 6250160917000.0
+      },
+      {
+        "c.doc_id": "890981069",
+        "c.nombre": "",
+        "entidades_distintas": 22,
+        "total_contratos": 159,
+        "total_valor": 5870786586360.0
+      },
+      {
+        "c.doc_id": "860003020",
+        "c.nombre": "",
+        "entidades_distintas": 163,
+        "total_contratos": 375,
+        "total_valor": 5751009671841.0
+      },
+      {
+        "c.doc_id": "899999035",
+        "c.nombre": "",
+        "entidades_distintas": 64,
+        "total_contratos": 198,
+        "total_valor": 5643822042035.0
+      },
+      {
+        "c.doc_id": "901365208",
+        "c.nombre": "",
+        "entidades_distintas": 5,
+        "total_contratos": 48,
+        "total_valor": 5585600785006.0
+      },
+      {
+        "c.doc_id": "890404273",
+        "c.nombre": "",
+        "entidades_distintas": 30,
+        "total_contratos": 161,
+        "total_valor": 5451160394265.0
+      },
+      {
+        "c.doc_id": "18009569",
+        "c.nombre": "",
+        "entidades_distintas": 5,
+        "total_contratos": 38,
+        "total_valor": 5319568666318.0
+      },
+      {
+        "c.doc_id": "1085916518",
+        "c.nombre": "",
+        "entidades_distintas": 6,
+        "total_contratos": 17,
+        "total_valor": 4840076905000.0
+      },
+      {
+        "c.doc_id": "800223337",
+        "c.nombre": "",
+        "entidades_distintas": 25,
+        "total_contratos": 240,
+        "total_valor": 4440151242547.0
+      },
+      {
+        "c.doc_id": "8909801792",
+        "c.nombre": "",
+        "entidades_distintas": 37,
+        "total_contratos": 294,
+        "total_valor": 4414607298261.0
+      },
+      {
+        "c.doc_id": "10237879",
+        "c.nombre": "",
+        "entidades_distintas": 9,
+        "total_contratos": 52,
+        "total_valor": 4410183312500.0
+      },
+      {
+        "c.doc_id": "860049921",
+        "c.nombre": "",
+        "entidades_distintas": 170,
+        "total_contratos": 531,
+        "total_valor": 4381760837180.0
+      },
+      {
+        "c.doc_id": "8001163987",
+        "c.nombre": "",
+        "entidades_distintas": 13,
+        "total_contratos": 52,
+        "total_valor": 4254107416709.0
+      },
+      {
+        "c.doc_id": "30310147",
+        "c.nombre": "",
+        "entidades_distintas": 49,
+        "total_contratos": 81,
+        "total_valor": 4232573887346.0
+      },
+      {
+        "c.doc_id": "811014616",
+        "c.nombre": "",
+        "entidades_distintas": 11,
+        "total_contratos": 47,
+        "total_valor": 4130825481110.0
+      },
+      {
+        "c.doc_id": "900439716",
+        "c.nombre": "",
+        "entidades_distintas": 22,
+        "total_contratos": 123,
+        "total_valor": 4129651463749.0
+      },
+      {
+        "c.doc_id": "8999990633",
+        "c.nombre": "",
+        "entidades_distintas": 234,
+        "total_contratos": 1598,
+        "total_valor": 4016576269042.0
+      },
+      {
+        "c.doc_id": "17345567",
+        "c.nombre": "",
+        "entidades_distintas": 9,
+        "total_contratos": 33,
+        "total_valor": 4000227770000.0
+      },
+      {
+        "c.doc_id": "800221133",
+        "c.nombre": "",
+        "entidades_distintas": 6,
+        "total_contratos": 33,
+        "total_valor": 3897314391038.0
+      },
+      {
+        "c.doc_id": "71978093",
+        "c.nombre": "",
+        "entidades_distintas": 5,
+        "total_contratos": 9,
+        "total_valor": 3841681185208.0
+      },
+      {
+        "c.doc_id": "860066942",
+        "c.nombre": "",
+        "entidades_distintas": 217,
+        "total_contratos": 1658,
+        "total_valor": 3775930755730.0
+      },
+      {
+        "c.doc_id": "890300279",
+        "c.nombre": "",
+        "entidades_distintas": 162,
+        "total_contratos": 407,
+        "total_valor": 3728991696081.0
+      },
+      {
+        "c.doc_id": "8060088733",
+        "c.nombre": "",
+        "entidades_distintas": 25,
+        "total_contratos": 184,
+        "total_valor": 3698536736753.0
+      },
+      {
+        "c.doc_id": "18496735",
+        "c.nombre": "",
+        "entidades_distintas": 6,
+        "total_contratos": 46,
+        "total_valor": 3610214298373.0
+      },
+      {
+        "c.doc_id": "890980040",
+        "c.nombre": "",
+        "entidades_distintas": 321,
+        "total_contratos": 2675,
+        "total_valor": 3554385768978.0
+      },
+      {
+        "c.doc_id": "899999115",
+        "c.nombre": "",
+        "entidades_distintas": 192,
+        "total_contratos": 1186,
+        "total_valor": 3519215394363.0
+      },
+      {
+        "c.doc_id": "890919291",
+        "c.nombre": "",
+        "entidades_distintas": 16,
+        "total_contratos": 86,
+        "total_valor": 3427187749510.0
+      },
+      {
+        "c.doc_id": "890905211",
+        "c.nombre": "",
+        "entidades_distintas": 58,
+        "total_contratos": 311,
+        "total_valor": 3411566922674.0
+      },
+      {
+        "c.doc_id": "805000264",
+        "c.nombre": "",
+        "entidades_distintas": 16,
+        "total_contratos": 54,
+        "total_valor": 3390691596440.0
+      },
+      {
+        "c.doc_id": "830040256",
+        "c.nombre": "",
+        "entidades_distintas": 10,
+        "total_contratos": 31,
+        "total_valor": 3366914106546.0
+      },
+      {
+        "c.doc_id": "860002964",
+        "c.nombre": "",
+        "entidades_distintas": 219,
+        "total_contratos": 336,
+        "total_valor": 3316138454505.0
+      },
+      {
+        "c.doc_id": "900882422",
+        "c.nombre": "",
+        "entidades_distintas": 8,
+        "total_contratos": 27,
+        "total_valor": 3276501389185.0
+      },
+      {
+        "c.doc_id": "10187497",
+        "c.nombre": "",
+        "entidades_distintas": 11,
+        "total_contratos": 28,
+        "total_valor": 3240091653700.0
+      },
+      {
+        "c.doc_id": "890984761",
+        "c.nombre": "",
+        "entidades_distintas": 59,
+        "total_contratos": 563,
+        "total_valor": 3200603386694.0
+      },
+      {
+        "c.doc_id": "800091140",
+        "c.nombre": "",
+        "entidades_distintas": 10,
+        "total_contratos": 106,
+        "total_valor": 3170241076820.0
+      },
+      {
+        "c.doc_id": "52906030",
+        "c.nombre": "",
+        "entidades_distintas": 56,
+        "total_contratos": 121,
+        "total_valor": 3100429606993.0
+      },
+      {
+        "c.doc_id": "8001499236",
+        "c.nombre": "",
+        "entidades_distintas": 61,
+        "total_contratos": 128,
+        "total_valor": 3077231959301.0
+      },
+      {
+        "c.doc_id": "8999993161",
+        "c.nombre": "",
+        "entidades_distintas": 63,
+        "total_contratos": 187,
+        "total_valor": 2982597881243.0
+      },
+      {
+        "c.doc_id": "8000378008",
+        "c.nombre": "",
+        "entidades_distintas": 50,
+        "total_contratos": 125,
+        "total_valor": 2963074832196.0
+      },
+      {
+        "c.doc_id": "800058016",
+        "c.nombre": "",
+        "entidades_distintas": 16,
+        "total_contratos": 407,
+        "total_valor": 2959643120035.0
+      },
+      {
+        "c.doc_id": "860034313",
+        "c.nombre": "",
+        "entidades_distintas": 136,
+        "total_contratos": 223,
+        "total_valor": 2907331482442.0
+      },
+      {
+        "c.doc_id": "890303448",
+        "c.nombre": "",
+        "entidades_distintas": 9,
+        "total_contratos": 81,
+        "total_valor": 2886849875648.0
+      },
+      {
+        "c.doc_id": "830122566",
+        "c.nombre": "",
+        "entidades_distintas": 292,
+        "total_contratos": 1104,
+        "total_valor": 2826364050320.0
+      },
+      {
+        "c.doc_id": "899999063",
+        "c.nombre": "",
+        "entidades_distintas": 416,
+        "total_contratos": 2943,
+        "total_valor": 2717119862787.0
+      },
+      {
+        "c.doc_id": "805000867",
+        "c.nombre": "",
+        "entidades_distintas": 101,
+        "total_contratos": 384,
+        "total_valor": 2633740613715.0
+      },
+      {
+        "c.doc_id": "900515350",
+        "c.nombre": "",
+        "entidades_distintas": 155,
+        "total_contratos": 437,
+        "total_valor": 2632879246878.0
+      },
+      {
+        "c.doc_id": "800091029",
+        "c.nombre": "",
+        "entidades_distintas": 7,
+        "total_contratos": 25,
+        "total_valor": 2627614559913.0
+      },
+      {
+        "c.doc_id": "860006543",
+        "c.nombre": "",
+        "entidades_distintas": 162,
+        "total_contratos": 661,
+        "total_valor": 2592515655212.0
+      },
+      {
+        "c.doc_id": "1020756969",
+        "c.nombre": "",
+        "entidades_distintas": 5,
+        "total_contratos": 9,
+        "total_valor": 2560139350000.0
+      },
+      {
+        "c.doc_id": "900062917",
+        "c.nombre": "",
+        "entidades_distintas": 1221,
+        "total_contratos": 5568,
+        "total_valor": 2538722055595.0
+      },
+      {
+        "c.doc_id": "800091063",
+        "c.nombre": "",
+        "entidades_distintas": 6,
+        "total_contratos": 43,
+        "total_valor": 2534019699054.0
+      },
+      {
+        "c.doc_id": "890904996",
+        "c.nombre": "",
+        "entidades_distintas": 94,
+        "total_contratos": 551,
+        "total_valor": 2443990865945.0
+      },
+      {
+        "c.doc_id": "811006762",
+        "c.nombre": "",
+        "entidades_distintas": 43,
+        "total_contratos": 379,
+        "total_valor": 2443493976672.0
+      },
+      {
+        "c.doc_id": "1117322598",
+        "c.nombre": "",
+        "entidades_distintas": 12,
+        "total_contratos": 62,
+        "total_valor": 2443136111882.0
+      },
+      {
+        "c.doc_id": "800037800",
+        "c.nombre": "",
+        "entidades_distintas": 270,
+        "total_contratos": 514,
+        "total_valor": 2418035727024.0
+      },
+      {
+        "c.doc_id": "74372236",
+        "c.nombre": "",
+        "entidades_distintas": 16,
+        "total_contratos": 60,
+        "total_valor": 2402866289050.0
+      },
+      {
+        "c.doc_id": "8600343137",
+        "c.nombre": "",
+        "entidades_distintas": 97,
+        "total_contratos": 174,
+        "total_valor": 2393262303896.0
+      },
+      {
+        "c.doc_id": "800231235",
+        "c.nombre": "",
+        "entidades_distintas": 12,
+        "total_contratos": 91,
+        "total_valor": 2368227846377.0
+      },
+      {
+        "c.doc_id": "8999990357",
+        "c.nombre": "",
+        "entidades_distintas": 36,
+        "total_contratos": 101,
+        "total_valor": 2325585164913.0
+      },
+      {
+        "c.doc_id": "800091076",
+        "c.nombre": "",
+        "entidades_distintas": 85,
+        "total_contratos": 316,
+        "total_valor": 2298857379720.0
+      },
+      {
+        "c.doc_id": "860054041",
+        "c.nombre": "",
+        "entidades_distintas": 9,
+        "total_contratos": 17,
+        "total_valor": 2276747028177.0
+      },
+      {
+        "c.doc_id": "890900286",
+        "c.nombre": "",
+        "entidades_distintas": 123,
+        "total_contratos": 1785,
+        "total_valor": 2246406851094.0
+      },
+      {
+        "c.doc_id": "901255880",
+        "c.nombre": "",
+        "entidades_distintas": 5,
+        "total_contratos": 59,
+        "total_valor": 2214101068798.0
+      },
+      {
+        "c.doc_id": "8999992781",
+        "c.nombre": "",
+        "entidades_distintas": 26,
+        "total_contratos": 376,
+        "total_valor": 2127430113114.0
+      },
+      {
+        "c.doc_id": "900148051",
+        "c.nombre": "",
+        "entidades_distintas": 6,
+        "total_contratos": 16,
+        "total_valor": 2102171002588.0
+      },
+      {
+        "c.doc_id": "830018957",
+        "c.nombre": "",
+        "entidades_distintas": 15,
+        "total_contratos": 39,
+        "total_valor": 2062202815558.0
+      },
+      {
+        "c.doc_id": "844001355",
+        "c.nombre": "",
+        "entidades_distintas": 25,
+        "total_contratos": 141,
+        "total_valor": 2043953401715.0
+      },
+      {
+        "c.doc_id": "860002541",
+        "c.nombre": "",
+        "entidades_distintas": 6,
+        "total_contratos": 13,
+        "total_valor": 2016400239056.0
+      },
+      {
+        "c.doc_id": "800116398",
+        "c.nombre": "",
+        "entidades_distintas": 24,
+        "total_contratos": 69,
+        "total_valor": 1993164717875.0
+      },
+      {
+        "c.doc_id": "900352786",
+        "c.nombre": "",
+        "entidades_distintas": 42,
+        "total_contratos": 137,
+        "total_valor": 1961545625622.0
+      },
+      {
+        "c.doc_id": "860524654",
+        "c.nombre": "",
+        "entidades_distintas": 3988,
+        "total_contratos": 19269,
+        "total_valor": 1951407011644.0
+      },
+      {
+        "c.doc_id": "802023673",
+        "c.nombre": "",
+        "entidades_distintas": 114,
+        "total_contratos": 212,
+        "total_valor": 1940945978338.0
+      },
+      {
+        "c.doc_id": "860077126",
+        "c.nombre": "",
+        "entidades_distintas": 7,
+        "total_contratos": 79,
+        "total_valor": 1917151912500.0
+      },
+      {
+        "c.doc_id": "8000963291",
+        "c.nombre": "",
+        "entidades_distintas": 39,
+        "total_contratos": 74,
+        "total_valor": 1904714075567.0
+      },
+      {
+        "c.doc_id": "8999990902",
+        "c.nombre": "",
+        "entidades_distintas": 16,
+        "total_contratos": 26,
+        "total_valor": 1894489626204.0
+      },
+      {
+        "c.doc_id": "900958564",
+        "c.nombre": "",
+        "entidades_distintas": 14,
+        "total_contratos": 160,
+        "total_valor": 1888828646109.0
+      },
+      {
+        "c.doc_id": "8909039388",
+        "c.nombre": "",
+        "entidades_distintas": 128,
+        "total_contratos": 177,
+        "total_valor": 1879811871143.0
+      },
+      {
+        "c.doc_id": "900959051",
+        "c.nombre": "",
+        "entidades_distintas": 14,
+        "total_contratos": 175,
+        "total_valor": 1877047828138.0
+      },
+      {
+        "c.doc_id": "800028432",
+        "c.nombre": "",
+        "entidades_distintas": 10,
+        "total_contratos": 20,
+        "total_valor": 1867496806090.0
+      },
+      {
+        "c.doc_id": "901100455",
+        "c.nombre": "",
+        "entidades_distintas": 191,
+        "total_contratos": 593,
+        "total_valor": 1847827389960.0
+      }
+    ],
+    "licitaciones_unico_oferente": [],
+    "nepotismo_ordenador_recurrente": [
+      {
+        "p.doc_id": "52816932",
+        "p.nombre": "Paula Ximena Henao Escobar",
+        "c.doc_id": "000000",
+        "contratista_nombre": "",
+        "contratos_juntos": 150,
+        "valor_total": 7135458663.0
+      },
+      {
+        "p.doc_id": "52262161",
+        "p.nombre": "Diana Patricia Arboleda Ramirez",
+        "c.doc_id": "860005068",
+        "contratista_nombre": "",
+        "contratos_juntos": 112,
+        "valor_total": 75854004425.0
+      },
+      {
+        "p.doc_id": "70328979",
+        "p.nombre": "Diegoagudelo-Girardota",
+        "c.doc_id": "901464458",
+        "contratista_nombre": "",
+        "contratos_juntos": 105,
+        "valor_total": 142898641883.0
+      },
+      {
+        "p.doc_id": "79415117",
+        "p.nombre": "Ricardo Jerez Soto",
+        "c.doc_id": "15030711",
+        "contratista_nombre": "",
+        "contratos_juntos": 103,
+        "valor_total": 17360006228.0
+      },
+      {
+        "p.doc_id": "8364176",
+        "p.nombre": "Faber Enrique Trespalacio",
+        "c.doc_id": "901526561",
+        "contratista_nombre": "",
+        "contratos_juntos": 98,
+        "valor_total": 54273808584.0
+      },
+      {
+        "p.doc_id": "79415117",
+        "p.nombre": "Ricardo Jerez Soto",
+        "c.doc_id": "49774270",
+        "contratista_nombre": "",
+        "contratos_juntos": 97,
+        "valor_total": 49571040537.0
+      },
+      {
+        "p.doc_id": "43702243",
+        "p.nombre": "Sandra Arelis Duque Velasquez",
+        "c.doc_id": "901537748",
+        "contratista_nombre": "",
+        "contratos_juntos": 87,
+        "valor_total": 20844919064.0
+      },
+      {
+        "p.doc_id": "52262161",
+        "p.nombre": "Diana Patricia Arboleda Ramirez",
+        "c.doc_id": "860018862",
+        "contratista_nombre": "",
+        "contratos_juntos": 87,
+        "valor_total": 45031609959.0
+      },
+      {
+        "p.doc_id": "45523791",
+        "p.nombre": "Nora Elvira Anillo Romero",
+        "c.doc_id": "000000",
+        "contratista_nombre": "",
+        "contratos_juntos": 83,
+        "valor_total": 759580000.0
+      },
+      {
+        "p.doc_id": "60375833",
+        "p.nombre": "Ana Maria Perez Ramirez",
+        "c.doc_id": "901420392",
+        "contratista_nombre": "",
+        "contratos_juntos": 82,
+        "valor_total": 34034793745.0
+      },
+      {
+        "p.doc_id": "9845752",
+        "p.nombre": "Carlos Alberto Piedrahita Gutierrez",
+        "c.doc_id": "900411678",
+        "contratista_nombre": "",
+        "contratos_juntos": 81,
+        "valor_total": 11020606802.0
+      },
+      {
+        "p.doc_id": "9993222",
+        "p.nombre": "Giraldo Arrubla",
+        "c.doc_id": "891401775",
+        "contratista_nombre": "",
+        "contratos_juntos": 81,
+        "valor_total": 1276905176.0
+      },
+      {
+        "p.doc_id": "1017737563",
+        "p.nombre": "Lina Maritza Restrepo Cardenas",
+        "c.doc_id": "900753996",
+        "contratista_nombre": "",
+        "contratos_juntos": 80,
+        "valor_total": 1197674919.0
+      },
+      {
+        "p.doc_id": "9715815",
+        "p.nombre": "Henry Emil Torres Parada",
+        "c.doc_id": "900184769",
+        "contratista_nombre": "",
+        "contratos_juntos": 75,
+        "valor_total": 15606570883.0
+      },
+      {
+        "p.doc_id": "70729756",
+        "p.nombre": "Jorge Ivan Loaiza Orozco",
+        "c.doc_id": "901391541",
+        "contratista_nombre": "",
+        "contratos_juntos": 75,
+        "valor_total": 2134982207.0
+      },
+      {
+        "p.doc_id": "21431758",
+        "p.nombre": "Gloria Cecilia Naranjo Osorio",
+        "c.doc_id": "811040743",
+        "contratista_nombre": "",
+        "contratos_juntos": 74,
+        "valor_total": 4677643226.0
+      },
+      {
+        "p.doc_id": "52102213",
+        "p.nombre": "Nancy Valbuena Ramos Ramos",
+        "c.doc_id": "800094776",
+        "contratista_nombre": "",
+        "contratos_juntos": 73,
+        "valor_total": 14689212148.0
+      },
+      {
+        "p.doc_id": "8150385",
+        "p.nombre": "Luis Bernardo Molina Granda",
+        "c.doc_id": "901442761",
+        "contratista_nombre": "",
+        "contratos_juntos": 72,
+        "valor_total": 48725781946.0
+      },
+      {
+        "p.doc_id": "52816932",
+        "p.nombre": "Paula Ximena Henao Escobar",
+        "c.doc_id": "883746322",
+        "contratista_nombre": "",
+        "contratos_juntos": 72,
+        "valor_total": 41073812178.0
+      },
+      {
+        "p.doc_id": "800014434",
+        "p.nombre": "Nilson Norfaide Castillo Cisneros",
+        "c.doc_id": "901122223",
+        "contratista_nombre": "",
+        "contratos_juntos": 69,
+        "valor_total": 3149091039.0
+      },
+      {
+        "p.doc_id": "31573686",
+        "p.nombre": "Sandra Liliana Velasquez Naranjo",
+        "c.doc_id": "900522923",
+        "contratista_nombre": "",
+        "contratos_juntos": 69,
+        "valor_total": 53820393242.0
+      },
+      {
+        "p.doc_id": "8364176",
+        "p.nombre": "Faber Enrique Trespalacio",
+        "c.doc_id": "900945972",
+        "contratista_nombre": "",
+        "contratos_juntos": 69,
+        "valor_total": 1312479675.0
+      },
+      {
+        "p.doc_id": "43631290",
+        "p.nombre": "Tatiana Alexandra Carballo Hoyos",
+        "c.doc_id": "901509210",
+        "contratista_nombre": "",
+        "contratos_juntos": 66,
+        "valor_total": 19142847937.0
+      },
+      {
+        "p.doc_id": "7703543",
+        "p.nombre": "John Fredy Rojas Sutta",
+        "c.doc_id": "46640608",
+        "contratista_nombre": "",
+        "contratos_juntos": 65,
+        "valor_total": 1419462273.0
+      },
+      {
+        "p.doc_id": "9845752",
+        "p.nombre": "Carlos Alberto Piedrahita Gutierrez",
+        "c.doc_id": "900058196",
+        "contratista_nombre": "",
+        "contratos_juntos": 65,
+        "valor_total": 9627762970.0
+      },
+      {
+        "p.doc_id": "10547572",
+        "p.nombre": "Sergio Fabricio Lopez Muñoz",
+        "c.doc_id": "59706955",
+        "contratista_nombre": "",
+        "contratos_juntos": 63,
+        "valor_total": 2927810243.0
+      },
+      {
+        "p.doc_id": "16856276",
+        "p.nombre": "Carlos Humberto Bravo Riomaña",
+        "c.doc_id": "805020621",
+        "contratista_nombre": "",
+        "contratos_juntos": 63,
+        "valor_total": 59339953881.0
+      },
+      {
+        "p.doc_id": "1020394034",
+        "p.nombre": "Carolina Andrea Sosa Gomez",
+        "c.doc_id": "901379658",
+        "contratista_nombre": "",
+        "contratos_juntos": 62,
+        "valor_total": 1166569299.0
+      },
+      {
+        "p.doc_id": "10538302",
+        "p.nombre": "Ramiro Antonio Navia Diaz",
+        "c.doc_id": "900956610",
+        "contratista_nombre": "",
+        "contratos_juntos": 62,
+        "valor_total": 36649676826.0
+      },
+      {
+        "p.doc_id": "7227295",
+        "p.nombre": "Edgar Merchan Rincon",
+        "c.doc_id": "900233399",
+        "contratista_nombre": "",
+        "contratos_juntos": 60,
+        "valor_total": 517719396.0
+      },
+      {
+        "p.doc_id": "1032439787",
+        "p.nombre": "Yesenia Herreño Bernal",
+        "c.doc_id": "899999460",
+        "contratista_nombre": "",
+        "contratos_juntos": 60,
+        "valor_total": 9204278042.0
+      },
+      {
+        "p.doc_id": "87455527",
+        "p.nombre": "Jose Jairo Lopez Melo",
+        "c.doc_id": "18158345",
+        "contratista_nombre": "",
+        "contratos_juntos": 59,
+        "valor_total": 3257428200.0
+      },
+      {
+        "p.doc_id": "52102213",
+        "p.nombre": "Nancy Valbuena Ramos Ramos",
+        "c.doc_id": "899999369",
+        "contratista_nombre": "",
+        "contratos_juntos": 59,
+        "valor_total": 8967122000.0
+      },
+      {
+        "p.doc_id": "23011911",
+        "p.nombre": "Maribel Luz Diaz Padilla",
+        "c.doc_id": "901380183",
+        "contratista_nombre": "",
+        "contratos_juntos": 58,
+        "valor_total": 1449564943.0
+      },
+      {
+        "p.doc_id": "1032360232",
+        "p.nombre": "Camilo Enrique Alvarez Hernandez",
+        "c.doc_id": "901380930",
+        "contratista_nombre": "",
+        "contratos_juntos": 58,
+        "valor_total": 106877486135.0
+      },
+      {
+        "p.doc_id": "8364176",
+        "p.nombre": "Faber Enrique Trespalacio",
+        "c.doc_id": "901065932",
+        "contratista_nombre": "",
+        "contratos_juntos": 58,
+        "valor_total": 2486453613.0
+      },
+      {
+        "p.doc_id": "60375833",
+        "p.nombre": "Ana Maria Perez Ramirez",
+        "c.doc_id": "900519590",
+        "contratista_nombre": "",
+        "contratos_juntos": 58,
+        "valor_total": 4572459497.0
+      },
+      {
+        "p.doc_id": "16856276",
+        "p.nombre": "Carlos Humberto Bravo Riomaña",
+        "c.doc_id": "805007483",
+        "contratista_nombre": "",
+        "contratos_juntos": 57,
+        "valor_total": 62388749621.0
+      },
+      {
+        "p.doc_id": "5694100",
+        "p.nombre": "Carlos Arturo Santos Vega",
+        "c.doc_id": "900590286",
+        "contratista_nombre": "",
+        "contratos_juntos": 57,
+        "valor_total": 169071197.0
+      },
+      {
+        "p.doc_id": "51931356",
+        "p.nombre": "Luz Elena Gutierrez Uribe",
+        "c.doc_id": "900407911",
+        "contratista_nombre": "",
+        "contratos_juntos": 57,
+        "valor_total": 86194997117.0
+      },
+      {
+        "p.doc_id": "15918010",
+        "p.nombre": "Luis Eduardo Cespedes De Los Rios",
+        "c.doc_id": "800251628",
+        "contratista_nombre": "",
+        "contratos_juntos": 57,
+        "valor_total": 61240942198.0
+      },
+      {
+        "p.doc_id": "93126622",
+        "p.nombre": "Atalibar Hernandez Murillo",
+        "c.doc_id": "70465079",
+        "contratista_nombre": "",
+        "contratos_juntos": 57,
+        "valor_total": 17230863929.0
+      },
+      {
+        "p.doc_id": "91297841",
+        "p.nombre": "Robinson Galindo Tarazona",
+        "c.doc_id": "900034591",
+        "contratista_nombre": "",
+        "contratos_juntos": 56,
+        "valor_total": 817139355.0
+      },
+      {
+        "p.doc_id": "1036926326",
+        "p.nombre": "Luis Fernando Suarez Marin",
+        "c.doc_id": "901105143",
+        "contratista_nombre": "",
+        "contratos_juntos": 56,
+        "valor_total": 70445211643.0
+      },
+      {
+        "p.doc_id": "14237801",
+        "p.nombre": "Edgar Olaya Ospina",
+        "c.doc_id": "53160522",
+        "contratista_nombre": "",
+        "contratos_juntos": 55,
+        "valor_total": 2647689033.0
+      },
+      {
+        "p.doc_id": "52262161",
+        "p.nombre": "Diana Patricia Arboleda Ramirez",
+        "c.doc_id": "890983904",
+        "contratista_nombre": "",
+        "contratos_juntos": 55,
+        "valor_total": 46137086475.0
+      },
+      {
+        "p.doc_id": "1038412039",
+        "p.nombre": "Julio Cesar Serna Gomez",
+        "c.doc_id": "901453183",
+        "contratista_nombre": "",
+        "contratos_juntos": 55,
+        "valor_total": 52974149868.0
+      },
+      {
+        "p.doc_id": "32458880",
+        "p.nombre": "Beatriz Elena Pabon Acevedo",
+        "c.doc_id": "901387801",
+        "contratista_nombre": "",
+        "contratos_juntos": 55,
+        "valor_total": 497202532027.0
+      },
+      {
+        "p.doc_id": "1001443733",
+        "p.nombre": "Zahian Melissa Guzman Carabali",
+        "c.doc_id": "901047188",
+        "contratista_nombre": "",
+        "contratos_juntos": 54,
+        "valor_total": 1994721176.0
+      },
+      {
+        "p.doc_id": "1143232334",
+        "p.nombre": "Kevin Rene Bernal Morales",
+        "c.doc_id": "901464458",
+        "contratista_nombre": "",
+        "contratos_juntos": 54,
+        "valor_total": 80233737506.0
+      },
+      {
+        "p.doc_id": "52102213",
+        "p.nombre": "Nancy Valbuena Ramos Ramos",
+        "c.doc_id": "8999993881",
+        "contratista_nombre": "",
+        "contratos_juntos": 53,
+        "valor_total": 11477245283.0
+      },
+      {
+        "p.doc_id": "84083056",
+        "p.nombre": "Carlos Eduardo Robles Palomino",
+        "c.doc_id": "901247893",
+        "contratista_nombre": "",
+        "contratos_juntos": 53,
+        "valor_total": 6919536854.0
+      },
+      {
+        "p.doc_id": "16546823",
+        "p.nombre": "Jaime Rios Alvarez",
+        "c.doc_id": "836000366",
+        "contratista_nombre": "",
+        "contratos_juntos": 52,
+        "valor_total": 1869705063.0
+      },
+      {
+        "p.doc_id": "1036926326",
+        "p.nombre": "Luis Fernando Suarez Marin",
+        "c.doc_id": "900198194",
+        "contratista_nombre": "",
+        "contratos_juntos": 52,
+        "valor_total": 68798457283.0
+      },
+      {
+        "p.doc_id": "52102213",
+        "p.nombre": "Nancy Valbuena Ramos Ramos",
+        "c.doc_id": "800094751",
+        "contratista_nombre": "",
+        "contratos_juntos": 52,
+        "valor_total": 8438101116.0
+      },
+      {
+        "p.doc_id": "1045049259",
+        "p.nombre": "Juan Pablo Perez Ramirez",
+        "c.doc_id": "901476496",
+        "contratista_nombre": "",
+        "contratos_juntos": 51,
+        "valor_total": 11610680094.0
+      },
+      {
+        "p.doc_id": "9715815",
+        "p.nombre": "Henry Emil Torres Parada",
+        "c.doc_id": "900085767",
+        "contratista_nombre": "",
+        "contratos_juntos": 51,
+        "valor_total": 9248808651.0
+      },
+      {
+        "p.doc_id": "7227295",
+        "p.nombre": "Edgar Merchan Rincon",
+        "c.doc_id": "86075963",
+        "contratista_nombre": "",
+        "contratos_juntos": 51,
+        "valor_total": 479843379.0
+      },
+      {
+        "p.doc_id": "52262161",
+        "p.nombre": "Diana Patricia Arboleda Ramirez",
+        "c.doc_id": "9001916177",
+        "contratista_nombre": "",
+        "contratos_juntos": 50,
+        "valor_total": 24614681562.0
+      },
+      {
+        "p.doc_id": "94369940",
+        "p.nombre": "Carlos Eduardo Arizabaleta Corral",
+        "c.doc_id": "900522923",
+        "contratista_nombre": "",
+        "contratos_juntos": 50,
+        "valor_total": 2244000000.0
+      },
+      {
+        "p.doc_id": "52262161",
+        "p.nombre": "Diana Patricia Arboleda Ramirez",
+        "c.doc_id": "900136903",
+        "contratista_nombre": "",
+        "contratos_juntos": 50,
+        "valor_total": 29272883319.0
+      },
+      {
+        "p.doc_id": "52262161",
+        "p.nombre": "Diana Patricia Arboleda Ramirez",
+        "c.doc_id": "860021793",
+        "contratista_nombre": "",
+        "contratos_juntos": 50,
+        "valor_total": 28460177784.0
+      },
+      {
+        "p.doc_id": "8364176",
+        "p.nombre": "Faber Enrique Trespalacio",
+        "c.doc_id": "900491714",
+        "contratista_nombre": "",
+        "contratos_juntos": 50,
+        "valor_total": 1709106330.0
+      },
+      {
+        "p.doc_id": "15385877",
+        "p.nombre": "Yair De Jesus Soto Builes",
+        "c.doc_id": "805021222",
+        "contratista_nombre": "",
+        "contratos_juntos": 49,
+        "valor_total": 2835468224.0
+      },
+      {
+        "p.doc_id": "79415117",
+        "p.nombre": "Ricardo Jerez Soto",
+        "c.doc_id": "901176934",
+        "contratista_nombre": "",
+        "contratos_juntos": 49,
+        "valor_total": 9814400000.0
+      },
+      {
+        "p.doc_id": "19489154",
+        "p.nombre": "Freddy Quintero Oliveros",
+        "c.doc_id": "21788564",
+        "contratista_nombre": "",
+        "contratos_juntos": 49,
+        "valor_total": 18454583857.0
+      },
+      {
+        "p.doc_id": "30328159",
+        "p.nombre": "Carmen Patricia Henao Max",
+        "c.doc_id": "901095622",
+        "contratista_nombre": "",
+        "contratos_juntos": 49,
+        "valor_total": 40490905815.0
+      },
+      {
+        "p.doc_id": "9845752",
+        "p.nombre": "Carlos Alberto Piedrahita Gutierrez",
+        "c.doc_id": "890806147",
+        "contratista_nombre": "",
+        "contratos_juntos": 48,
+        "valor_total": 7735347738.0
+      },
+      {
+        "p.doc_id": "4179036",
+        "p.nombre": "Reynaldo Emel Chaparro Diaz",
+        "c.doc_id": "900464797",
+        "contratista_nombre": "",
+        "contratos_juntos": 48,
+        "valor_total": 2907203304.0
+      },
+      {
+        "p.doc_id": "73268221",
+        "p.nombre": "Guido Guido Jose Figueroa Martinez",
+        "c.doc_id": "900747814",
+        "contratista_nombre": "",
+        "contratos_juntos": 48,
+        "valor_total": 1830316035.0
+      },
+      {
+        "p.doc_id": "9845752",
+        "p.nombre": "Carlos Alberto Piedrahita Gutierrez",
+        "c.doc_id": "828002423",
+        "contratista_nombre": "",
+        "contratos_juntos": 47,
+        "valor_total": 3186340380.0
+      },
+      {
+        "p.doc_id": "70906721",
+        "p.nombre": "Jose Gildardo Hurtado Alzate",
+        "c.doc_id": "901453183",
+        "contratista_nombre": "",
+        "contratos_juntos": 47,
+        "valor_total": 42157834272.0
+      },
+      {
+        "p.doc_id": "6765994",
+        "p.nombre": "Jose Fernando Camargo Beltran",
+        "c.doc_id": "900004894",
+        "contratista_nombre": "",
+        "contratos_juntos": 46,
+        "valor_total": 17252554375.0
+      },
+      {
+        "p.doc_id": "84083056",
+        "p.nombre": "Carlos Eduardo Robles Palomino",
+        "c.doc_id": "901000625",
+        "contratista_nombre": "",
+        "contratos_juntos": 46,
+        "valor_total": 4093429270.0
+      },
+      {
+        "p.doc_id": "76320125",
+        "p.nombre": "Andress Collazos Robles",
+        "c.doc_id": "59706955",
+        "contratista_nombre": "",
+        "contratos_juntos": 46,
+        "valor_total": 2839680734.0
+      },
+      {
+        "p.doc_id": "60375833",
+        "p.nombre": "Ana Maria Perez Ramirez",
+        "c.doc_id": "901745508",
+        "contratista_nombre": "",
+        "contratos_juntos": 46,
+        "valor_total": 8170622785.0
+      },
+      {
+        "p.doc_id": "52102213",
+        "p.nombre": "Nancy Valbuena Ramos Ramos",
+        "c.doc_id": "800094704",
+        "contratista_nombre": "",
+        "contratos_juntos": 46,
+        "valor_total": 13330995422.0
+      },
+      {
+        "p.doc_id": "9859872",
+        "p.nombre": "Jesus Ivan Ospina Atehortua",
+        "c.doc_id": "890802669",
+        "contratista_nombre": "",
+        "contratos_juntos": 46,
+        "valor_total": 781467163.0
+      },
+      {
+        "p.doc_id": "60375833",
+        "p.nombre": "Ana Maria Perez Ramirez",
+        "c.doc_id": "804009200",
+        "contratista_nombre": "",
+        "contratos_juntos": 45,
+        "valor_total": 4612511193.0
+      },
+      {
+        "p.doc_id": "15918010",
+        "p.nombre": "Luis Eduardo Cespedes De Los Rios",
+        "c.doc_id": "860033863",
+        "contratista_nombre": "",
+        "contratos_juntos": 45,
+        "valor_total": 9717112056.0
+      },
+      {
+        "p.doc_id": "79393172",
+        "p.nombre": "Manuel Alfonso Gonzalez Cantor",
+        "c.doc_id": "900053771",
+        "contratista_nombre": "",
+        "contratos_juntos": 45,
+        "valor_total": 8172480478.0
+      },
+      {
+        "p.doc_id": "3379220",
+        "p.nombre": "German Alexander Velez Orozco",
+        "c.doc_id": "901848014",
+        "contratista_nombre": "",
+        "contratos_juntos": 45,
+        "valor_total": 18414593631.0
+      },
+      {
+        "p.doc_id": "86044126",
+        "p.nombre": "Alvaro Alberto Cardoso Castro",
+        "c.doc_id": "901437563",
+        "contratista_nombre": "",
+        "contratos_juntos": 45,
+        "valor_total": 8979003956.0
+      },
+      {
+        "p.doc_id": "52262161",
+        "p.nombre": "Diana Patricia Arboleda Ramirez",
+        "c.doc_id": "860031909",
+        "contratista_nombre": "",
+        "contratos_juntos": 45,
+        "valor_total": 31900810714.0
+      },
+      {
+        "p.doc_id": "16856276",
+        "p.nombre": "Carlos Humberto Bravo Riomaña",
+        "c.doc_id": "805027243",
+        "contratista_nombre": "",
+        "contratos_juntos": 45,
+        "valor_total": 55118824970.0
+      },
+      {
+        "p.doc_id": "13952288",
+        "p.nombre": "Fabio Villamizar Duran",
+        "c.doc_id": "900585835",
+        "contratista_nombre": "",
+        "contratos_juntos": 45,
+        "valor_total": 452369119.0
+      },
+      {
+        "p.doc_id": "28542576",
+        "p.nombre": "Sandra Liliana Rojas Camargo",
+        "c.doc_id": "901095622",
+        "contratista_nombre": "",
+        "contratos_juntos": 44,
+        "valor_total": 15090928979.0
+      },
+      {
+        "p.doc_id": "1036929143",
+        "p.nombre": "Velkis Neivany",
+        "c.doc_id": "800105497",
+        "contratista_nombre": "",
+        "contratos_juntos": 44,
+        "valor_total": 20377339547.0
+      },
+      {
+        "p.doc_id": "53125496",
+        "p.nombre": "Diana Cristina Zambrano",
+        "c.doc_id": "901213516",
+        "contratista_nombre": "",
+        "contratos_juntos": 44,
+        "valor_total": 775329453.0
+      },
+      {
+        "p.doc_id": "10282381",
+        "p.nombre": "Jorge Eduardo Ceballos Betancur",
+        "c.doc_id": "900381761",
+        "contratista_nombre": "",
+        "contratos_juntos": 43,
+        "valor_total": 816261968.0
+      },
+      {
+        "p.doc_id": "43300435",
+        "p.nombre": "Ana Isabel Avendaño Duque",
+        "c.doc_id": "811030395",
+        "contratista_nombre": "",
+        "contratos_juntos": 43,
+        "valor_total": 7010412913.0
+      },
+      {
+        "p.doc_id": "1075224421",
+        "p.nombre": "Maria Angelica Duarte Rivas",
+        "c.doc_id": "800236777",
+        "contratista_nombre": "",
+        "contratos_juntos": 43,
+        "valor_total": 11302281844.0
+      },
+      {
+        "p.doc_id": "4113550",
+        "p.nombre": "Alejandro Muñoz Sandoval",
+        "c.doc_id": "900585835",
+        "contratista_nombre": "",
+        "contratos_juntos": 43,
+        "valor_total": 3844676405.0
+      },
+      {
+        "p.doc_id": "94386712",
+        "p.nombre": "Hector Enrique De La Torre Benitez",
+        "c.doc_id": "901710757",
+        "contratista_nombre": "",
+        "contratos_juntos": 43,
+        "valor_total": 673101116.0
+      },
+      {
+        "p.doc_id": "1032439787",
+        "p.nombre": "Yesenia Herreño Bernal",
+        "c.doc_id": "800094776",
+        "contratista_nombre": "",
+        "contratos_juntos": 42,
+        "valor_total": 13169636078.0
+      },
+      {
+        "p.doc_id": "800014434",
+        "p.nombre": "Nilson Norfaide Castillo Cisneros",
+        "c.doc_id": "1117458552",
+        "contratista_nombre": "",
+        "contratos_juntos": 42,
+        "valor_total": 1269025540.0
+      },
+      {
+        "p.doc_id": "88208472",
+        "p.nombre": "Alexander Adolfo Castro Salcedo",
+        "c.doc_id": "19485098",
+        "contratista_nombre": "",
+        "contratos_juntos": 42,
+        "valor_total": 1022032000.0
+      },
+      {
+        "p.doc_id": "52102213",
+        "p.nombre": "Nancy Valbuena Ramos Ramos",
+        "c.doc_id": "800093437",
+        "contratista_nombre": "",
+        "contratos_juntos": 42,
+        "valor_total": 7776091958.0
+      },
+      {
+        "p.doc_id": "52262161",
+        "p.nombre": "Diana Patricia Arboleda Ramirez",
+        "c.doc_id": "900221578",
+        "contratista_nombre": "",
+        "contratos_juntos": 42,
+        "valor_total": 25149527665.0
+      },
+      {
+        "p.doc_id": "71387297",
+        "p.nombre": "Francisco Javier Carvajal Madrid",
+        "c.doc_id": "900783131",
+        "contratista_nombre": "",
+        "contratos_juntos": 41,
+        "valor_total": 1114724542.0
+      }
+    ],
+    "autocontratacion_directa": [
+      {
+        "p.doc_id": "80798446",
+        "p.nombre": "Miguel Angel Sanchez Medina",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.7709631",
+        "ct.valor": 1212447267.0,
+        "ct.fecha_firma": "2025-03-28"
+      },
+      {
+        "p.doc_id": "1073248038",
+        "p.nombre": "Nelson Hernan Parra Laguna",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.7008396",
+        "ct.valor": 969155877.0,
+        "ct.fecha_firma": null
+      },
+      {
+        "p.doc_id": "10189420",
+        "p.nombre": "Jose Alvaro Bedoya Orozco",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.7495551",
+        "ct.valor": 880000000.0,
+        "ct.fecha_firma": "2025-02-14"
+      },
+      {
+        "p.doc_id": "80798446",
+        "p.nombre": "Miguel Angel Sanchez Medina",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.9254519",
+        "ct.valor": 408094182.0,
+        "ct.fecha_firma": "2026-01-29"
+      },
+      {
+        "p.doc_id": "80798446",
+        "p.nombre": "Miguel Angel Sanchez Medina",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.9214347",
+        "ct.valor": 335634905.0,
+        "ct.fecha_firma": "2026-01-29"
+      },
+      {
+        "p.doc_id": "1018416709",
+        "p.nombre": "Diego Andres Jaramillo Ortiz",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4119324",
+        "ct.valor": 300000000.0,
+        "ct.fecha_firma": "2022-10-13"
+      },
+      {
+        "p.doc_id": "80798446",
+        "p.nombre": "Miguel Angel Sanchez Medina",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.7575557",
+        "ct.valor": 272214676.0,
+        "ct.fecha_firma": "2025-02-28"
+      },
+      {
+        "p.doc_id": "10189420",
+        "p.nombre": "Jose Alvaro Bedoya Orozco",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.7687173",
+        "ct.valor": 266137400.0,
+        "ct.fecha_firma": "2025-03-21"
+      },
+      {
+        "p.doc_id": "43276133",
+        "p.nombre": "Anngy Milena Uribe Ciro",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4951380",
+        "ct.valor": 194964400.0,
+        "ct.fecha_firma": "2023-05-11"
+      },
+      {
+        "p.doc_id": "80798446",
+        "p.nombre": "Miguel Angel Sanchez Medina",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.6479429",
+        "ct.valor": 161165144.0,
+        "ct.fecha_firma": "2024-08-16"
+      },
+      {
+        "p.doc_id": "43276133",
+        "p.nombre": "Anngy Milena Uribe Ciro",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.5056316",
+        "ct.valor": 149992100.0,
+        "ct.fecha_firma": "2023-06-07"
+      },
+      {
+        "p.doc_id": "10189420",
+        "p.nombre": "Jose Alvaro Bedoya Orozco",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.7615531",
+        "ct.valor": 120000000.0,
+        "ct.fecha_firma": "2025-03-06"
+      },
+      {
+        "p.doc_id": "10189420",
+        "p.nombre": "Jose Alvaro Bedoya Orozco",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.7916093",
+        "ct.valor": 97200000.0,
+        "ct.fecha_firma": "2025-05-26"
+      },
+      {
+        "p.doc_id": "43276133",
+        "p.nombre": "Anngy Milena Uribe Ciro",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.5589019",
+        "ct.valor": 85900000.0,
+        "ct.fecha_firma": "2023-11-23"
+      },
+      {
+        "p.doc_id": "15453021",
+        "p.nombre": "Rubiel",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.3065903",
+        "ct.valor": 85363200.0,
+        "ct.fecha_firma": "2021-12-30"
+      },
+      {
+        "p.doc_id": "78759892",
+        "p.nombre": "Alexander Rafael Tobio Cardenas",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.8894863",
+        "ct.valor": 78000000.0,
+        "ct.fecha_firma": "2026-01-15"
+      },
+      {
+        "p.doc_id": "73168835",
+        "p.nombre": "Javier Efrain Narvaez Carrasquilla",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.9120087",
+        "ct.valor": 60000000.0,
+        "ct.fecha_firma": "2026-01-24"
+      },
+      {
+        "p.doc_id": "38668069",
+        "p.nombre": "Karol Yolima Uribe Cardozo",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.3535847",
+        "ct.valor": 58400100.0,
+        "ct.fecha_firma": "2022-01-31"
+      },
+      {
+        "p.doc_id": "43276133",
+        "p.nombre": "Anngy Milena Uribe Ciro",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4240629",
+        "ct.valor": 58125000.0,
+        "ct.fecha_firma": "2022-11-21"
+      },
+      {
+        "p.doc_id": "15503413",
+        "p.nombre": "Hector Augusto Monsalve Restrepo",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.3877228",
+        "ct.valor": 42000000.0,
+        "ct.fecha_firma": null
+      },
+      {
+        "p.doc_id": "94445424",
+        "p.nombre": "Manuel Gonzalez Hurtado",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.8895891",
+        "ct.valor": 38841387.0,
+        "ct.fecha_firma": null
+      },
+      {
+        "p.doc_id": "1014197833",
+        "p.nombre": "Martha Lucia Osorio Rosas",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.7511119",
+        "ct.valor": 36846408.0,
+        "ct.fecha_firma": "2025-02-18"
+      },
+      {
+        "p.doc_id": "1128047115",
+        "p.nombre": "Oscar Uriza Perez",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.2596741",
+        "ct.valor": 30000000.0,
+        "ct.fecha_firma": "2021-06-24"
+      },
+      {
+        "p.doc_id": "93391627",
+        "p.nombre": "Gustavo Adolfo Rondon Rondon",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.6002326",
+        "ct.valor": 30000000.0,
+        "ct.fecha_firma": null
+      },
+      {
+        "p.doc_id": "13472950",
+        "p.nombre": "Oscar Eduardo Carvajal Labastida",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.3529435",
+        "ct.valor": 29316375.0,
+        "ct.fecha_firma": "2022-01-28"
+      },
+      {
+        "p.doc_id": "1094880980",
+        "p.nombre": "Departamento De Policia Quindio",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.931028",
+        "ct.valor": 28333000.0,
+        "ct.fecha_firma": "2019-05-08"
+      },
+      {
+        "p.doc_id": "1128047115",
+        "p.nombre": "Oscar Uriza Perez",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.2152376",
+        "ct.valor": 25200000.0,
+        "ct.fecha_firma": "2021-01-25"
+      },
+      {
+        "p.doc_id": "1098732994",
+        "p.nombre": "Andres Mauricio Mantilla Rivera",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.7263836",
+        "ct.valor": 25000000.0,
+        "ct.fecha_firma": null
+      },
+      {
+        "p.doc_id": "43276133",
+        "p.nombre": "Anngy Milena Uribe Ciro",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.5056431",
+        "ct.valor": 24958422.0,
+        "ct.fecha_firma": "2023-06-07"
+      },
+      {
+        "p.doc_id": "1026141656",
+        "p.nombre": "Sebastian Tapias Madrigal",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.8927945",
+        "ct.valor": 23540000.0,
+        "ct.fecha_firma": "2026-01-16"
+      },
+      {
+        "p.doc_id": "38668069",
+        "p.nombre": "Karol Yolima Uribe Cardozo",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.2415754",
+        "ct.valor": 20400000.0,
+        "ct.fecha_firma": "2021-04-09"
+      },
+      {
+        "p.doc_id": "43276133",
+        "p.nombre": "Anngy Milena Uribe Ciro",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.5051237",
+        "ct.valor": 20000000.0,
+        "ct.fecha_firma": "2023-06-06"
+      },
+      {
+        "p.doc_id": "84089286",
+        "p.nombre": "Yeison David Deluque Guerra",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.5871702",
+        "ct.valor": 19200000.0,
+        "ct.fecha_firma": "2024-02-01"
+      },
+      {
+        "p.doc_id": "84089286",
+        "p.nombre": "Yeison David Deluque Guerra",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.9279677",
+        "ct.valor": 18700000.0,
+        "ct.fecha_firma": "2026-01-30"
+      },
+      {
+        "p.doc_id": "1099211878",
+        "p.nombre": "Cesar David Fonseca Galindo",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.5409569",
+        "ct.valor": 18000000.0,
+        "ct.fecha_firma": "2023-09-26"
+      },
+      {
+        "p.doc_id": "84089286",
+        "p.nombre": "Yeison David Deluque Guerra",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.7427175",
+        "ct.valor": 17000000.0,
+        "ct.fecha_firma": "2025-02-06"
+      },
+      {
+        "p.doc_id": "13472950",
+        "p.nombre": "Oscar Eduardo Carvajal Labastida",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.2361712",
+        "ct.valor": 15525000.0,
+        "ct.fecha_firma": "2021-03-18"
+      },
+      {
+        "p.doc_id": "1098741172",
+        "p.nombre": "Diana Jazmin Garcia Camacho",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4368983",
+        "ct.valor": 15000000.0,
+        "ct.fecha_firma": "2023-01-03"
+      },
+      {
+        "p.doc_id": "43276133",
+        "p.nombre": "Anngy Milena Uribe Ciro",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4833841",
+        "ct.valor": 14821923.0,
+        "ct.fecha_firma": "2023-03-31"
+      },
+      {
+        "p.doc_id": "66703541",
+        "p.nombre": "Maria Isabel Urrutia Ocoro",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4126721",
+        "ct.valor": 13500000.0,
+        "ct.fecha_firma": null
+      },
+      {
+        "p.doc_id": "84089286",
+        "p.nombre": "Yeison David Deluque Guerra",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4781651",
+        "ct.valor": 12500000.0,
+        "ct.fecha_firma": "2023-03-17"
+      },
+      {
+        "p.doc_id": "7921539",
+        "p.nombre": "Eduardo Franco Osorio",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.9063280",
+        "ct.valor": 10002105.0,
+        "ct.fecha_firma": null
+      },
+      {
+        "p.doc_id": "1055479041",
+        "p.nombre": "Nalliby Rivera Cano",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.3889215",
+        "ct.valor": 8940000.0,
+        "ct.fecha_firma": "2022-08-06"
+      },
+      {
+        "p.doc_id": "1101694237",
+        "p.nombre": "Maria Alejandra Ramirez Ayala",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.6354138",
+        "ct.valor": 8750000.0,
+        "ct.fecha_firma": null
+      },
+      {
+        "p.doc_id": "1094904583",
+        "p.nombre": "Cristian David Pulecio Gomez",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.5235016",
+        "ct.valor": 8122500.0,
+        "ct.fecha_firma": "2023-07-19"
+      },
+      {
+        "p.doc_id": "1094904583",
+        "p.nombre": "Cristian David Pulecio Gomez",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.3456246",
+        "ct.valor": 8010800.0,
+        "ct.fecha_firma": "2022-01-26"
+      },
+      {
+        "p.doc_id": "13472950",
+        "p.nombre": "Oscar Eduardo Carvajal Labastida",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.2879575",
+        "ct.valor": 7762500.0,
+        "ct.fecha_firma": "2021-09-23"
+      },
+      {
+        "p.doc_id": "43276133",
+        "p.nombre": "Anngy Milena Uribe Ciro",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4799888",
+        "ct.valor": 7500000.0,
+        "ct.fecha_firma": "2023-03-23"
+      },
+      {
+        "p.doc_id": "1094904583",
+        "p.nombre": "Cristian David Pulecio Gomez",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4582262",
+        "ct.valor": 7425000.0,
+        "ct.fecha_firma": "2023-02-09"
+      },
+      {
+        "p.doc_id": "80547678",
+        "p.nombre": "Fabian Mauricio Rojas Garcia",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.6800712",
+        "ct.valor": 7137600.0,
+        "ct.fecha_firma": null
+      },
+      {
+        "p.doc_id": "1071868174",
+        "p.nombre": "Ximena Bustos Corredor",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.5747447",
+        "ct.valor": 5350300.0,
+        "ct.fecha_firma": "2024-01-16"
+      },
+      {
+        "p.doc_id": "87219451",
+        "p.nombre": "Henry Eduardo Chamorro Guerra",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.7210034",
+        "ct.valor": 4804962.0,
+        "ct.fecha_firma": "2025-01-08"
+      },
+      {
+        "p.doc_id": "87219451",
+        "p.nombre": "Henry Eduardo Chamorro Guerra",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.7728445",
+        "ct.valor": 4519737.0,
+        "ct.fecha_firma": "2025-04-01"
+      },
+      {
+        "p.doc_id": "1094904583",
+        "p.nombre": "Cristian David Pulecio Gomez",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.2704306",
+        "ct.valor": 4500000.0,
+        "ct.fecha_firma": "2021-07-26"
+      },
+      {
+        "p.doc_id": "87219451",
+        "p.nombre": "Henry Eduardo Chamorro Guerra",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.5758693",
+        "ct.valor": 4388094.0,
+        "ct.fecha_firma": "2024-01-17"
+      },
+      {
+        "p.doc_id": "87219451",
+        "p.nombre": "Henry Eduardo Chamorro Guerra",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.6489546",
+        "ct.valor": 4388094.0,
+        "ct.fecha_firma": "2024-07-02"
+      },
+      {
+        "p.doc_id": "87219451",
+        "p.nombre": "Henry Eduardo Chamorro Guerra",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.6880354",
+        "ct.valor": 4388094.0,
+        "ct.fecha_firma": "2024-10-09"
+      },
+      {
+        "p.doc_id": "87219451",
+        "p.nombre": "Henry Eduardo Chamorro Guerra",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.6177502",
+        "ct.valor": 4388094.0,
+        "ct.fecha_firma": "2024-04-08"
+      },
+      {
+        "p.doc_id": "12978626",
+        "p.nombre": "Luis Alberto Suarez Narvaez",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.5181629",
+        "ct.valor": 4120000.0,
+        "ct.fecha_firma": "2023-07-05"
+      },
+      {
+        "p.doc_id": "1094904583",
+        "p.nombre": "Cristian David Pulecio Gomez",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.3851327",
+        "ct.valor": 3210320.0,
+        "ct.fecha_firma": "2022-07-28"
+      },
+      {
+        "p.doc_id": "1094904583",
+        "p.nombre": "Cristian David Pulecio Gomez",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4157266",
+        "ct.valor": 3210168.0,
+        "ct.fecha_firma": "2022-10-27"
+      },
+      {
+        "p.doc_id": "88237739",
+        "p.nombre": "Edwin Hernney Duarte Gomez",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.6750621",
+        "ct.valor": 2332000.0,
+        "ct.fecha_firma": "2024-09-11"
+      },
+      {
+        "p.doc_id": "1094904583",
+        "p.nombre": "Cristian David Pulecio Gomez",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.3037381",
+        "ct.valor": 2250000.0,
+        "ct.fecha_firma": "2021-11-17"
+      },
+      {
+        "p.doc_id": "10189420",
+        "p.nombre": "Jose Alvaro Bedoya Orozco",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.7878079",
+        "ct.valor": 0.0,
+        "ct.fecha_firma": "2025-05-14"
+      },
+      {
+        "p.doc_id": "1111196018",
+        "p.nombre": "Jorge Enrique Rodriguez Guzman",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.3815889",
+        "ct.valor": 0.0,
+        "ct.fecha_firma": null
+      },
+      {
+        "p.doc_id": "12275857",
+        "p.nombre": "Camilo Ospina Martinez",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.6220814",
+        "ct.valor": 0.0,
+        "ct.fecha_firma": "2024-04-25"
+      },
+      {
+        "p.doc_id": "15503413",
+        "p.nombre": "Hector Augusto Monsalve Restrepo",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.2718841",
+        "ct.valor": 0.0,
+        "ct.fecha_firma": null
+      },
+      {
+        "p.doc_id": "86077347",
+        "p.nombre": "Luis Carlos Londoño Vargas",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.1800658",
+        "ct.valor": 0.0,
+        "ct.fecha_firma": "2020-09-02"
+      },
+      {
+        "p.doc_id": "86077347",
+        "p.nombre": "Luis Carlos Londoño Vargas",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.1802354",
+        "ct.valor": 0.0,
+        "ct.fecha_firma": "2020-09-02"
+      }
+    ],
+    "sobrecosto_prorrogado": [
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.8928898",
+        "ct.valor": 106148448.0,
+        "ct.dias_adicionados": 664741,
+        "ct.objeto": "PRESTAR SERVICIOS PROFESIONALES A LA SUBDIRECCION GENERAL PARA LA \nGESTIÓN DE ACTIVIDADES TENDIENTES A LA GARANTIA DE DERECHOS DE NIÑOS; \nNIÑAS Y ADOLESCENTES; JOVENES Y FAMILIAS DE LAS MODALIDADES Y  \nSERVICIOS OFERTADOS POR EL ICBF; Y AL SEGUIMIENTO A SU IMPLEMENTACIÓN."
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.239801",
+        "ct.valor": 12635000000.0,
+        "ct.dias_adicionados": 4260,
+        "ct.objeto": "Constitución de un Fondo en Administración denominado FONDO TALENTO TI ; que tenga como finalidad financiar créditos condonables para educación formal en los niveles Tecnológico y Profesional Universitario para programas académicos relacionados con áreas de Tecnologías de la Información y afines; pa"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.2227797",
+        "ct.valor": 164864000.0,
+        "ct.dias_adicionados": 3836,
+        "ct.objeto": "Brindar apoyo técnico a la DPC a través del acompañamiento al diseño e implementación de una estrategia para la gestión del cambio a nivel central y regional orientada a la asimilación del MGDR; nuevos procesos y TIC; en el marco del Proyecto de Fortalecimiento de la Capacidad Institucional de la D"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.3031060",
+        "ct.valor": 12978337755.0,
+        "ct.dias_adicionados": 2191,
+        "ct.objeto": "AUNAR ESFUERZOS TECNICOS TECNOLOGICOS; ADMINISTRATIVOS; FINANCIEROS; HUMANOS; LOGISTICOS Y OPERATIVOS CON EL FIN DE DESARROLLAR ACTIVIDADES COJUNTAS RELACIONADAS CON LA DESCENTRALIZACION DE LA PRESTACION DEL SERVICIO DE ILUMINACION PUBLICA ALUMBRADO PUBLICO; SUS DESARROLLOS TECNOLOGICOS ASOCIADOS IL"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.639393",
+        "ct.valor": 861780101092.0,
+        "ct.dias_adicionados": 2011,
+        "ct.objeto": "El presente Contrato de Concesión tiene por objeto el otorgamiento de una concesión para la prestación del servicio público de transporte de pasajeros en forma no exclusiva en la ciudad de Bogotá D.C. en el componente de Provisión de Flota; para que de conformidad con lo previsto en este Contrato; e"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.1803136",
+        "ct.valor": 307969000.0,
+        "ct.dias_adicionados": 1826,
+        "ct.objeto": "El Departamento de Cundinamarca - Secretaria General;\nentrega a título de comodato o préstamo de uso; al Municipio de San\nCayetano; un bien inmueble denominado Hogar Geriátrico con área\nde terreno de (4.823 m2) y sus Construcciones de (245 M2) ubicado en\nel Municipio de San Cayetano; identificado co"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.1592974",
+        "ct.valor": 21426221696.0,
+        "ct.dias_adicionados": 1826,
+        "ct.objeto": "ENTREGAR EN COMODATO BIENES INMUEBLES CONSTRUIDOS EN PREDIO AJENO A LA POLICÍA METROPOLITANA DE BOGOTÁ - MEBOG."
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.1832328",
+        "ct.valor": 133205400.0,
+        "ct.dias_adicionados": 1825,
+        "ct.objeto": "ENTREGAR EN CALIDAD DE COMODATO UN VEHÍCULO PARA USO DEL SECRETARIO DISTRITAL DE GOBIERNO"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.6569724",
+        "ct.valor": 31180622466.0,
+        "ct.dias_adicionados": 1825,
+        "ct.objeto": "Convenio interadministrativo para aunar esfuerzos técnicos; financieros; administrativos y operativos para la constitución de un fondo especial para la administración y pago de recursos en matrículas y sostenimiento semestrales o anuales del programa único de acceso y permanencia -PUAP- de SAPIENCIA"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.1190444",
+        "ct.valor": 274344028.0,
+        "ct.dias_adicionados": 1793,
+        "ct.objeto": "REALIZAR LOS ESTUDIOS DE DETALLE DEN LOS SECTORES RURALES Y URBANOS RESPECTIVAMENTE; PARA EVALUAR LA AMENAZA; VULNERABILIDAD Y RIESGO CAUSADAS POR FENÓMENOS DE REMOCIÓN EN MASA Y/O AVENIDAS TORRENCIALES EN EL MUNCIPIO DE IBAGUE"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.1937309",
+        "ct.valor": 18872198304.0,
+        "ct.dias_adicionados": 1606,
+        "ct.objeto": "CONSTRUCCIÓN DE PAVIMENTO Y REDES DE ALCANTARILLADO DEL SECTOR LA ESMERALDA - LAS AMERICAS QUIBDÓ; CHOCÓ"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.1788884",
+        "ct.valor": 714285000.0,
+        "ct.dias_adicionados": 1545,
+        "ct.objeto": "AUNAR ESFUERZOS PARA LA CONTRIBUCIÓN AL CAPITAL DE TRABAJO DE LAS EMPRESAS; APOYANDO EL EMPRENDIMIENTO Y BUSCANDO LA REACTIVACION ECONÒMICA; IMPACTANDO LAS NECESIDADES DE LIQUIDEZ; CAUSADAS POR LOS EFECTOS DEL COVID-19 CORONAVIRUS EN EL MUNICIPIO DE NEIVA."
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.2107222",
+        "ct.valor": 6048163695.0,
+        "ct.dias_adicionados": 1504,
+        "ct.objeto": "INTERVENTORÍA TÉCNICA; ADMINISTRATIVA Y FINANCIERA PARA EL MEJORAMIENTO DE LA VIA ASTILLEROS - TIBU; TRAMOS PR33+445 AL PR35+460; PR35+730 AL PR35+910; PR36+315 AL PR39+310 Y PR39+710 AL PR41+000; MUNICIPIO DE TIBU; NORTE DE SANTANDER (CODIGO BPIN 20191301010180)"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.1541909",
+        "ct.valor": 112318252627.0,
+        "ct.dias_adicionados": 1468,
+        "ct.objeto": "Realizar el diseño; la fabricación; el suministro; la instalación; la actualización; el mantenimiento; la operación; el traslado y la reposición\ndel mobiliario urbano de Bogotá D.C.; así como su financiación."
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.7881279",
+        "ct.valor": 168640042.0,
+        "ct.dias_adicionados": 1461,
+        "ct.objeto": "Aunar esfuerzos entre el Instituto Colombiano Agropecuario - ICA y el municipio de VILLAPINZON; departamento de Cundinamarca; para realizar la expedición de Guías Sanitarias de Movilización Interna - GSMI; Expedición de Bonos de Venta; Registro de Hierros o Marcas y Registro de Transportadores y Veh"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.2940942",
+        "ct.valor": 223996617.0,
+        "ct.dias_adicionados": 1461,
+        "ct.objeto": "ENTREGAR A TITULO DE COMODATO AL MUNICIPIO DE EL PEÑOL EL INMUEBLE PROPIEDAD DEL DEPARTAMENTO DE ANTIOQUIA IDENTIFICADO CON EL FOLIO DE MATRICULA INMOBILIARIA 018-34311"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.1889021",
+        "ct.valor": 82215748198.0,
+        "ct.dias_adicionados": 1450,
+        "ct.objeto": "MEJORAMIENTO DE LA VIA ASTILLEROS-TIBU; TRAMOS PR 33+445 AL PR 35+460; PR 35+730 AL PR 35+910; PR 36+315 AL PR 39+310 Y PR 39+710 AL PR 41+000; MUNICIPIO DE TIBU; NORTE DE SANTANDER"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4795916",
+        "ct.valor": 976335645.0,
+        "ct.dias_adicionados": 1355,
+        "ct.objeto": "Entregar a título de comodato a la Asamblea Departamental de Antioquia; bienes muebles; electrónicos e informáticos propiedad del Departamento de Antioquia"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.643623",
+        "ct.valor": 839378064.0,
+        "ct.dias_adicionados": 1280,
+        "ct.objeto": "LA SECRETARIA DISTRITAL DE SEGURIDAD; CONVIVENCIA Y JUSTICIA DE BOGOTÁ D.C. ENTREGA EN COMODATO BIENES DE INTENDENCIA PARA LA DÉCIMA TERCERA BRIGADA DEL EJÉRCITO NACIONAL"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.845740",
+        "ct.valor": 14483243965.0,
+        "ct.dias_adicionados": 1280,
+        "ct.objeto": "ENTREGAR A TÍTULO DE COMODATO BIENES DE TELEMÁTICA Y COMUNICACIONES A LA FISCALÍA GENERAL DE LA NACIÓN SECCIONAL BOGOTÁ"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.699504",
+        "ct.valor": 9044939057.0,
+        "ct.dias_adicionados": 1279,
+        "ct.objeto": "LA SECRETARIA DISTRITAL DE SEGURIDAD; CONVIVENCIA Y JUSTICIA DE BOGOTÁ D.C. ENTREGA EN COMODATO BIENES DE TELEMATICA Y COMUNICACIONES A LA DÉCIMA TERCERA BRIGADA."
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.2574360",
+        "ct.valor": 1352846058.0,
+        "ct.dias_adicionados": 1219,
+        "ct.objeto": "Aunar esfuerzos técnicos; administrativos y financieros; entre el DepartamentoAdministrativo para la Prosperidad Social - Fondo de Inversión para la Paz -\nPROSPERIDAD SOCIAL - FIP y la ENTIDAD TERRITORIAL; para la ejecución de obras\nde infraestructura social vial; con el propósito de aportar a la in"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.2757316",
+        "ct.valor": 174100000000.0,
+        "ct.dias_adicionados": 1187,
+        "ct.objeto": "El PRESTAMISTA otorgará al PRESTATARIO; un contrato de empréstito Interno y de pignoración de rentas hasta por la suma de ciento setenta y cuatro mil cien millones de Pesos M/L ($174.100.000.000); con las siguientes condiciones financieras ..."
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4483402",
+        "ct.valor": 5462275271.0,
+        "ct.dias_adicionados": 1151,
+        "ct.objeto": "CONTRATO INTERADMINISTRATIVO POR  ADMINISTRACION DELEGADA PARA LA CONSTRUCCION E INTERVENTORIA DEL PLAN MAESTRO DE ALCANTARILLADO ETAPA III EN EL MUNICIPIO DE SAN LUIS; ANTIOQUIA  SEGUN CONVENIO INTERADMINISTRATIVO  DE ASOCIACION 22AS113B757 SUSCRITO ENTRE EL DEPARTAMENTO DE ANTIOQUIA   GERENCIA DE "
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.3964522",
+        "ct.valor": 520551140.0,
+        "ct.dias_adicionados": 1150,
+        "ct.objeto": "Entregar a título de comodato al Distrito Especial de Ciencia Tecnología e Innovación de Medellín; inmueble propiedad del Departamento de Antioquia; ubicado en la calle 30 A N° 31-04 en el municipio de Medellín; identificado con la matrícula inmobiliaria N° 001-263809."
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.3964707",
+        "ct.valor": 786038660.0,
+        "ct.dias_adicionados": 1150,
+        "ct.objeto": "Entregar a título de comodato al Distrito Especial de Ciencia Tecnología e Innovación de Medellín; inmueble propiedad del Departamento de Antioquia; ubicado en la calle 110 A # 76C -20 en el municipio de Medellín; identificado con la matrícula inmobiliaria N° 01N-328543."
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.1584647",
+        "ct.valor": 594377373.0,
+        "ct.dias_adicionados": 1110,
+        "ct.objeto": "CONTRATAR ENTRE EL DEPARTAMENTO DEL TOLIMA Y LA EMPRESA GENERADORA DE ENERGÍA DEL TOLIMA EGETSA SA E.S.P CONSTRUCCIÓN DE LA ELECTRIFICACION RURAL DE LA RED DE MEDIA Y BAJA TENSIÓN EN LAS VEREDAS SAN PEDRO Y LAS MORAS DEL MUNICIPIO DE ATACO EN EL DEPARTAMENTO DEL TOLIMA"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.1566426",
+        "ct.valor": 3192000000.0,
+        "ct.dias_adicionados": 1103,
+        "ct.objeto": "Aunar esfuerzos para la formación de docentes y directivos docentes; y realizar la gestión académica y financiera de los créditos educativos condonables de los candidatos elegibles para la Maestría en Pedagogía y Maestría en Dirección y Gestión de instituciones Educativas de las convocatorias realiz"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4552206",
+        "ct.valor": 178626000.0,
+        "ct.dias_adicionados": 1096,
+        "ct.objeto": "ENTREGAR A TÍTULO DE COMODATO O PRÉSTAMO DE USO; UN BIEN INMUEBLE CASETA COMUNAL DE PROPIEDAD DEL MUNICIPIO DE DOSQUEBRADAS IDNETIFICADO CON MATRICULA INMOBILIARIA No 294-14422 Y CON FICHA CATASTRAL 01-03-0097-0013-000 UBICADO EN EL BARRIO LOS MOLINOS EN LA C 43 23-12 MZ 29 CS 27; PARA LA ATENCION D"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.3868429",
+        "ct.valor": 340085952.0,
+        "ct.dias_adicionados": 1096,
+        "ct.objeto": "El ARRENDADOR (FISCALIA GENERAL DE LA NACIÓN) entrega al ARRENDATARIO (COLOMBIA TELECOMUNICACIONES S.A E.S.P); a título de arrendamiento; dos (2) espacios de 2;25 metros cuadrados cada uno; ubicados en la estructura de la cubierta de la azotea del edificio L y un (1) espacio de cuatro (4) metros cua"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4304301",
+        "ct.valor": 378698430.0,
+        "ct.dias_adicionados": 1096,
+        "ct.objeto": "EL DEPARTAMENTO DEL CAUCA SE OBLIGA CON EL MUNICIPIO DE LA SIERRA (CAUCA) A ENTREGAR EN CALIDAD DE COMODATO VEHÍCULO Y MAQUINARIA AGRÍCOLA."
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4529809",
+        "ct.valor": 378698430.0,
+        "ct.dias_adicionados": 1096,
+        "ct.objeto": "El Departamento del Cauca se obliga con el Municipio de Totoró (Cauca) a entregar en calidad de comodato vehículo y maquinaria agrícola"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4354396",
+        "ct.valor": 378698430.0,
+        "ct.dias_adicionados": 1096,
+        "ct.objeto": "EL DEPARTAMENTO DEL CAUCA SE OBLIGA CON EL MUNICIPIO DE CAJIBIO (CAUCA) A ENTREGAR EN CALIDAD DE COMODATO VEHÍCULO Y MAQUINARIA AGRÍCOLA"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4354169",
+        "ct.valor": 378698430.0,
+        "ct.dias_adicionados": 1096,
+        "ct.objeto": "EL DEPARTAMENTO DEL CAUCA SE OBLIGA CON EL MUNICIPIO CALDONO (CAUCA) A ENTREGAR EN CALIDAD DE COMODATO VEHÍCULO Y MAQUINARIA AGRÍCOLA."
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4263767",
+        "ct.valor": 378698430.0,
+        "ct.dias_adicionados": 1096,
+        "ct.objeto": "EL DEPARTAMENTO DEL CAUCA SE OBLIGA CON EL MUNICIPIO DE TIMBIO (CAUCA) A ENTREGAR EN CALIDAD DE COMODATO VEHÍCULO Y MAQUINARIA AGRÍCOLA"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4264316",
+        "ct.valor": 378698430.0,
+        "ct.dias_adicionados": 1096,
+        "ct.objeto": "EL DEPARTAMENTO DEL CAUCA SE OBLIGA CON EL MUNICIPIO DE SANTA ROSA (CAUCA) A ENTREGAR EN CALIDAD DE COMODATO VEHÍCULO Y MAQUINARIA AGRÍCOLA."
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4354156",
+        "ct.valor": 378698430.0,
+        "ct.dias_adicionados": 1096,
+        "ct.objeto": "EL DEPARTAMENTO DEL CAUCA SE OBLIGA CON EL MUNICIPIO DE ALMAGUER (CAUCA) A ENTREGAR EN CALIDAD DE COMODATO VEHÍCULO Y MAQUINARIA AGRÍCOLA"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4345615",
+        "ct.valor": 378698430.0,
+        "ct.dias_adicionados": 1096,
+        "ct.objeto": "EL DEPARTAMENTO DEL CAUCA SE OBLIGA CON EL MUNICIPIO DE BUENOS AIRES (CAUCA) A ENTREGAR EN CALIDAD DE COMODATO VEHÍCULO Y MAQUINARIA AGRÍCOLA."
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4280254",
+        "ct.valor": 378698430.0,
+        "ct.dias_adicionados": 1096,
+        "ct.objeto": "EL DEPARTAMENTO DEL CAUCA SE OBLIGA CON EL MUNICIPIO DE SUÁREZ (CAUCA) A ENTREGAR EN CALIDAD DE COMODATO VEHÍCULO Y MAQUINARIA AGRÍCOLA."
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4352967",
+        "ct.valor": 378698430.0,
+        "ct.dias_adicionados": 1096,
+        "ct.objeto": "EL DEPARTAMENTO DEL CAUCA SE OBLIGA CON EL MUNICIPIO DE\nFLORENCIA (CAUCA) A ENTREGAR EN CALIDAD DE COMODATO\nVEHÍCULO Y MAQUINARIA AGRÍCOLA."
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.5169107",
+        "ct.valor": 3000000000.0,
+        "ct.dias_adicionados": 1096,
+        "ct.objeto": "CONVENIO INTERINSTITUCIONAL DE TASA COMPENSADA ENTRE INFIHUILA Y EL BANCO AGRARIO DE COLOMBIA S.A PARA IMPLEMENTAR LA ATENCIÓN DE LOS MICROEMPRESARIOS A TRAVÉS DEL PORTAFOLIO DE PRODUCTOS DEL BANCO."
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.6662857",
+        "ct.valor": 154500000.0,
+        "ct.dias_adicionados": 1095,
+        "ct.objeto": "Constituir y regular un Fondo en Administración denominado FONDO EN \nADMINISTRACIÓN ICETEX - ARN; con los recursos girados por la ARN al ICETEX quien actuará como administrador - mandatario; destinados a financiar créditos educativos condonables para las y los empleados de la Entidad de acuerdo con "
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4243434",
+        "ct.valor": 378698430.0,
+        "ct.dias_adicionados": 1095,
+        "ct.objeto": "EL DEPARTAMENTO DEL CAUCA SE OBLIGA CON EL MUNICIPIO DE BOLÍVAR (CAUCA) A ENTREGAR EN CALIDAD DE COMODATO VEHÍCULO Y MAQUINARIA AGRÍCOLA."
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.5221736",
+        "ct.valor": 4052021400.0,
+        "ct.dias_adicionados": 1095,
+        "ct.objeto": "INTERVENTORÍA TÉCNICA; ADMINISTRATIVA Y FINANCIERA DEL CONTRATO CUYO OBJETO ES REALIZAR LA CONSTRUCCIÓN DE LA CANALIZACIÓN PARA LA RECUPERACIÓN AMBIENTAL DEL ARROYO PLATANAL; UBICADO EN EL MUNICIPIO DE SOLEDAD; DEPARTAMENTO DEL ATLÁNTICO."
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.1240012",
+        "ct.valor": 733802381.0,
+        "ct.dias_adicionados": 1071,
+        "ct.objeto": "INTERVENTORÍA TÉCNICA; ADMINISTRATIVA; FINANCIERA; CONTABLE; SOCIAL; AMBIENTAL Y SISTEMA DE SEGURIDAD Y SALUD EN EL TRABAJO - SG-SST; DEL CONTRATO DE OBRA QUE SE DERIVE DE LA LICITACIÓN PUBLICA O LA QUE HAGA SUS VECES; QUE REFIERE A EJECUTAR POR PRECIOS UNITARIOS OBRAS Y ACTIVIDADES PARA LA CONSTRUC"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.660009",
+        "ct.valor": 4441960951.0,
+        "ct.dias_adicionados": 1035,
+        "ct.objeto": "El arrendamiento de unos inmuebles con destino al funcionamiento de unas dependencias de la Unidad de Gestión General del Ministerio de Defensa Nacional."
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.3149825",
+        "ct.valor": 15781040947.0,
+        "ct.dias_adicionados": 1035,
+        "ct.objeto": "ENTerritorio se compromete con la ESAP a desarrollar la gerencia integral de proyectos para la implementación de los diseños aceptados y aprobados por la ESAP para la terminación del 30% restante de la construcción de la Sede Territorial de Huila en la ciudad de Neiva."
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.2510778",
+        "ct.valor": 492553605.0,
+        "ct.dias_adicionados": 1021,
+        "ct.objeto": "INTERVENTORIA INTEGRAL DEL PROYECTO DE MEJORAMIENTO VIAL EN PLACA HUELLA EN ZONA DE DIFICIL ACCESODE LA VÍA QUE CONDUCE DEL CORREGIMIENTO DE CARRAIPIA A LA VEREDA DE GARRAPATERO Y LA RESERVA NATURAL MONTE DE OCA MAICAO;  DEPARTAMENTO DE LA GUAJIRA"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4026638",
+        "ct.valor": 847364715.0,
+        "ct.dias_adicionados": 994,
+        "ct.objeto": "INTERVENTORÍA INTEGRAL TÉCNICA; ADMINISTRATIVA; FINANCIERA; DE CONTROL PRESUPUESTAL; JURÍDICA; SOCIAL Y AMBIENTAL PARA LA TERMINACION DE LA CONSTRUCCIÓN DE LA PRIMERA ETAPA Y EJECUCION DE LA SEGUNDA ETAPA; DE LA SEDE TERRITORIAL DE LA ESAP EN LA CIUDAD DE NEIVA; HUILA EN MARCO DE LOS CONTRATOS INTER"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.1182408",
+        "ct.valor": 759262449.0,
+        "ct.dias_adicionados": 986,
+        "ct.objeto": "Interventoría técnica; administrativa; financiera; económica; ambiental y legal al contrato de obra para llevar a cabo la construcción acueducto regional rural fase I; de los municipios de San José y Belalcázar"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.1180438",
+        "ct.valor": 10184709742.0,
+        "ct.dias_adicionados": 986,
+        "ct.objeto": "Construcción acueducto regional rural fase I; de los municipios de San José y Belalcázar"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.1109837",
+        "ct.valor": 821100000.0,
+        "ct.dias_adicionados": 981,
+        "ct.objeto": "INTERVENTORÍA TÉCNICA; ADMINISTRATIVA; FINANCIERA Y AMBIENTAL AL\nCONTRATO DE OBRA CUYO OBJETO ES MEJORAMIENTO DE LA\nINFRAESTRUCTURA FISICA Y TECNOLOGICA DE AMBIENTES DE FORMACION\nTECNICA Y ESPACIOS COMPLEMENTARIOR DE LA INSTITUCION EDUCATIVA\nTECNICO SUPERIOR DE NEIVA."
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.3628332",
+        "ct.valor": 1812550880.0,
+        "ct.dias_adicionados": 973,
+        "ct.objeto": "INTERVENTORÍA TÉCNICA; ADMINISTRATIVA; CONTABLE Y AMBIENTAL AL CONTRATO DE MEJORAMIENTO DE LA INFRAESTRUCTURA VIAL MEDIANTE PAVIMENTACIÓN EN CONCRETO RÍGIDO DE LA VÍA SUBSECTOR OPOGODÓ; EN\nEL MUNICIPIO DE CONDOTO; DEPARTAMENTO DEL CHOCÓ"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.1923792",
+        "ct.valor": 2800000000.0,
+        "ct.dias_adicionados": 946,
+        "ct.objeto": "Aunar esfuerzos para la formación de docentes y directivos docentes; realizar la gestión académica y financiera de créditos educativos condonables de candidatos elegibles para Maestría en Educación y Cultura de Paz; Maestría en Conflicto; Territorio y Cultura y Maestría en Estudios interdisciplinari"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.3029005",
+        "ct.valor": 20352641878.0,
+        "ct.dias_adicionados": 945,
+        "ct.objeto": "Aunar esfuerzos técnicos; administrativos; científicos y financieros para desarrollar capacidades científicas y tecnológicas de producción de biológicos en Bogotá."
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4130695",
+        "ct.valor": 378524822.0,
+        "ct.dias_adicionados": 915,
+        "ct.objeto": "INTERVENTORÍA TÉCNICA; ADMINISTRATIVA; FINANCIERA; JURÍDICA; CONTABLE Y AMBIENTAL AL CONTRATO DE OBRA CUYO OBJETO ES MEJORAMIENTO DE VÍAS TERCIARIAS MEDIANTE LA CONSTRUCCIÓN DE 1.5 KM DE PAVIMENTO RÍGIDO EN EL TRAMO DE VÍA IDENTIFICADA CON CÓDIGO 45HL10 QUE DEL CENTRO POBLADO DE GALLARDO CONDUCE AL "
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4342474",
+        "ct.valor": 5186553440.0,
+        "ct.dias_adicionados": 914,
+        "ct.objeto": "CTA No. 2 DE INCORPORACION DE RECURSOS PARA PARA LA ADMINISTRACION DE LAS COMPENSACIONES POR TRANSFERENCIAS DE DERECHOS DE CONSTRUCCIÓN Y DESARROLLO EN LA MODALIDAD PATRIMONIAL; EN EL MARCO DEL CONVENIO SUSCRITO ENTRE LA AGENCIA APP Y EL IDEA EN NOVIEMBRE DE 2021"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.3040461",
+        "ct.valor": 2671066440.0,
+        "ct.dias_adicionados": 912,
+        "ct.objeto": "ACTA DE INCORPORACION DE RECURSOS No 3 DEL CONVENIO MARCO 0145 10000746 DEL 23 DE DICIEMBRE DE 2020; SUSCRITO ENTRE EL INSTITUTO PARA EL DESARROLLO DE ANTIOQUIA IDEA Y VIVA"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.5776896",
+        "ct.valor": 3570000000.0,
+        "ct.dias_adicionados": 910,
+        "ct.objeto": "Prestar servicios profesionales para el acompañamiento jurídico integral y la representación de la CAR en cada una de las etapas a desarrollar en el marco del Tribunal de Arbitramento Internacional iniciado por el Consorcio Expansión PTAR Salitre ante el (CIRD-ICDR); con base en las Cláusulas 46 gen"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4087803",
+        "ct.valor": 624384968.0,
+        "ct.dias_adicionados": 900,
+        "ct.objeto": "ESTUDIOS Y DISEÑOS PARA OPTIMIZAR EL ACUEDUCTO DEL SECTOR URBANO DEL MUNICIPIO DE PUERTO CAICEDO; DEPARTAMENTO DEL PUTUMAYO"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4594510",
+        "ct.valor": 142896811.0,
+        "ct.dias_adicionados": 899,
+        "ct.objeto": "INTERVENTORIA TÉCNICA; FINANCIERA; ADMINISTRATIVA; SOCIAL; LEGAL Y AMBIENTAL AL CONTRATO CUYO OBJETO SEA CONSTRUCCIÓN DE OBRAS COMPLEMENTARIAS PARA LA TERMINACIÓN DE LOS COLECTORES DE ALCANTARILLADO SANITARIO Y PLUVIAL DEL CASCO URBANO DEL MUNICIPIO DE PAIPA; BOYACÁ"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.1471299",
+        "ct.valor": 108935190000.0,
+        "ct.dias_adicionados": 889,
+        "ct.objeto": "Contratar los servicios de gestión y operación de los recursos del Fondo Emprender para garantizar la administración de los recursos asignados a cada plan de negocio y la implementación de los mismos; conforme al modelo 4k y los lineamientos del SENA y el Fondo Emprender; como también brindar soport"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.3005856",
+        "ct.valor": 52015708718.0,
+        "ct.dias_adicionados": 867,
+        "ct.objeto": "EDUBAR se compromete por su cuenta y riesgo; a través de una gerencia de Proyectos con obligación de resultado; a ejecutar la gerencia jurídica; financiera; administrativa y técnica de manera integral de las etapas de revisión y ajustes a diseños; diagnóstico; ejecución de obras y acompañamiento soc"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.5148344",
+        "ct.valor": 2861442810.0,
+        "ct.dias_adicionados": 865,
+        "ct.objeto": "OPTIMIZACIÓN DEL ACUEDUCTO EN LA VEREDA LA MATA DEL CORREGIMIENTO DE FORTALECILLAS; MUNICIPIO DE NEIVA; HUILA."
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.5100347",
+        "ct.valor": 373033783.0,
+        "ct.dias_adicionados": 862,
+        "ct.objeto": "AUNAR ESFUERZOS PARA CONFINANCIAR LA CONSTRUCCION DE LAS PLACAS POLIDEPORTIVAS UBICADAS EN LAS VEREDAS LA AGUADA Y PARAMILLO DEL MUNICIPIO DE URAMITA; ANTIOQUIA"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.3647001",
+        "ct.valor": 1166389865.0,
+        "ct.dias_adicionados": 862,
+        "ct.objeto": "INTERVENTORIA FINANCIERA PARA EL CONTRATO DE CONCESIÓN AEROPORTUARIO No. 058-CON-2000 Y SUS OTROSÍES; ESTO ES; LA INSPECCIÓN Y VIGILANCIA DE LA EJECUCIÓN DE SUS ASPECTOS FINANCIEROS Y CONTABLES; DE ACUERDO CON LOS TÉRMINOS Y CONDICIONES PREVISTOS EN EL MISMO; SIN LIMITARSE A ELLO."
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.3647001",
+        "ct.valor": 1166389865.0,
+        "ct.dias_adicionados": 862,
+        "ct.objeto": "INTERVENTORIA FINANCIERA PARA EL CONTRATO DE CONCESIÓN AEROPORTUARIO No. 058-CON-2000 Y SUS OTROSÍES; ESTO ES; LA INSPECCIÓN Y VIGILANCIA DE LA EJECUCIÓN DE SUS ASPECTOS FINANCIEROS Y CONTABLES; DE ACUERDO CON LOS TÉRMINOS Y CONDICIONES PREVISTOS EN EL MISMO; SIN LIMITARSE A ELLO."
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.1482420",
+        "ct.valor": 73755159506.0,
+        "ct.dias_adicionados": 861,
+        "ct.objeto": "Realizar la Asistencia Técnica y Administración de Recursos para la ejecución del programa de reforzamientos estructurales en las sedes priorizadas por el SENA."
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.589504",
+        "ct.valor": 343062720.0,
+        "ct.dias_adicionados": 855,
+        "ct.objeto": "Constitución de un Encargo Fiduciario Irrevocable de administración y pagos; para la realización de las siguientes actividades (i) la recepción por parte de la Fiduciaria del 100% de los Recursos Administrados y que fueron asignados en el marco de la Resolución de Subvención; (ii) La administración "
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.2868420",
+        "ct.valor": 12644161700.0,
+        "ct.dias_adicionados": 855,
+        "ct.objeto": "CONTRATO INTERADMINISTRATIVO DE MANDATO SIN REPRESENTACIÓN PARA LA GERENCIA; COORDINACIÓN Y EJECUCIÓN DE LOS RECURSOS PARA EL MANTENIMIENTO DE LOS ESCENARIOS DEPORTIVOS Y RECREATIVOS ADMINISTRADOS POR EL INDER."
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.3665166",
+        "ct.valor": 218463952.0,
+        "ct.dias_adicionados": 848,
+        "ct.objeto": "INTERVENTORIA INTEGRAL DEL CONTRATO\nDERIVADO DE LA LICITACIÓN PÚBLICA No. LP-\n02-2022-02 QUE TIENE POR OBJETO REALIZAR\nLOS ESTUDIOS Y DISEÑOS Y LAS OBRAS DE\nCONSTRUCCIÓN DEL PROYECTO SACUDETE AL\nPARQUE UBICADO EN EL MUNICIPIO DE\nSOLEDAD ATLANTICO"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.3660576",
+        "ct.valor": 2030479441.0,
+        "ct.dias_adicionados": 848,
+        "ct.objeto": "REALIZAR LOS ESTUDIOS Y DISEÑOS Y LAS OBRAS DE CONSTRUCCIÓN DEL PROYECTO SACUDETE AL PARQUE UBICADO EN EL MUNICIPIO DE SOLEDAD ATLANTICO"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.5051479",
+        "ct.valor": 160892969.0,
+        "ct.dias_adicionados": 841,
+        "ct.objeto": "INTERVENTORIA TÉCNICA; ADMINISTRATIVA; LEGAL Y FINANCIERA PARA EL PROYECTO; CONSTRUCCIÓN DEL CENTRO DÍA Y O VIDA DEL MUNICIPIO DE PUERTO NARE."
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4987819",
+        "ct.valor": 2680489108.0,
+        "ct.dias_adicionados": 841,
+        "ct.objeto": "CONSTRUCCIÓN DEL CENTRO DÍA PARA EL ADULTO MAYOR EN EL\nMUNICIPIO DE PUERTO NARE; ANTIOQUIA"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.2431106",
+        "ct.valor": 6958430669.0,
+        "ct.dias_adicionados": 840,
+        "ct.objeto": "MEJORAMIENTO VIAL EN PLACA HUELLAS EN ZONAS DE DIFÍCIL ACCESO DE LA VÍA QUE CONDUCE DE CARRAIPIA A LA VEREDA DE GARRAPATERO Y LA RESERVA NATURAL MONTES DE OCA MUNICIPIO DE MAICAO"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4351723",
+        "ct.valor": 587246245.0,
+        "ct.dias_adicionados": 834,
+        "ct.objeto": "PRESTAR LOS SERVICIOS PROFESIONALES DE SOPORTE EN PROCESOS DE REGULARIZACIÓN DE LA PROPIEDAD RURAL EN EL DEPARTAMENTO DEL HUILA."
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.5029608",
+        "ct.valor": 1276106843.0,
+        "ct.dias_adicionados": 833,
+        "ct.objeto": "CONSTRUCCIÓN DE LA PLACA CUBIERTA POLIDEPORTIVA\nUBICADA EN LA VEREDA LAS CRUCES; MUNICIPIO SAN ANDRÉS\nDE CUERQUIA"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.705117",
+        "ct.valor": 1224846498.0,
+        "ct.dias_adicionados": 827,
+        "ct.objeto": "CONTRATAR LA ADQUISICIÓN DE BASES; SUB-BASES GRANULARES; MEZCLAS ASFÁLTICAS; EMULSIÓNES ASFÁLTICAS; PREFABRICADOS Y OTROS; DE ACUERDO CON LAS ESPECIFICACIONES TÉCNICAS SOLICITADAS EN EL ANEXO TÉCNICO; LOS ESTUDIOS PREVIOS Y EL PLIEGO DE CONDICIONES; EN EL MARCO DEL PROYECTO No. 1557. MOVILIDAD MEJO"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.2079094",
+        "ct.valor": 393742164.0,
+        "ct.dias_adicionados": 826,
+        "ct.objeto": "Aunar esfuerzos institucionales a través del aporte del talento humano;\nrecursos económicos; técnicos y administrativos; para contribuir a la ejecución del proyecto denominado: ESTUDIOS; DISEÑOS Y CONSTRUCCIÓN DE OBRA DE MITIGACIÓN PARA LA ESTABILIZACIÓN Y\nREHABILITACIÓN DE LA BANCA DE LA VÍA DEPART"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.1237002",
+        "ct.valor": 113033859.0,
+        "ct.dias_adicionados": 825,
+        "ct.objeto": "Contratar el mantenimiento preventivo y correctivo de los equipos de audio y video; incluyendo los repuestos y accesorios que sean requeridos o el suministro de los mismos si es requerido por la Entidad. Así mismo; el contratista deberá poner a disposición de TRANSMILENIO S.A.; personal que apoye la"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.1943722",
+        "ct.valor": 10811568775.0,
+        "ct.dias_adicionados": 822,
+        "ct.objeto": "EL INSTITUTO DISTRITAL DE RECREACIÓN Y DEPORTE - IDRD concede a la\nCORPORACIÓN PARA EL DESARROLLO DE LOS PARQUES Y LA RECREACIÓN EN\nBOGOTÁ CORPARQUES el uso; goce; gestión; adecuación y operación en la modalidad\nde aprovechamiento económico; del espacio público denominado Parque Metropolitano\nRodrig"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.3143438",
+        "ct.valor": 407864408.0,
+        "ct.dias_adicionados": 814,
+        "ct.objeto": "GRUPO Nº1 INTERVENTORÍA INTEGRAL A LOS CONTRATOS DE ELABORACIÓN DE ESTUDIOS Y DISEÑOS REQUERIDOS PARA LA OBTENCIÓN DE LICENCIAS DE CONSTRUCCIÓN EN CUALQUIERA DE SUS MODALIDADES Y/O LICENCIA DE URBANISMO; JUNTO CON LOS PERMISOS Y APROBACIONES NECESARIOS PARA LA CONSTRUCCIÓN DE COLEGIOS NUEVOS EN DIFE"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.867331",
+        "ct.valor": 926564434.0,
+        "ct.dias_adicionados": 805,
+        "ct.objeto": "ELABORAR LA ACTUALIZACIÓN DEL PLAN DE MANEJO AMBIENTAL ESTABLECIDO EN LA RESOLUCIÓN 1069 DE 2001 EN EL TRAMO DE LA TRONCAL BOLIVARIANA QUE SE ENCUENTRA DENTRO DEL ÁREA PROTEGIDA DEL PARQUE NACIONAL NATURAL SUMAPAZ CONFORME A LOS TÉRMINOS DE REFERENCIA DEFINIDOS POR LA AUTORIDAD AMBIENTAL"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.698506",
+        "ct.valor": 281098339.0,
+        "ct.dias_adicionados": 792,
+        "ct.objeto": "Otorgar apoyo económico a la entidad ejecutora en la modalidad de recuperación contingente para la financiación del proyecto: Gestión de riesgo clínico por causas comunes en unidad de cuidados intensivos: Efectividad de un nuevo sistema de gestión de riesgo clínico en dos instituciones de salud de a"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.2089683",
+        "ct.valor": 910826294.0,
+        "ct.dias_adicionados": 782,
+        "ct.objeto": "AMPLIACION DE LA COBERTURA DEL SERVICIO DE ENERGIA ELECTRICA EN ZONAS NO INTERCONECTADAS DE LOS MUNICIPIOS DE ARAUCA Y CRAVO NORTE EN EL DEPARTAMENTO DE ARAUCA"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.682647",
+        "ct.valor": 341991647.0,
+        "ct.dias_adicionados": 780,
+        "ct.objeto": "Otorgar apoyo económico a la entidad ejecutora en la modalidad de recuperación contingente para la financiación del proyecto: Análisis genómico en pacientes con Síndrome de cáncer de Mama y Ovario Hereditario (SCMOH) en Colombia. GENeSIs código 130880762841"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.706056",
+        "ct.valor": 339887640.0,
+        "ct.dias_adicionados": 779,
+        "ct.objeto": "Otorgar apoyo económico a la entidad ejecutora en la modalidad de recuperación contingente para la financiación del proyecto Determinación de la susceptibilidad genética; daño en el ADN y alteraciones epigenéticas por exposición ocupacional al benceno en trabajadores de la industria del calzado de l"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4359795",
+        "ct.valor": 2226481800.0,
+        "ct.dias_adicionados": 775,
+        "ct.objeto": "GERENCIA ADMINISTRATIVA Y FINANCIERA PARA LA  IMPLEMENTACIÓN DEL SISTEMA DE ILUMINACIÓN MIXTO FOTOVOLTAICO Y RED ELÉCTRICA EN EL PUENTE DE LA ENTRADA Y EL INTERCAMBIADOR DEL MUNICIPIO DE PUERTO BOYACÁ - BOYACÁ (TRAMO 1)"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.2624401",
+        "ct.valor": 169675000.0,
+        "ct.dias_adicionados": 765,
+        "ct.objeto": "INTERVENTORÍA ADMINISTRATIVA; TÉCNICA; FINANCIERA Y JURÍDICA AL PROYECTO CON BPIN 2017002440008; CUYO OBJETO ES FORTALECIMIENTO DEL SISTEMA DE ALERTA TEMPRANAS EN EL DEPARTAMENTO DE LA GUAJIRA"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.5335815",
+        "ct.valor": 824898957.0,
+        "ct.dias_adicionados": 760,
+        "ct.objeto": "REALIZACION DEL MEJORAMIENTO DE LA INFRAESTRUCTURA DE LA RED PUBLICA PARA LA PRESTACIÓN DE SERVICIOS EN SALUD DE LA ESE SALUD DORADA"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4264799",
+        "ct.valor": 5039928674.0,
+        "ct.dias_adicionados": 748,
+        "ct.objeto": "CONTRATO INTERADMINISTRATIVO DE MANDATO SIN REPRESENTACIÓN PARA REALIZAR LA CONSTRUCCIÓN DEL CENTRO ARTÍSTICO Y CULTURAL DE LA CEJA DEL TAMBO"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.5663051",
+        "ct.valor": 150000000.0,
+        "ct.dias_adicionados": 746,
+        "ct.objeto": "CONTRATO INTERADMINISTRATIVO PARA LA CONSTITUCION \nDE UN FONDO ESPECIAL PARA LA COFINANCIACION DE \nPROYECTOS DE VIVIENDA NUEVA; MEJORAMIENTOS DE \nVIVIENDA E INFRAESTRUCTURA ASOCIADA A LA VIVIENDA EN \nLOS MUNICIPIOS DE ANTIOQUIA"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.2572680",
+        "ct.valor": 577046931.0,
+        "ct.dias_adicionados": 746,
+        "ct.objeto": "INTERVENTORÍA TÉCNICA; ADMINISTRATIVA; FINANCIERA Y JURÍDICA AL CONVENIO ESPECIAL DE COOPERACIÓN EN CIENCIA Y TECNOLOGÍA CELEBRADO ENTRE EL DEPARTAMENTO DE LA GUAJIRA Y LA UNIVERSIDAD DE LA COSTA QUE TIENE POR OBJETO AUNAR ESFUERZOS Y RECURSOS TECNICOS; JURIDICOS; ADMINISTRATIVOS Y FINANCIEROS PARA "
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.684057",
+        "ct.valor": 341981630.0,
+        "ct.dias_adicionados": 745,
+        "ct.objeto": "Otorgar apoyo económico a la entidad ejecutora en la modalidad de recuperación contingente para la financiación del proyecto: Inflamación pulmonar y fibrosis para identificar blancos de intervención que permitan modular la disfunción pulmonar temprana en personas infectadas por VIH: Estudio LIFE TIM"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.3744292",
+        "ct.valor": 143368877.0,
+        "ct.dias_adicionados": 744,
+        "ct.objeto": "INTERVENTORÍA TÉCNICA; ADMINISTRATIVA; FINANCIERA; AMBIENTAL Y JURÍDICA AL CONTRATO DE CONSULTORÍA CUYO OBJETO ES LA REVISIÓN GENERAL Y AJUSTE DEL PLAN BÁSICO DE ORDENAMIENTO TERRITORIAL EN EL MUNICIPIO DE VILLA DE LEYVA"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4843670",
+        "ct.valor": 8742185063.0,
+        "ct.dias_adicionados": 741,
+        "ct.objeto": "CONSTRUCCION DE CUBIERTA Y MEJORAMIENTO DE POLIDEPORTIVO DEL BARRIO SAN AGUSTIN; MUNICIPIO DE MOCOA DEPARTAMENTO DE PUTUMAYO"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4869853",
+        "ct.valor": 711092346.0,
+        "ct.dias_adicionados": 740,
+        "ct.objeto": "CONSTRUCCION DE CUBIERTA Y MEJORAMIENTO DE POLIDEPORTIVO DEL BARRIO SAN AGUSTIN; MUNICIPIO DE MOCOA DEPARTAMENTO DE PUTUMAYO (INTERVENTORIA)"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.5249482",
+        "ct.valor": 954370512.0,
+        "ct.dias_adicionados": 735,
+        "ct.objeto": "Contratar la prestación de servicios para realizar el mantenimiento y soporte funcional y técnico del Sistema de Gestión Documental Orfeo de la SAE; incluyendo actualizaciones; integración con los \nsistemas misionales de la SAE SAS y construcción de las funcionalidades que sean requeridas; garantiza"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.4358000",
+        "ct.valor": 1528050641.0,
+        "ct.dias_adicionados": 731,
+        "ct.objeto": "ENTREGAR EN CALIDAD DE COMODATO AL MUNICIPIO DE ENVIGADO EL SISTEMA DE CARÁMARAS DE SEGURIDAD INSTALADAS EN ESTE MUNICIPIO"
+      },
+      {
+        "entidad_nombre": "",
+        "contratista_nombre": "",
+        "ct.id": "CO1.PCCNTR.2963730",
+        "ct.valor": 2695744470.0,
+        "ct.dias_adicionados": 731,
+        "ct.objeto": "CONVENIO INTERADMINISTRATIVO DE COLABORACIÓN PARA AUNAR ESFUERZOS PARA LA PRESTACIÓN DEL SERVICIO WIFI EN LAS ESTACIONES METRO DEL VALLE DE ABURRÁ"
+      }
+    ]
+  }
+}
