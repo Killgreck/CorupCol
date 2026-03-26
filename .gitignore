@@ -25,3 +25,8 @@ venv/
 .vscode/
 .idea/
 *.swp
+
+# BD y Auth
+instance/
+*.db
+*.sqlite3

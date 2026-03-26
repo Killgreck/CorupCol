@@ -5,7 +5,7 @@ from datetime import datetime
 import re
 
 # Configuración de rutas
-INPUT_FILE = "reports/anomalias_2026-03-05_final.json"
+INPUT_FILE = "reports/anomalias_con_fechas.json"
 DASHBOARD_DIR = "dashboard/data"
 CSV_DIR = "reports/csv"
 REPORT_DIR = "reports"
@@ -164,56 +164,71 @@ def main():
     print("Construyendo grafo para D3...")
     nodes = {}
     links = []
-    
-    # helper para nodos
-    def add_node(idx, label, name, group):
+
+    # Leer también empresa_reciente y autocontratacion (tienen fechas)
+    empresa_reciente = anomalias.get("empresa_reciente_contrato_millonario", [])
+    autocontratacion = anomalias.get("autocontratacion_directa", [])
+    empresa_top  = filter_lista(empresa_reciente, 30)
+    autocon_top  = filter_lista(autocontratacion, 30)
+
+    # helper para nodos — group: 1=Entidad(Azul), 2=Contratista(Naranja), 3=Persona(Rojo)
+    def add_node(idx, label, name, group, fecha=None):
         if idx not in nodes:
-            nodes[idx] = {"id": idx, "name": name, "group": group, "val": 0, "label": label}
-            
-    # Nodos grupo: 1=Entidad (Azul), 2=Contratista (Naranja), 3=Persona (Rojo)
-    for c in carrusel_top[:30]:
-        c_id = c.get("c.doc_id", "c_"+c["display_name"])
+            nodes[idx] = {"id": idx, "name": name, "group": group,
+                          "val": 0, "label": label, "fecha": fecha}
+        elif fecha and not nodes[idx].get("fecha"):
+            nodes[idx]["fecha"] = fecha
+
+    # Carrusel — sin fecha disponible
+    for c in carrusel_top[:25]:
+        c_id = c.get("c.doc_id", "c_" + c["display_name"])
         add_node(c_id, "Contratista", c["display_name"], 2)
-        nodes[c_id]["val"] += c.get("total_valor_b", 1) * 10 # Escalar visual
-        # Como carrusel no nos da la entidad en el json directo sino el agregado, 
-        # para el d3 podríamos enlazarlo al concepto "Multiples Entidades" o dejarlo suelto
-        # Dejaremos al contratista más grande
-        
-    for n in nepotismo_top[:30]:
-        p_id = n.get("p.doc_id", "p_"+n.get("p.nombre_display", ""))
-        c_id = n.get("c.doc_id", "c_"+n.get("_nombre_contratista_display", ""))
+        nodes[c_id]["val"] += (c.get("total_valor_b", 1) or 1) * 10
+
+    # Nepotismo — sin fecha disponible
+    for n in nepotismo_top[:25]:
+        p_id   = n.get("p.doc_id", "p_" + n.get("p.nombre_display", ""))
+        c_id   = n.get("c.doc_id", "c_" + n.get("_nombre_contratista_display", ""))
         p_name = n.get("p.nombre_display", n.get("p.nombre"))
         c_name = n.get("_nombre_contratista_display", n.get("display_name"))
         add_node(p_id, "Funcionario", p_name, 3)
         add_node(c_id, "Contratista", c_name, 2)
         nodes[p_id]["val"] += 5
-        nodes[c_id]["val"] += n.get("valor_total_b", 1) * 10
-        links.append({
-            "source": p_id,
-            "target": c_id,
-            "value": n.get("valor_total_b", 1) or 1,
-            "type": "ORDENÓ"
-        })
+        nodes[c_id]["val"] += (n.get("valor_total_b", 1) or 1) * 10
+        links.append({"source": p_id, "target": c_id,
+                      "value": n.get("valor_total_b", 1) or 1,
+                      "type": "ORDENÓ", "fecha": None})
 
-    for s in sobrecostos_top[:30]:
-        e_name = s.get("entidad_nombre", "")
-        c_name = format_name(s.get("contratista_nombre", ""))
-        # A veces vienen vacios en el extracto, usar fallback
-        if not e_name: e_name = "Entidad Desconocida"
-        if not c_name: c_name = "Contratista Desconocido"
-        
-        e_id = "e_"+e_name
-        c_id = "c_"+c_name
+    # Sobrecostos — sin fecha en el JSON actual
+    for s in sobrecostos_top[:25]:
+        e_name = format_name(s.get("entidad_nombre", "")) or "Entidad Desconocida"
+        c_name = format_name(s.get("contratista_nombre", "")) or "Contratista Desconocido"
+        e_id = "e_" + e_name
+        c_id = "c_" + c_name
         add_node(e_id, "Entidad", e_name, 1)
         add_node(c_id, "Contratista", c_name, 2)
         nodes[e_id]["val"] += 10
-        nodes[c_id]["val"] += s.get("ct.valor_b", 1) * 5
-        links.append({
-            "source": e_id,
-            "target": c_id,
-            "value": s.get("ct.valor_b", 1) or 1,
-            "type": "SOBRECOSTO"
-        })
+        nodes[c_id]["val"] += (s.get("ct.valor_b", 1) or 1) * 5
+        links.append({"source": e_id, "target": c_id,
+                      "value": s.get("ct.valor_b", 1) or 1,
+                      "type": "SOBRECOSTO", "fecha": None})
+
+    # Empresa reciente — TIENE fecha (primer_contrato)
+    for e in empresa_top[:20]:
+        c_id   = e.get("c.doc_id", "er_" + e["display_name"])
+        fecha  = (e.get("primer_contrato") or "")[:10] or None
+        valor  = to_billions(e.get("total_ganado", 0) or 0)
+        add_node(c_id, "Empresa Reciente", e["display_name"], 2, fecha)
+        nodes[c_id]["val"] += (valor or 1) * 8
+
+    # Autocontratación — TIENE fecha (ct.fecha_firma)
+    for a in autocon_top[:20]:
+        p_id   = a.get("p.doc_id", "ac_" + a.get("p.nombre_display", ""))
+        p_name = a.get("p.nombre_display", a.get("p.nombre", "Funcionario"))
+        fecha  = (a.get("ct.fecha_firma") or "")[:10] or None
+        valor  = to_billions(a.get("ct.valor", 0) or 0)
+        add_node(p_id, "Autocontratación", p_name, 3, fecha)
+        nodes[p_id]["val"] += (valor or 1) * 12
 
     grafo = {
         "nodes": list(nodes.values()),

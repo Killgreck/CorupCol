@@ -1,14 +1,44 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+    // ── Tasa de cambio USD/COP ───────────────────────────────────────────────────
+    let _usdRate = 4200; // fallback hasta que llegue la tasa real
+
+    const fetchUSDRate = async () => {
+        try {
+            const res = await fetch('https://open.er-api.com/v6/latest/USD');
+            const data = await res.json();
+            if (data.rates?.COP) {
+                _usdRate = data.rates.COP;
+                window._usdRate = _usdRate;
+            }
+        } catch (_) { /* usa el fallback */ }
+        return _usdRate;
+    };
+
+    // Formatea billones COP → USD con sufijo T/B/M inteligente
+    const formatUSD = (billonesCOP) => {
+        const rate = window._usdRate || _usdRate;
+        const usd = billonesCOP * 1e12 / rate;
+        if (usd >= 1e12) return `≈ USD ${(usd / 1e12).toFixed(2)} T`;
+        if (usd >= 1e9) return `≈ USD ${(usd / 1e9).toFixed(1)} B`;
+        if (usd >= 1e6) return `≈ USD ${(usd / 1e6).toFixed(1)} M`;
+        return `≈ USD ${(usd / 1e3).toFixed(0)} K`;
+    };
+
+    // Inicia la carga de tasa en paralelo (no bloquea el dashboard)
+    fetchUSDRate();
+
     // 1. Cargar datos
     const loadData = async () => {
         try {
             const v = Date.now();
-            const [statsRes, carruselRes, nepotismoRes, sobrecostosRes, narrativasRes] = await Promise.all([
+            const [statsRes, carruselRes, nepotismoRes, sobrecostosRes, narrativasRes, timelinesRes] = await Promise.all([
                 fetch(`data/stats.json?v=${v}`),
                 fetch(`data/carrusel.json?v=${v}`),
                 fetch(`data/nepotismo.json?v=${v}`),
                 fetch(`data/sobrecostos.json?v=${v}`),
-                fetch(`data/narrativas.json?v=${v}`)
+                fetch(`data/narrativas.json?v=${v}`),
+                fetch(`data/timelines.json?v=${v}`).catch(() => ({ json: () => ({}) }))
             ]);
 
             const stats = await statsRes.json();
@@ -17,12 +47,33 @@ document.addEventListener('DOMContentLoaded', () => {
             const sobrecostos = await sobrecostosRes.json();
             const narrativas = await narrativasRes.json();
 
+            // Cargar timelines de forma segura para no romper la app si falla
+            window._timelines = {};
+            try {
+                if (timelinesRes && timelinesRes.ok) {
+                    window._timelines = await timelinesRes.json();
+                }
+            } catch (err) {
+                console.warn("No se pudo cargar timelines.json", err);
+            }
+
             // Llenar interfaz
             updateStats(stats);
             renderNarrativas(narrativas);
+
+            // Click en narrativa-card → abrir modal de gráfica (se registra una sola vez)
+            document.getElementById('narrativas-grid').addEventListener('click', (e) => {
+                const card = e.target.closest('.narrativa-card');
+                if (!card || !card.dataset.nit) return;
+                openTimelineModal(card.dataset.nit, card.dataset.nombre || 'Contratista');
+            });
+
             renderTable('table-carrusel', carrusel, ['display_name', 'c.doc_id', 'entidades_distintas', 'total_contratos', 'total_valor_b'], true);
             renderTable('table-nepotismo', nepotismo, ['p.nombre_display', 'p.doc_id', '_nombre_contratista_display', 'contratos_juntos', 'valor_total_b'], true);
             renderSobrecostosTable(sobrecostos);
+
+            // 8. Configurar filtros políticos
+            setupFiltrosPoliticos(narrativas);
 
             // Configurar buscador global
             setupSearch([...carrusel.map(i => ({ ...i, _type: 'Carrusel' })),
@@ -36,16 +87,27 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // 2. Actualizar contadores animados
-    const updateStats = (stats) => {
+    const updateStats = async (stats) => {
         animateValue('counter-contratos', 0, stats.total_contratos, 2000, true);
         animateValue('counter-valor', 0, stats.valor_total_b, 2000, false, '$', 'B');
-        animateValue('counter-anomalias', 0, stats.casos_carrusel + stats.casos_nepotismo + stats.casos_sobrecosto + (stats.casos_autocontratacion || 0), 2000, true);
+        animateValue('counter-anomalias', 0,
+            stats.casos_carrusel + stats.casos_nepotismo +
+            stats.casos_sobrecosto + (stats.casos_autocontratacion || 0), 2000, true);
 
         document.getElementById('finding-carrusel').textContent = stats.casos_carrusel;
         document.getElementById('finding-nepotismo').textContent = stats.casos_nepotismo;
         document.getElementById('finding-sobrecostos').textContent = stats.casos_sobrecosto;
-        if (document.getElementById('footer-date')) {
+        if (document.getElementById('footer-date'))
             document.getElementById('footer-date').textContent = stats.fecha.split('T')[0];
+
+        // Mostrar USD tras obtener la tasa real (espera a tenerla)
+        const rate = await fetchUSDRate();
+        const usdEl = document.getElementById('counter-valor-usd');
+        if (usdEl) {
+            const usd = stats.valor_total_b * 1e12 / rate;
+            const usdT = (usd / 1e12).toFixed(2);
+            usdEl.textContent = `≈ USD ${usdT} T`;
+            usdEl.title = `Tasa en tiempo real: 1 USD = ${rate.toFixed(0)} COP`;
         }
     };
 
@@ -90,7 +152,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Formateo de dinero (asumiendo que la última columna es dinero_b si addValueBar es true)
                 if (addValueBar && idx === columns.length - 1) {
                     const numVal = parseFloat(val) || 0;
-                    td.innerHTML = `<strong>$${numVal.toLocaleString('es-CO', { minimumFractionDigits: 1 })}B</strong>`;
+                    td.innerHTML = `<strong>$${numVal.toLocaleString('es-CO', { minimumFractionDigits: 1 })}B COP</strong>
+                        <div class="valor-usd">${formatUSD(numVal)}</div>`;
 
                     const pct = maxVal > 0 ? (numVal / maxVal) * 100 : 0;
                     const barContainer = document.createElement('div');
@@ -105,11 +168,162 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 tr.appendChild(td);
             });
+            // Expansión para gráficas
+            if (tableId === 'table-carrusel' && row['c.doc_id']) {
+                tr.addEventListener('click', () => {
+                    const nit = row['c.doc_id'];
+                    const existingChartRow = tr.nextElementSibling;
+
+                    if (existingChartRow && existingChartRow.classList.contains('chart-row')) {
+                        // Toggle logic
+                        const wrapper = existingChartRow.querySelector('.chart-container-wrapper');
+                        if (wrapper.classList.contains('expanded')) {
+                            wrapper.classList.remove('expanded');
+                            setTimeout(() => existingChartRow.remove(), 300);
+                        }
+                    } else {
+                        // Close any other open charts
+                        document.querySelectorAll('.chart-row').forEach(cr => cr.remove());
+
+                        // Create chart row
+                        const chartTr = document.createElement('tr');
+                        chartTr.className = 'chart-row';
+                        const chartTd = document.createElement('td');
+                        chartTd.colSpan = columns.length;
+
+                        const wrapper = document.createElement('div');
+                        wrapper.className = 'chart-container-wrapper';
+
+                        const container = document.createElement('div');
+                        container.className = 'chart-container';
+
+                        const title = document.createElement('div');
+                        title.className = 'chart-title';
+                        title.textContent = `Línea de Tiempo de Contratación: ${row.display_name} (NIT: ${nit})`;
+
+                        const canvas = document.createElement('canvas');
+                        container.appendChild(title);
+                        container.appendChild(canvas);
+                        wrapper.appendChild(container);
+                        chartTd.appendChild(wrapper);
+                        chartTr.appendChild(chartTd);
+
+                        tr.after(chartTr);
+
+                        // Wait a tick to apply animation class
+                        requestAnimationFrame(() => {
+                            wrapper.classList.add('expanded');
+                            renderTimelineGraph(canvas, nit);
+                        });
+                    }
+                });
+            }
+
             tbody.appendChild(tr);
         });
 
         setupTableSorting(tableId, data, columns, addValueBar);
     };
+
+    // Renderizar gráfico con Chart.js
+    const renderTimelineGraph = (canvas, nit) => {
+        const timelines = window._timelines || {};
+        const data = timelines[nit];
+
+        if (!data || data.length === 0) {
+            const ctx = canvas.getContext('2d');
+            ctx.font = '14px Inter';
+            ctx.fillStyle = '#8b949e';
+            ctx.textAlign = 'center';
+            ctx.fillText('No hay datos históricos disponibles', canvas.width / 2, canvas.height / 2);
+            return;
+        }
+
+        const labels = data.map(d => d.fecha);
+        const values = data.map(d => d.valor_total_b || 0);
+
+        return new Chart(canvas, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Valor de Contratos (Billones COP)',
+                    data: values,
+                    backgroundColor: 'rgba(56, 139, 253, 0.7)',
+                    borderColor: '#388bfd',
+                    borderWidth: 1,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                let label = context.dataset.label || '';
+                                if (label) { label += ': '; }
+                                if (context.parsed.y !== null) {
+                                    label += new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(context.parsed.y * 1e12);
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#8b949e' }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#e6edf3' }
+                    }
+                }
+            }
+        });
+    };
+
+    // Modal: abre la gráfica de contratos en el tiempo para un NIT
+    const openTimelineModal = (nit, nombre) => {
+        const modal = document.getElementById('timeline-modal');
+        document.getElementById('timeline-modal-title').textContent = `${nombre} · NIT ${nit}`;
+
+        if (window._modalChart) {
+            window._modalChart.destroy();
+            window._modalChart = null;
+        }
+
+        // Reemplazar canvas para evitar el error "Canvas is already in use"
+        const oldCanvas = document.getElementById('timeline-modal-canvas');
+        const newCanvas = document.createElement('canvas');
+        newCanvas.id = 'timeline-modal-canvas';
+        oldCanvas.parentNode.replaceChild(newCanvas, oldCanvas);
+
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+
+        window._modalChart = renderTimelineGraph(newCanvas, nit);
+    };
+
+    // Cerrar modal al pulsar backdrop, botón X o Escape
+    document.getElementById('timeline-modal').addEventListener('click', (e) => {
+        if (e.target.classList.contains('timeline-modal-backdrop') || e.target.closest('.timeline-modal-close')) {
+            document.getElementById('timeline-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            document.getElementById('timeline-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+    });
 
     // 3b. Renderizar narrativas para periodistas
     const renderNarrativas = (data) => {
@@ -139,17 +353,34 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
+        const fmtFecha = (iso) => {
+            if (!iso) return null;
+            const [y, m, d] = iso.split('-');
+            return `${d}/${m}/${y}`;
+        };
+
         const buildMeta = (n) => {
             const chips = [];
+            const nombre = n.funcionario || n.ordenador || n.contratista || n.entidad || '';
+            if (nombre) chips.push(nombre.length > 35 ? nombre.slice(0, 35) + '…' : nombre);
             if (n.valor_m) chips.push(`$${(n.valor_m / 1000).toFixed(1)}B COP`);
             if (n.valor_b) chips.push(`$${n.valor_b}B COP`);
             if (n.contratos) chips.push(`${n.contratos} contratos`);
             if (n.entidades) chips.push(`${n.entidades} entidades`);
             if (n.dias_prorroga) chips.push(`${n.dias_prorroga} días prórroga`);
-            if (n.fecha) chips.push(n.fecha);
-            const nombre = n.funcionario || n.ordenador || n.contratista || n.entidad || '';
-            if (nombre) chips.unshift(nombre.length > 35 ? nombre.slice(0, 35) + '…' : nombre);
-            return chips.map(c => `<span class="narrativa-chip">${c}</span>`).join('');
+
+            const fi = fmtFecha(n.fecha_inicio);
+            const ff = fmtFecha(n.fecha_fin);
+            let fechaChip = '';
+            if (fi && ff) {
+                fechaChip = `<span class="narrativa-chip fecha">📅 ${fi} → ${ff}</span>`;
+            } else if (fi) {
+                fechaChip = `<span class="narrativa-chip fecha">📅 desde ${fi}</span>`;
+            } else if (ff) {
+                fechaChip = `<span class="narrativa-chip fecha">📅 hasta ${ff}</span>`;
+            }
+
+            return chips.map(c => `<span class="narrativa-chip">${c}</span>`).join('') + fechaChip;
         };
 
         let currentPage = 1;
@@ -163,13 +394,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
             grid.innerHTML = paginatedItems.map(n => {
                 const lbl = LABELS[n.tipo] || { icon: '📋', texto: n.tipo };
+                const nit = n.doc_id || '';
+                const nombre = (n.contratista || n.funcionario || n.entidad || 'Caso detectado').replace(/"/g, '&quot;');
                 return `
-                <div class="narrativa-card tipo-${n.tipo}" data-tipo="${n.tipo}">
+                <div class="narrativa-card tipo-${n.tipo}" data-tipo="${n.tipo}" data-nit="${nit}" data-nombre="${nombre}">
                     <span class="narrativa-badge ${n.tipo}">${lbl.icon} ${lbl.texto}</span>
                     <div class="narrativa-titulo">${n.funcionario || n.contratista || n.entidad || 'Caso detectado'}</div>
                     <div class="narrativa-meta">${buildMeta(n)}</div>
                     <p class="narrativa-texto">${n.narrativa}</p>
                     <div class="narrativa-verificar">${buildVerificar(n)}</div>
+                    ${nit ? '<div class="narrativa-chart-hint">📊 Ver gráfica de contratos</div>' : ''}
                 </div>`;
             }).join('');
 
@@ -269,7 +503,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Valor (valor_m = millones, valor_b = billones)
             td = document.createElement('td');
             const val = row.valor_m ? row.valor_m / 1000 : (parseFloat(row['ct.valor_b']) || 0);
-            td.innerHTML = `<strong>$${val.toLocaleString('es-CO', { minimumFractionDigits: 1 })}B</strong>`;
+            td.innerHTML = `<strong>$${val.toLocaleString('es-CO', { minimumFractionDigits: 1 })}B COP</strong>
+                <div class="valor-usd">${formatUSD(val)}</div>`;
             tr.appendChild(td);
 
             // Objeto (truncado con tooltip)
@@ -476,6 +711,186 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.innerHTML = '<span class="btn-icon">❌</span> Error. Intenta de nuevo.';
                 btn.disabled = false;
             }
+        });
+    };
+
+    // 8. Filtros Políticos Contextuales
+    const setupFiltrosPoliticos = (allNarrativas) => {
+        const selPresidente = document.getElementById('filtro-presidente');
+        const selDepto = document.getElementById('filtro-departamento');
+        const selCiudad = document.getElementById('filtro-ciudad');
+        const inInicio = document.getElementById('filtro-fecha-inicio');
+        const inFin = document.getElementById('filtro-fecha-fin');
+        const btnAplicar = document.getElementById('btn-aplicar-filtros');
+        const btnLimpiar = document.getElementById('btn-limpiar-filtros');
+        const panelContextual = document.getElementById('panel-contextual');
+        const gobernantesGrid = document.getElementById('gobernantes-grid');
+
+        if (!selPresidente || typeof periodosPoliticos === 'undefined') return;
+
+        // Llenar presidencias
+        periodosPoliticos.presidentes.forEach(p => {
+            const opt = document.createElement('option');
+            opt.value = p.id;
+            opt.textContent = `${p.nombre} (${p.inicio.split('-')[0]} - ${p.fin.split('-')[0]})`;
+            selPresidente.appendChild(opt);
+        });
+
+        // Llenar gobernaciones
+        Object.keys(periodosPoliticos.gobernadores).sort().forEach(d => {
+            const opt = document.createElement('option');
+            opt.value = d;
+            opt.textContent = d;
+            selDepto.appendChild(opt);
+        });
+
+        // Llenar alcaldías
+        Object.keys(periodosPoliticos.alcaldes).sort().forEach(c => {
+            const opt = document.createElement('option');
+            opt.value = c;
+            opt.textContent = c;
+            selCiudad.appendChild(opt);
+        });
+
+        // Habilitar selects condicionalmente
+        const checkSelects = () => {
+            const hasDate = inInicio.value || inFin.value || selPresidente.value;
+            selDepto.disabled = !hasDate;
+            selCiudad.disabled = !hasDate;
+            if (!hasDate) {
+                selDepto.value = "";
+                selCiudad.value = "";
+            }
+        };
+
+        inInicio.addEventListener('change', checkSelects);
+        inFin.addEventListener('change', checkSelects);
+
+        selPresidente.addEventListener('change', (e) => {
+            const pId = e.target.value;
+            if (pId) {
+                const pres = periodosPoliticos.presidentes.find(p => p.id === pId);
+                inInicio.value = pres.inicio;
+                inFin.value = pres.fin;
+            } else {
+                inInicio.value = '';
+                inFin.value = '';
+            }
+            checkSelects();
+        });
+
+        btnLimpiar.addEventListener('click', () => {
+            inInicio.value = '';
+            inFin.value = '';
+            selPresidente.value = '';
+            selDepto.value = '';
+            selCiudad.value = '';
+            checkSelects();
+            panelContextual.classList.add('hidden');
+            // Resetear grafo
+            if (window.filtrarGrafoPorFecha) window.filtrarGrafoPorFecha(null, null);
+
+            // Eliminar event listeners duplicados de los botones de filtro antes de re-hacer renderNarrativas
+            const oldFiltros = document.querySelector('.narrativas-filtros');
+            if (oldFiltros) {
+                const newFiltros = oldFiltros.cloneNode(true);
+                oldFiltros.parentNode.replaceChild(newFiltros, oldFiltros);
+            }
+
+            // Remarcar botón Todos
+            document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector('.filtro-btn[data-tipo="all"]')?.classList.add('active');
+
+            // Re-render original
+            renderNarrativas(allNarrativas);
+        });
+
+        btnAplicar.addEventListener('click', () => {
+            const fInicio = inInicio.value;
+            const fFin = inFin.value;
+            const dpto = selDepto.value;
+            const ciud = selCiudad.value;
+
+            // Mostrar contexto si hay fechas
+            if (fInicio || fFin) {
+                gobernantesGrid.innerHTML = '';
+
+                // Buscar presidente a mitad del periodo seleccionado (para simplificar si hay rango manual)
+                let checkDate = fInicio || fFin;
+                if (fInicio && fFin) {
+                    // Si hay rango, tratar de encontrar el gobernante al inicio del periodo para no complicar
+                    checkDate = fInicio;
+                }
+                const pres = politicosUtils.getPresidenteByDate(checkDate);
+
+                if (pres) {
+                    gobernantesGrid.innerHTML += `
+                        <div class="gobernante-card">
+                            <div class="gobernante-icon">🇨🇴</div>
+                            <div class="gobernante-info">
+                                <h4>Presidente</h4>
+                                <h3>${pres.nombre}</h3>
+                                <p>${pres.inicio.split('-')[0]} a ${pres.fin.split('-')[0]}</p>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                if (dpto) {
+                    const gob = politicosUtils.getGobernadorByDate(dpto, checkDate);
+                    gobernantesGrid.innerHTML += `
+                        <div class="gobernante-card">
+                            <div class="gobernante-icon">🏛️</div>
+                            <div class="gobernante-info">
+                                <h4>Gobernador / ${dpto}</h4>
+                                <h3>${gob ? gob.nombre : 'No registrado para fecha'}</h3>
+                                <p>${gob ? gob.inicio.split('-')[0] + ' a ' + gob.fin.split('-')[0] : 'Intente otra fecha'}</p>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                if (ciud) {
+                    const alc = politicosUtils.getAlcaldeByDate(ciud, checkDate);
+                    gobernantesGrid.innerHTML += `
+                        <div class="gobernante-card">
+                            <div class="gobernante-icon">🏙️</div>
+                            <div class="gobernante-info">
+                                <h4>Alcalde / ${ciud}</h4>
+                                <h3>${alc ? alc.nombre : 'No registrado para fecha'}</h3>
+                                <p>${alc ? alc.inicio.split('-')[0] + ' a ' + alc.fin.split('-')[0] : 'Intente otra fecha'}</p>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                if (gobernantesGrid.children.length > 0) {
+                    panelContextual.classList.remove('hidden');
+                } else {
+                    panelContextual.classList.add('hidden');
+                }
+            } else {
+                panelContextual.classList.add('hidden');
+            }
+
+            // Filtrar datos
+            let filtered = politicosUtils.filterByPeriodo(allNarrativas, 'fecha', fInicio, fFin);
+
+            // Eliminar event listeners duplicados haciendo clon del parent de botones
+            const oldFiltros = document.querySelector('.narrativas-filtros');
+            if (oldFiltros) {
+                const newFiltros = oldFiltros.cloneNode(true);
+                oldFiltros.parentNode.replaceChild(newFiltros, oldFiltros);
+            }
+
+            // Re-render narrativas
+            renderNarrativas(filtered);
+
+            // Filtrar el grafo por el mismo rango de fechas
+            if (window.filtrarGrafoPorFecha) window.filtrarGrafoPorFecha(fInicio, fFin);
+
+            // Scrollear a los resultados de manera suave
+            document.getElementById('periodistas').scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
     };
 

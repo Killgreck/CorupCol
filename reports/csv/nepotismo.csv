@@ -14,11 +14,11 @@ p.doc_id,p.nombre,c.doc_id,_nombre_contratista,contratos_juntos,valor_total,valo
 70729756,Jorge Ivan Loaiza Orozco,901391541,Corporación Para El Desarrollo Regional Gea,75,2134982207.0,0.0
 21431758,Gloria Cecilia Naranjo Osorio,811040743,Asociación De Juntas De Acción Comunal Y Vivienda Comunitaria,74,4677643226.0,0.0
 52102213,Nancy Valbuena Ramos Ramos,800094776,Alcaldía Del Municipio De Yacopi,73,14689212148.0,0.0
-52816932,Paula Ximena Henao Escobar,883746322,Xxxxxx Xxxx,72,41073812178.0,0.0
 8150385,Luis Bernardo Molina Granda,901442761,Empresa De Desarrollo Urbano Del Norte De Antioquia,72,48725781946.0,0.0
-8364176,Faber Enrique Trespalacio,900945972,Multiservicios Amicol Sas,69,1312479675.0,0.0
+52816932,Paula Ximena Henao Escobar,883746322,Xxxxxx Xxxx,72,41073812178.0,0.0
 800014434,Nilson Norfaide Castillo Cisneros,901122223,Barodi S.A.S,69,3149091039.0,0.0
 31573686,Sandra Liliana Velasquez Naranjo,900522923,Asociacion Gremial Especializada En Salud Del Occidente,69,53820393242.0,0.1
+8364176,Faber Enrique Trespalacio,900945972,Multiservicios Amicol Sas,69,1312479675.0,0.0
 43631290,Tatiana Alexandra Carballo Hoyos,901509210,Empresa De Desarrollo Urbano Del Occidente--Eduoccidente,66,19142847937.0,0.0
 7703543,John Fredy Rojas Sutta,46640608,Distribuidora Del Centro Ibague,65,1419462273.0,0.0
 9845752,Carlos Alberto Piedrahita Gutierrez,900058196,Suministros Hospitalarios Del Eje Cafetero Ltda,65,9627762970.0,0.0
@@ -26,26 +26,26 @@ p.doc_id,p.nombre,c.doc_id,_nombre_contratista,contratos_juntos,valor_total,valo
 16856276,Carlos Humberto Bravo Riomaña,805020621,Ong Crecer En Familia,63,59339953881.0,0.1
 1020394034,Carolina Andrea Sosa Gomez,901379658,Kee Servicios S.A.S,62,1166569299.0,0.0
 10538302,Ramiro Antonio Navia Diaz,900956610,Sindicato De Trabajadores De La Salud Medica,62,36649676826.0,0.0
-1032439787,Yesenia Herreño Bernal,899999460,Alcaldia Municipal De El Peñon,60,9204278042.0,0.0
 7227295,Edgar Merchan Rincon,900233399,Everagro,60,517719396.0,0.0
+1032439787,Yesenia Herreño Bernal,899999460,Alcaldia Municipal De El Peñon,60,9204278042.0,0.0
 87455527,Jose Jairo Lopez Melo,18158345,Darwin Reynel Yela Muñoz,59,3257428200.0,0.0
 52102213,Nancy Valbuena Ramos Ramos,899999369,Municipio La Palma,59,8967122000.0,0.0
-1032360232,Camilo Enrique Alvarez Hernandez,901380930,Air-E S.A.S. E.S.P.,58,106877486135.0,0.1
 23011911,Maribel Luz Diaz Padilla,901380183,Distrisuministros Mount Sinai S.A.S.,58,1449564943.0,0.0
-60375833,Ana Maria Perez Ramirez,900519590,El Bigote De Mi Prima,58,4572459497.0,0.0
+1032360232,Camilo Enrique Alvarez Hernandez,901380930,Air-E S.A.S. E.S.P.,58,106877486135.0,0.1
 8364176,Faber Enrique Trespalacio,901065932,Corporacion Multiactiva Cultural Y Ambiental,58,2486453613.0,0.0
-93126622,Atalibar Hernandez Murillo,70465079,Jhon Fredy Arias Duque,57,17230863929.0,0.0
+60375833,Ana Maria Perez Ramirez,900519590,El Bigote De Mi Prima,58,4572459497.0,0.0
 16856276,Carlos Humberto Bravo Riomaña,805007483,Asociacion De Hogares Infantiles Del Valle,57,62388749621.0,0.1
 5694100,Carlos Arturo Santos Vega,900590286,Eslava Y Diaz Asociados Sas.,57,169071197.0,0.0
 51931356,Luz Elena Gutierrez Uribe,900407911,Corporación Nutrición Salud Y Bienestar Nsb De Colombia,57,86194997117.0,0.1
 15918010,Luis Eduardo Cespedes De Los Rios,800251628,Asociacion Mundos Hermanos,57,61240942198.0,0.1
-1036926326,Luis Fernando Suarez Marin,901105143,Empresa De Desarrollo Urbano De La Ceja,56,70445211643.0,0.1
+93126622,Atalibar Hernandez Murillo,70465079,Jhon Fredy Arias Duque,57,17230863929.0,0.0
 91297841,Robinson Galindo Tarazona,900034591,Mar Antiguo Sas,56,817139355.0,0.0
-52262161,Diana Patricia Arboleda Ramirez,890983904,Instituto Psiceducativo De Colombia - Ipsicol,55,46137086475.0,0.0
+1036926326,Luis Fernando Suarez Marin,901105143,Empresa De Desarrollo Urbano De La Ceja,56,70445211643.0,0.1
 14237801,Edgar Olaya Ospina,53160522,Suministra Y Soluciones,55,2647689033.0,0.0
-32458880,Beatriz Elena Pabon Acevedo,901387801,Empresa De Vivienda Y Desarrollo Urbano Y Rural Del Municipio De Envigado,55,497202532027.0,0.5
+52262161,Diana Patricia Arboleda Ramirez,890983904,Instituto Psiceducativo De Colombia - Ipsicol,55,46137086475.0,0.0
 1038412039,Julio Cesar Serna Gomez,901453183,Edur Marinilla,55,52974149868.0,0.1
+32458880,Beatriz Elena Pabon Acevedo,901387801,Empresa De Vivienda Y Desarrollo Urbano Y Rural Del Municipio De Envigado,55,497202532027.0,0.5
 1001443733,Zahian Melissa Guzman Carabali,901047188,Fundación Para El Desarrollo Integral Comunitario Y La Paz Fudeicop,54,1994721176.0,0.0
 1143232334,Kevin Rene Bernal Morales,901464458,Empresa Para La Competitividad Territorial Del Municipio De Girardota,54,80233737506.0,0.1
-84083056,Carlos Eduardo Robles Palomino,901247893,Jp Soluciones Colombia Sas,53,6919536854.0,0.0
 52102213,Nancy Valbuena Ramos Ramos,8999993881,Municipio De Une,53,11477245283.0,0.0
+84083056,Carlos Eduardo Robles Palomino,901247893,Jp Soluciones Colombia Sas,53,6919536854.0,0.0

@@ -35,12 +35,20 @@
                 <a href="#carrusel">Carruseles</a>
                 <a href="#nepotismo">Nepotismo</a>
                 <a href="#sobrecostos">Sobrecostos</a>
+                <a href="#contexto">Contexto Político</a>
                 <a href="#buscar" class="btn-buscar">Buscar 🔎</a>
             </nav>
         </div>
     </header>
 
     <main>
+        <!-- Banner próximamente -->
+        <div
+            style="background: #2d1a00; border-bottom: 2px solid var(--color-naranja); padding: 14px 0; text-align: center; font-size: 0.95rem; color: var(--color-naranja); letter-spacing: 0.03em;">
+            🔒 Los hallazgos detallados serán publicados próximamente a través de un medio periodístico verificado.
+            &nbsp;|&nbsp; Los datos provienen de fuentes oficiales del Estado colombiano (SECOP I/II — datos.gov.co).
+        </div>
+
         <!-- Sección 0: Hero -->
         <section class="hero" id="hero">
             <div class="container text-center">
@@ -57,6 +65,7 @@
                     <div class="stat-card accent">
                         <div class="stat-value" id="counter-valor">$0</div>
                         <div class="stat-label">Valor Total Rastreable</div>
+                        <div class="stat-usd" id="counter-valor-usd" title="Cargando tasa real...">cargando USD…</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value" id="counter-anomalias">0</div>
@@ -92,6 +101,65 @@
                         <div class="alert-number">> 50%</div>
                         <div class="alert-text">Concentración extrema del presupuesto en un grupo ínfimo de grandes
                             contratistas.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección: Explorar por Contexto Político -->
+        <section class="filtros-politicos-section" id="contexto">
+            <div class="container">
+                <div class="contexto-header text-center">
+                    <h2 class="section-title">Explorar por Contexto Político</h2>
+                    <p class="section-desc mx-auto" style="max-width: 800px;">
+                        Selecciona un periodo político o de fechas para filtrar los hallazgos explicados.
+                        Conoce quién gobernaba durante la suscripción del primer contrato de la anomalía.
+                    </p>
+                </div>
+
+                <div class="filtros-grid">
+                    <div class="filtro-group">
+                        <label for="filtro-fecha-inicio" class="filtro-label">Desde:</label>
+                        <input type="date" id="filtro-fecha-inicio" class="search-input" style="width: 100%;">
+                    </div>
+                    <div class="filtro-group">
+                        <label for="filtro-fecha-fin" class="filtro-label">Hasta:</label>
+                        <input type="date" id="filtro-fecha-fin" class="search-input" style="width: 100%;">
+                    </div>
+                    <div class="filtro-group">
+                        <label for="filtro-presidente" class="filtro-label">Presidente de la Rep.:</label>
+                        <select id="filtro-presidente" class="search-input" style="width: 100%;">
+                            <option value="">Todos los periodos</option>
+                            <!-- Llenado por JS -->
+                        </select>
+                    </div>
+                    <div class="filtro-group">
+                        <label for="filtro-departamento" class="filtro-label">Gobernador en depto:</label>
+                        <select id="filtro-departamento" class="search-input" style="width: 100%;" disabled
+                            title="Seleccione primero un periodo presidencial o rango de fechas">
+                            <option value="">Seleccione Departamento</option>
+                            <!-- Llenado por JS -->
+                        </select>
+                    </div>
+                    <div class="filtro-group">
+                        <label for="filtro-ciudad" class="filtro-label">Alcalde en ciudad:</label>
+                        <select id="filtro-ciudad" class="search-input" style="width: 100%;" disabled
+                            title="Seleccione primero un periodo presidencial o rango de fechas">
+                            <option value="">Seleccione Ciudad</option>
+                            <!-- Llenado por JS -->
+                        </select>
+                    </div>
+                    <div class="filtro-group btn-group" style="display: flex; gap: 10px; align-items: flex-end;">
+                        <button id="btn-aplicar-filtros" class="btn-primary"
+                            style="flex: 2; padding: 1rem;">Filtrar</button>
+                        <button id="btn-limpiar-filtros" class="btn-secondary" style="flex: 1; padding: 1rem;"
+                            title="Limpiar Filtros">✕</button>
+                    </div>
+                </div>
+
+                <div id="panel-contextual" class="panel-contextual hidden">
+                    <div class="gobernantes-grid" id="gobernantes-grid">
+                        <!-- UI de Gobernantes inyectados por JS -->
                     </div>
                 </div>
             </div>
@@ -156,6 +224,7 @@
                     </div>
                 </div>
 
+                <div id="grafo-fecha-notice" class="grafo-notice hidden"></div>
                 <div class="network-container">
                     <div class="network-legend">
                         <div class="legend-item"><span class="color-dot entity"></span> Entidad</div>
@@ -311,7 +380,29 @@
     <!-- Tooltip para tablas y UI -->
     <div id="tooltip" class="tooltip hidden"></div>
 
+    <!-- Modal: Línea de Tiempo de Contratos -->
+    <div id="timeline-modal" class="timeline-modal hidden" role="dialog" aria-modal="true">
+        <div class="timeline-modal-backdrop"></div>
+        <div class="timeline-modal-content">
+            <div class="timeline-modal-header">
+                <div>
+                    <div class="timeline-modal-label">📊 Contratos a lo largo del tiempo</div>
+                    <h3 id="timeline-modal-title">—</h3>
+                </div>
+                <button class="timeline-modal-close" aria-label="Cerrar">&times;</button>
+            </div>
+            <div class="timeline-modal-body">
+                <canvas id="timeline-modal-canvas"></canvas>
+            </div>
+            <div class="timeline-modal-footer">
+                <span class="text-secondary" style="font-size:0.8rem;">Valores en billones COP &nbsp;·&nbsp; Fuente: SECOP I/II</span>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts locales -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/periodos_politicos.js"></script>
     <script src="js/main.js"></script>
     <script src="js/grafo.js"></script>
 </body>

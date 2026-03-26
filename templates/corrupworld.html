@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CorrupWorld - Plataforma Global Anticorrupción</title>
+    <!-- Favicon and fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static_dashboard/css/style.css">
+    <!-- FontAwesome Flags (via Open Source SVG alternatives or emoji for quick mockup) -->
+    <style>
+        .hero {
+            padding: 8rem 0 6rem;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(120deg, var(--color-azul), #79c0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .country-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .country-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .country-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: #30363d;
+        }
+
+        .country-card.active {
+            border-color: rgba(56, 139, 253, 0.4);
+        }
+
+        .country-card.active:hover {
+            border-color: var(--color-azul);
+            box-shadow: 0 10px 20px rgba(56, 139, 253, 0.15);
+        }
+
+        .country-card.coming-soon {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .country-card.coming-soon:hover {
+            transform: none;
+            box-shadow: none;
+            border-color: var(--border-color);
+        }
+
+        .flag-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+        }
+
+        .country-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .country-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .status-active {
+            background-color: rgba(56, 139, 253, 0.15);
+            color: var(--color-azul);
+            border: 1px solid rgba(56, 139, 253, 0.3);
+        }
+
+        .status-soon {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .features-section {
+            background-color: rgba(13, 17, 23, 0.5);
+            padding: 4rem 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .feature-item h3 {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--color-azul);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-text">CorrupWorld</span>
+            </div>
+            <div class="nav-links">
+                <a href="#about">Misión Open Source</a>
+                <a href="https://github.com/apolo/CorupCol" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="hero">
+        <div class="container">
+            <h1 class="hero-title">CorrupWorld</h1>
+            <p class="hero-subtitle mb-0">Plataforma Open Source Global para la visualización de datos de contratación
+                pública. Transformamos datos complejos en redes transparentes para combatir la corrupción en todo el
+                mundo.</p>
+        </div>
+    </header>
+
+    <!-- Paises -->
+    <section class="container" style="padding-top: 2rem;">
+        <div class="text-center mb-0">
+            <h2 class="section-title">Red Global de Datos</h2>
+            <p class="section-desc mx-auto">Selecciona una región para explorar los contratos públicos, identificar
+                anomalías y analizar las redes de poder.</p>
+        </div>
+
+        <div class="country-grid">
+            <!-- Colombia (Activar) -->
+            <a href="/login" class="country-card active">
+                <div class="flag-icon">🇨🇴</div>
+                <h3 class="country-name">CorupCol</h3>
+                <p class="country-desc">Análisis de más de 50 millones de registros de contratación pública en Colombia
+                    utilizando grafos Neo4j.</p>
+                <div class="status-badge status-active">Módulo Activo</div>
+            </a>
+
+            <!-- Otros Paises (Coming Soon) -->
+            <div class="country-card coming-soon">
+                <div class="flag-icon">🇲🇽</div>
+                <h3 class="country-name">CorupMex</h3>
+                <p class="country-desc">Integración en desarrollo con Compranet y datos abiertos del gobierno de México.
+                </p>
+                <div class="status-badge status-soon">Próximamente</div>
+            </div>
+
+            <div class="country-card coming-soon">
+                <div class="flag-icon">🇦🇷</div>
+                <h3 class="country-name">CorupArg</h3>
+                <p class="country-desc">Monitoreo y mapeo de licitaciones públicas y contratistas en Argentina.</p>
+                <div class="status-badge status-soon">Próximamente</div>
+            </div>
+
+            <div class="country-card coming-soon">
+                <div class="flag-icon">🇵🇪</div>
+                <h3 class="country-name">CorupPe</h3>
+                <p class="country-desc">Análisis de la base de datos OSCE para identificar irregularidades en Perú.</p>
+                <div class="status-badge status-soon">Próximamente</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features-section" id="about">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 3rem;">
+                <h2 class="section-title">Tecnología contra la Corrupción</h2>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Datos Públicos</h3>
+                    <p class="text-secondary">Extraemos, limpiamos y normalizamos millones de registros de portales de
+                        contratación estatales.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🕸️</div>
+                    <h3>Análisis de Grafos</h3>
+                    <p class="text-secondary">Modelamos las relaciones entre entidades y contratistas utilizando bases
+                        de datos orientadas a grafos (Neo4j).</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🚨</div>
+                    <h3>Detección de Anomalías</h3>
+                    <p class="text-secondary">Algoritmos automatizados que detectan uniones temporales, sobrecostos y
+                        concentración de contratos.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔓</div>
+                    <h3>100% Open Source</h3>
+                    <p class="text-secondary">Código abierto para que periodistas, investigadores y ciudadanos puedan
+                        auditar y colaborar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" style="margin-top: 0;">
+        <div class="container">
+            <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+                <p>&copy; 2026 <span class="tagline">CorrupWorld</span>. Herramienta Open Source bajo licencia MIT.</p>
+                <div>
+                    Construido con Python, Flask, D3.js y Neo4j.
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
