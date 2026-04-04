@@ -7,6 +7,7 @@ import gzip
 import csv
 import io
 from pathlib import Path
+import os
 
 REPORTE_ENTRADA = Path("/home/apolo/A/CorupCol/reports/anomalias_2026-03-05_limpio.json")
 REPORTE_SALIDA  = Path("/home/apolo/A/CorupCol/reports/anomalias_2026-03-05_final.json")
@@ -17,6 +18,8 @@ DATA = Path("/home/apolo/A/CorupCol/data")
 contratistas_nombre = {}
 # nit (entidad) → nombre
 entidades_nombre = {}
+# id_contrato (SECOP II) → {entidad, contratista}
+contratos_sobrecosto = {}
 
 
 def limpiar(s):
@@ -73,6 +76,30 @@ def cargar_secop1():
     print(f"  SECOP I listo: {len(contratistas_nombre):,} contratistas, {len(entidades_nombre):,} entidades")
 
 
+def cargar_secop2_sobrecostos(target_ids):
+    """Busca nombres de entidad y contratista para contratos de sobrecosto por id_contrato."""
+    carpeta = DATA / "secop2_contratos"
+    archivos = sorted(carpeta.glob("*.csv.gz"))
+    remaining = set(target_ids)
+    print(f"Buscando {len(remaining)} IDs de sobrecosto en {len(archivos)} chunks de SECOP II...")
+    for i, f in enumerate(archivos):
+        if not remaining:
+            break
+        with gzip.open(f, "rt", encoding="utf-8", errors="replace") as gz:
+            reader = csv.DictReader(gz)
+            for row in reader:
+                cid = (row.get("id_contrato") or "").strip()
+                if cid in remaining:
+                    contratos_sobrecosto[cid] = {
+                        "entidad": limpiar(row.get("nombre_entidad")),
+                        "contratista": limpiar(row.get("proveedor_adjudicado")),
+                    }
+                    remaining.discard(cid)
+        if (i + 1) % 20 == 0:
+            print(f"  {i+1}/{len(archivos)} chunks — encontrados: {len(contratos_sobrecosto)}, pendientes: {len(remaining)}")
+    print(f"  Sobrecostos resueltos: {len(contratos_sobrecosto)}/{len(target_ids)} ({len(remaining)} sin nombre)")
+
+
 def enriquecer_fila(fila, mapeo_contratista_keys, mapeo_entidad_keys):
     for key in mapeo_contratista_keys:
         doc = str(fila.get(key) or "").strip()
@@ -96,6 +123,12 @@ def main():
 
     anomalias = reporte["anomalias"]
 
+    # Cargar nombres para sobrecostos usando id_contrato → SECOP II
+    sobrecostos_raw = anomalias.get("sobrecosto_prorrogado", [])
+    target_ids = [s.get("ct.id", "") for s in sobrecostos_raw if s.get("ct.id")]
+    if target_ids:
+        cargar_secop2_sobrecostos(target_ids)
+
     # Enriquecer cada sección
     for fila in anomalias.get("empresa_reciente_contrato_millonario", []):
         enriquecer_fila(fila, ["c.doc_id"], [])
@@ -107,8 +140,14 @@ def main():
         enriquecer_fila(fila, ["c.doc_id"], [])
 
     for fila in anomalias.get("sobrecosto_prorrogado", []):
+        # Rellenar entidad_nombre y contratista_nombre desde el índice de SECOP II
+        ct_id = (fila.get("ct.id") or "").strip()
+        if ct_id and ct_id in contratos_sobrecosto:
+            if not fila.get("entidad_nombre"):
+                fila["entidad_nombre"] = contratos_sobrecosto[ct_id]["entidad"]
+            if not fila.get("contratista_nombre"):
+                fila["contratista_nombre"] = contratos_sobrecosto[ct_id]["contratista"]
         enriquecer_fila(fila, [], [])
-        # entidad y contratista ya vienen como nombres desde el query
 
     with open(REPORTE_SALIDA, "w", encoding="utf-8") as f:
         json.dump(reporte, f, ensure_ascii=False, indent=2)

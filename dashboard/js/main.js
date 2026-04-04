@@ -1,24 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // ── Tasa de cambio USD/COP ───────────────────────────────────────────────────
-    let _usdRate = 4200; // fallback hasta que llegue la tasa real
+    let _usdRate = 4200;     // fallback hasta que llegue la tasa real
+    let _timelines = {};     // datos de timelines para gráficas inline
+    let _budgetChart = null; // instancia Chart.js del donut presupuestal
+    let _modalChart = null;  // instancia Chart.js del modal de timeline
 
-    const fetchUSDRate = async () => {
-        try {
-            const res = await fetch('https://open.er-api.com/v6/latest/USD');
-            const data = await res.json();
-            if (data.rates?.COP) {
-                _usdRate = data.rates.COP;
-                window._usdRate = _usdRate;
-            }
-        } catch (_) { /* usa el fallback */ }
-        return _usdRate;
+    // _usdRatePromise garantiza que fetchUSDRate sólo hace UNA petición HTTP.
+    // Cualquier llamada posterior recibe la misma Promise resuelta.
+    let _usdRatePromise = null;
+
+    const fetchUSDRate = () => {
+        if (_usdRatePromise) return _usdRatePromise;
+        _usdRatePromise = fetch('https://open.er-api.com/v6/latest/USD')
+            .then(res => res.json())
+            .then(data => {
+                if (data.rates?.COP) _usdRate = data.rates.COP;
+                return _usdRate;
+            })
+            .catch(() => _usdRate); // usa el fallback en error
+        return _usdRatePromise;
     };
 
     // Formatea billones COP → USD con sufijo T/B/M inteligente
     const formatUSD = (billonesCOP) => {
-        const rate = window._usdRate || _usdRate;
-        const usd = billonesCOP * 1e12 / rate;
+        const usd = billonesCOP * 1e12 / _usdRate;
         if (usd >= 1e12) return `≈ USD ${(usd / 1e12).toFixed(2)} T`;
         if (usd >= 1e9) return `≈ USD ${(usd / 1e9).toFixed(1)} B`;
         if (usd >= 1e6) return `≈ USD ${(usd / 1e6).toFixed(1)} M`;
@@ -28,17 +34,39 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inicia la carga de tasa en paralelo (no bloquea el dashboard)
     fetchUSDRate();
 
+    // ── Helpers de UI para estados de carga y error ─────────────────────────────
+    const showLoadingState = () => {
+        ['counter-contratos', 'counter-valor', 'counter-anomalias'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = '…';
+        });
+    };
+
+    const showErrorState = (msg) => {
+        const container = document.getElementById('stats');
+        if (!container) return;
+        const banner = document.createElement('div');
+        banner.className = 'error-banner';
+        banner.setAttribute('role', 'alert');
+        banner.textContent = msg || 'Error al cargar los datos. Por favor recarga la página.';
+        container.insertAdjacentElement('beforebegin', banner);
+        ['counter-contratos', 'counter-valor', 'counter-anomalias'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = '—';
+        });
+    };
+
     // 1. Cargar datos
     const loadData = async () => {
+        showLoadingState();
         try {
-            const v = Date.now();
             const [statsRes, carruselRes, nepotismoRes, sobrecostosRes, narrativasRes, timelinesRes] = await Promise.all([
-                fetch(`data/stats.json?v=${v}`),
-                fetch(`data/carrusel.json?v=${v}`),
-                fetch(`data/nepotismo.json?v=${v}`),
-                fetch(`data/sobrecostos.json?v=${v}`),
-                fetch(`data/narrativas.json?v=${v}`),
-                fetch(`data/timelines.json?v=${v}`).catch(() => ({ json: () => ({}) }))
+                fetch('/static_dashboard/data/stats.json'),
+                fetch('/static_dashboard/data/carrusel.json'),
+                fetch('/static_dashboard/data/nepotismo.json'),
+                fetch('/static_dashboard/data/sobrecostos.json'),
+                fetch('/static_dashboard/data/narrativas.json'),
+                fetch('/static_dashboard/data/timelines.json').catch(() => null)
             ]);
 
             const stats = await statsRes.json();
@@ -48,10 +76,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const narrativas = await narrativasRes.json();
 
             // Cargar timelines de forma segura para no romper la app si falla
-            window._timelines = {};
+            _timelines = {};
             try {
                 if (timelinesRes && timelinesRes.ok) {
-                    window._timelines = await timelinesRes.json();
+                    _timelines = await timelinesRes.json();
                 }
             } catch (err) {
                 console.warn("No se pudo cargar timelines.json", err);
@@ -82,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error("Error cargando datos:", error);
-            document.getElementById('counter-contratos').textContent = "Error";
+            showErrorState('Error al cargar los datos. Verifica que los archivos JSON estén disponibles y recarga la página.');
         }
     };
 
@@ -100,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (document.getElementById('footer-date'))
             document.getElementById('footer-date').textContent = stats.fecha.split('T')[0];
 
-        // Mostrar USD tras obtener la tasa real (espera a tenerla)
+        // Mostrar USD tras obtener la tasa real (reutiliza la Promise ya iniciada, sin doble fetch)
         const rate = await fetchUSDRate();
         const usdEl = document.getElementById('counter-valor-usd');
         if (usdEl) {
@@ -109,6 +137,94 @@ document.addEventListener('DOMContentLoaded', () => {
             usdEl.textContent = `≈ USD ${usdT} T`;
             usdEl.title = `Tasa en tiempo real: 1 USD = ${rate.toFixed(0)} COP`;
         }
+
+        if (stats.presupuesto_origen_nota) {
+            const sourceEl = document.getElementById('budget-source');
+            if (sourceEl) sourceEl.textContent = `📝 Origen: ${stats.presupuesto_origen_nota}`;
+        }
+        
+        // Renderizar gráfica de anillo de presupuesto
+        renderBudgetChart(stats);
+    };
+
+    const renderBudgetChart = (stats) => {
+        const wrapper = document.getElementById('budget-chart-wrapper');
+        const canvas = document.getElementById('budget-donut-chart');
+        if (!wrapper || !canvas) return;
+
+        // Mostrar el wrapper quitando la clase hidden y forzar reflow síncrono
+        // ANTES de que Chart.js mida las dimensiones del contenedor.
+        // display:none !important (de .hidden) hace que offsetHeight=0;
+        // leer wrapper.offsetHeight fuerza al browser a recalcular el layout.
+        wrapper.classList.remove('hidden');
+        void wrapper.offsetHeight; // fuerza reflow síncrono
+
+        const ctx = canvas.getContext('2d');
+        if (_budgetChart) {
+            _budgetChart.destroy();
+        }
+
+        const total = parseFloat(stats.valor_total_b) || 0;
+        const carrusel = parseFloat(stats.total_val_carrusel_b) || 0;
+        const nepotismo = parseFloat(stats.total_val_nepotismo_b) || 0;
+        const sobrecostos = parseFloat(stats.total_val_sobrecostos_b) || 0;
+
+        const anomaliasTotal = carrusel + nepotismo + sobrecostos;
+        const resto = Math.max(0, total - anomaliasTotal);
+
+        _budgetChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: [
+                    'Contratación Estándar (Resto PGN)',
+                    'Carrusel de Contratos',
+                    'Asignación Repetitiva (Nepotismo)',
+                    'Sobrecostos de Prórroga'
+                ],
+                datasets: [{
+                    data: [resto, carrusel, nepotismo, sobrecostos],
+                    backgroundColor: [
+                        '#2ea043', // Verde para OK
+                        '#d29922', // Amarillo
+                        '#f0883e', // Naranja
+                        '#da3633'  // Rojo
+                    ],
+                    borderColor: '#0d1117',
+                    borderWidth: 2,
+                    hoverOffset: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                color: '#c9d1d9',
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: '#8b949e', padding: 20, font: { family: 'Inter', size: 12 } }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(22, 27, 34, 0.95)',
+                        titleColor: '#c9d1d9',
+                        bodyColor: '#e6edf3',
+                        borderColor: '#30363d',
+                        borderWidth: 1,
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                if (label) { label += ': '; }
+                                if (context.parsed !== null) {
+                                    const valueB = context.parsed;
+                                    const percentage = total > 0 ? ((valueB / total) * 100).toFixed(1) : 0;
+                                    label += `$${valueB.toLocaleString('es-CO', { minimumFractionDigits: 1 })}B COP (${percentage}%)`;
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
     };
 
     const animateValue = (id, start, end, duration, noDecimals = false, prefix = '', suffix = '') => {
@@ -118,9 +234,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const step = (timestamp) => {
             if (!startTimestamp) startTimestamp = timestamp;
             const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            // ease out cubic
+            // ease out cubic: aplica la curva tanto al avance como a la interpolación
             const easeOut = 1 - Math.pow(1 - progress, 3);
-            const current = (progress * (end - start) + start);
+            const current = (easeOut * (end - start) + start);
 
             if (noDecimals) {
                 obj.textContent = prefix + Math.floor(current).toLocaleString('es-CO') + suffix;
@@ -169,9 +285,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 tr.appendChild(td);
             });
             // Expansión para gráficas
-            if (tableId === 'table-carrusel' && row['c.doc_id']) {
+            const isCarrusel = tableId === 'table-carrusel' && row['c.doc_id'];
+            const isNepotismo = tableId === 'table-nepotismo' && row['p.doc_id'];
+
+            if (isCarrusel || isNepotismo) {
                 tr.addEventListener('click', () => {
-                    const nit = row['c.doc_id'];
+                    const doc_id = isCarrusel ? row['c.doc_id'] : row['p.doc_id'];
+                    const display_text = isCarrusel ? row.display_name : row['p.nombre_display'] || row['p.nombre'];
                     const existingChartRow = tr.nextElementSibling;
 
                     if (existingChartRow && existingChartRow.classList.contains('chart-row')) {
@@ -199,7 +319,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         const title = document.createElement('div');
                         title.className = 'chart-title';
-                        title.textContent = `Línea de Tiempo de Contratación: ${row.display_name} (NIT: ${nit})`;
+                        title.textContent = isCarrusel ? 
+                            `Línea de Tiempo de Contratación: ${display_text} (NIT: ${doc_id})` :
+                            `Línea de Tiempo como Ordenador del Gasto: ${display_text} (CC: ${doc_id})`;
 
                         const canvas = document.createElement('canvas');
                         container.appendChild(title);
@@ -210,11 +332,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         tr.after(chartTr);
 
-                        // Wait a tick to apply animation class
+                        // Añadir .expanded en el siguiente frame (dispara la transición CSS).
+                        // Chart.js se crea DESPUÉS de que la transición (300ms) termine,
+                        // así max-height ya alcanzó 350px y el canvas tiene dimensiones reales.
                         requestAnimationFrame(() => {
                             wrapper.classList.add('expanded');
-                            renderTimelineGraph(canvas, nit);
                         });
+                        setTimeout(() => renderTimelineGraph(canvas, doc_id), 320);
                     }
                 });
             }
@@ -226,23 +350,116 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Renderizar gráfico con Chart.js
+    // Cache de datos de detalle de contratos por NIT (cargados bajo demanda)
+    const _contratoCache = {};
+
+    const fetchDetalleContratos = async (nit) => {
+        if (_contratoCache[nit] !== undefined) return _contratoCache[nit];
+        try {
+            const res = await fetch(`/static_dashboard/data/contratos/${escapeHtml(nit)}.json`);
+            if (!res.ok) throw new Error('not found');
+            _contratoCache[nit] = await res.json();
+        } catch (_) {
+            _contratoCache[nit] = null;
+        }
+        return _contratoCache[nit];
+    };
+
+    // Muestra tabla de detalle de contratos para un período dado
+    const mostrarTablaDetalle = (container, periodoData, periodo, nit) => {
+        // Limpiar tabla anterior
+        const prev = container.querySelector('.detalle-contratos-wrapper');
+        if (prev) prev.remove();
+
+        if (!periodoData || periodoData.length === 0) {
+            const msg = document.createElement('p');
+            msg.className = 'detalle-sin-datos';
+            msg.textContent = `Sin detalle individual disponible para ${periodo}.`;
+            container.appendChild(msg);
+            return;
+        }
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'detalle-contratos-wrapper';
+
+        const header = document.createElement('div');
+        header.className = 'detalle-contratos-header';
+        header.innerHTML = `<span>📋 <strong>${periodoData.length} contratos</strong> en <strong>${periodo}</strong></span>
+            <button class="detalle-close-btn" aria-label="Cerrar detalle">&times; Cerrar</button>`;
+        header.querySelector('.detalle-close-btn').addEventListener('click', () => wrapper.remove());
+        wrapper.appendChild(header);
+
+        const tableWrap = document.createElement('div');
+        tableWrap.className = 'detalle-table-scroll';
+
+        const table = document.createElement('table');
+        table.className = 'detalle-contratos-table';
+        table.innerHTML = `<thead><tr>
+            <th>ID Contrato</th>
+            <th>Objeto</th>
+            <th>Entidad</th>
+            <th>Contratista</th>
+            <th>Valor (COP)</th>
+            <th>Fecha Firma</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
+            <th>Estado</th>
+            <th>Modalidad</th>
+            <th>Días Adicionados</th>
+            <th>Enlace</th>
+        </tr></thead>`;
+
+        const tbody = document.createElement('tbody');
+        periodoData.forEach(c => {
+            const tr = document.createElement('tr');
+            const valor = c.valor_del_contrato
+                ? `$${parseFloat(c.valor_del_contrato).toLocaleString('es-CO', {minimumFractionDigits: 0})}`
+                : '—';
+            const url = c.urlproceso
+                ? `<a href="${escapeHtml(c.urlproceso)}" target="_blank" rel="noopener noreferrer" class="detalle-link">Ver SECOP</a>`
+                : '—';
+            tr.innerHTML = `
+                <td class="mono" style="white-space:nowrap">${escapeHtml(c.id_contrato || '—')}</td>
+                <td class="detalle-objeto">${escapeHtml(c.objeto_del_contrato || c.descripcion_del_proceso || '—')}</td>
+                <td>${escapeHtml(c.nombre_entidad || '—')}</td>
+                <td>${escapeHtml(c.proveedor_adjudicado || '—')}</td>
+                <td class="mono" style="white-space:nowrap">${escapeHtml(valor)}</td>
+                <td style="white-space:nowrap">${escapeHtml(c.fecha_de_firma || '—')}</td>
+                <td style="white-space:nowrap">${escapeHtml(c.fecha_de_inicio_del_contrato || '—')}</td>
+                <td style="white-space:nowrap">${escapeHtml(c.fecha_de_fin_del_contrato || '—')}</td>
+                <td><span class="badge ${c.estado_contrato === 'Celebrado' ? 'badge-green' : 'badge-orange'}">${escapeHtml(c.estado_contrato || '—')}</span></td>
+                <td style="font-size:0.8em">${escapeHtml(c.modalidad_de_contratacion || '—')}</td>
+                <td class="mono">${escapeHtml(String(c.dias_adicionados || '0'))}</td>
+                <td>${url}</td>`;
+            tbody.appendChild(tr);
+        });
+        table.appendChild(tbody);
+        tableWrap.appendChild(table);
+        wrapper.appendChild(tableWrap);
+        container.appendChild(wrapper);
+        wrapper.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    };
+
     const renderTimelineGraph = (canvas, nit) => {
-        const timelines = window._timelines || {};
-        const data = timelines[nit];
+        const data = _timelines[nit];
 
         if (!data || data.length === 0) {
+            const w = canvas.clientWidth || canvas.offsetWidth || 300;
+            const h = canvas.clientHeight || canvas.offsetHeight || 150;
+            canvas.width = w;
+            canvas.height = h;
             const ctx = canvas.getContext('2d');
             ctx.font = '14px Inter';
             ctx.fillStyle = '#8b949e';
             ctx.textAlign = 'center';
-            ctx.fillText('No hay datos históricos disponibles', canvas.width / 2, canvas.height / 2);
+            ctx.fillText('No hay datos históricos disponibles', w / 2, h / 2);
             return;
         }
 
         const labels = data.map(d => d.fecha);
         const values = data.map(d => d.valor_total_b || 0);
 
-        return new Chart(canvas, {
+        const chart = new Chart(canvas, {
             type: 'bar',
             data: {
                 labels: labels,
@@ -258,17 +475,19 @@ document.addEventListener('DOMContentLoaded', () => {
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                cursor: 'pointer',
                 plugins: {
                     legend: { display: false },
                     tooltip: {
                         callbacks: {
                             label: function (context) {
-                                let label = context.dataset.label || '';
-                                if (label) { label += ': '; }
-                                if (context.parsed.y !== null) {
-                                    label += new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(context.parsed.y * 1e12);
-                                }
-                                return label;
+                                const idx = context.dataIndex;
+                                const numC = data[idx] ? data[idx].num_contratos : 0;
+                                const val = context.parsed.y;
+                                return [
+                                    `Valor: $${val.toLocaleString('es-CO', {minimumFractionDigits: 3})}B COP`,
+                                    `Contratos: ${numC} · Click para ver detalle`
+                                ];
                             }
                         }
                     }
@@ -283,9 +502,26 @@ document.addEventListener('DOMContentLoaded', () => {
                         grid: { display: false },
                         ticks: { color: '#e6edf3' }
                     }
+                },
+                onClick: async (event, elements) => {
+                    if (!elements.length) return;
+                    const idx = elements[0].index;
+                    const periodo = labels[idx];
+                    // Para el modal usa su div dedicado; para inline usa el chart-container
+                    const modalDetalle = document.getElementById('timeline-modal-detalle');
+                    const container = modalDetalle && canvas.closest('.timeline-modal-body')
+                        ? modalDetalle
+                        : (canvas.closest('.chart-container') || canvas.parentElement);
+                    const detalles = await fetchDetalleContratos(nit);
+                    const periodoData = detalles ? (detalles[periodo] || []) : [];
+                    mostrarTablaDetalle(container, periodoData, periodo, nit);
                 }
             }
         });
+
+        // Cursor pointer al pasar sobre barras
+        canvas.style.cursor = 'pointer';
+        return chart;
     };
 
     // Modal: abre la gráfica de contratos en el tiempo para un NIT
@@ -293,9 +529,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const modal = document.getElementById('timeline-modal');
         document.getElementById('timeline-modal-title').textContent = `${nombre} · NIT ${nit}`;
 
-        if (window._modalChart) {
-            window._modalChart.destroy();
-            window._modalChart = null;
+        if (_modalChart) {
+            _modalChart.destroy();
+            _modalChart = null;
         }
 
         // Reemplazar canvas para evitar el error "Canvas is already in use"
@@ -304,10 +540,15 @@ document.addEventListener('DOMContentLoaded', () => {
         newCanvas.id = 'timeline-modal-canvas';
         oldCanvas.parentNode.replaceChild(newCanvas, oldCanvas);
 
+        // Limpiar tabla de detalle anterior
+        const detalleDiv = document.getElementById('timeline-modal-detalle');
+        if (detalleDiv) detalleDiv.innerHTML = '';
+
         modal.classList.remove('hidden');
+        void modal.offsetHeight; // fuerza reflow síncrono antes de que Chart.js mida
         document.body.style.overflow = 'hidden';
 
-        window._modalChart = renderTimelineGraph(newCanvas, nit);
+        _modalChart = renderTimelineGraph(newCanvas, nit);
     };
 
     // Cerrar modal al pulsar backdrop, botón X o Escape
@@ -324,6 +565,17 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = '';
         }
     });
+
+    // Escapa caracteres HTML para prevenir XSS en strings de datos externos
+    const escapeHtml = (str) => {
+        if (str === null || str === undefined) return '';
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    };
 
     // 3b. Renderizar narrativas para periodistas
     const renderNarrativas = (data) => {
@@ -343,13 +595,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const buildVerificar = (n) => {
             const tipo = n.tipo;
             if (tipo === 'autocontratacion') {
-                return `<strong>Cómo verificarlo:</strong> Busca el contrato <a href="${SECOP_URL}" target="_blank">${n.contrato_id || ''}</a> en Colombia Compra Eficiente y compara "Ordenador del gasto" con "Representante legal".`;
+                return `<strong>Cómo verificarlo:</strong> Busca el contrato <a href="${SECOP_URL}" target="_blank" rel="noopener noreferrer">${escapeHtml(n.contrato_id || '')}</a> en Colombia Compra Eficiente y compara "Ordenador del gasto" con "Representante legal".`;
             } else if (tipo === 'nepotismo') {
-                return `<strong>Cómo verificarlo:</strong> Busca la cédula <code>${n.doc_ordenador || ''}</code> como ordenador en el buscador avanzado del SECOP II y filtra por contratista.`;
+                return `<strong>Cómo verificarlo:</strong> Busca la cédula <code>${escapeHtml(n.doc_ordenador || '')}</code> como ordenador en el buscador avanzado del SECOP II y filtra por contratista.`;
             } else if (tipo === 'carrusel') {
-                return `<strong>Cómo verificarlo:</strong> Busca el NIT <code>${n.doc_id || ''}</code> en <a href="${SECOP_URL}" target="_blank">SECOP II</a> y revisa las entidades que lo han contratado.`;
+                return `<strong>Cómo verificarlo:</strong> Busca el NIT <code>${escapeHtml(n.doc_id || '')}</code> en <a href="${SECOP_URL}" target="_blank" rel="noopener noreferrer">SECOP II</a> y revisa las entidades que lo han contratado.`;
             } else {
-                return `<strong>Cómo verificarlo:</strong> Busca el contrato <a href="${SECOP_URL}" target="_blank">${n.contrato_id || ''}</a> en Colombia Compra Eficiente y revisa las modificaciones.`;
+                return `<strong>Cómo verificarlo:</strong> Busca el contrato <a href="${SECOP_URL}" target="_blank" rel="noopener noreferrer">${escapeHtml(n.contrato_id || '')}</a> en Colombia Compra Eficiente y revisa las modificaciones.`;
             }
         };
 
@@ -361,13 +613,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const buildMeta = (n) => {
             const chips = [];
-            const nombre = n.funcionario || n.ordenador || n.contratista || n.entidad || '';
-            if (nombre) chips.push(nombre.length > 35 ? nombre.slice(0, 35) + '…' : nombre);
-            if (n.valor_m) chips.push(`$${(n.valor_m / 1000).toFixed(1)}B COP`);
-            if (n.valor_b) chips.push(`$${n.valor_b}B COP`);
-            if (n.contratos) chips.push(`${n.contratos} contratos`);
-            if (n.entidades) chips.push(`${n.entidades} entidades`);
-            if (n.dias_prorroga) chips.push(`${n.dias_prorroga} días prórroga`);
+            const nombreRaw = n.funcionario || n.ordenador || n.contratista || n.entidad || '';
+            const nombre = escapeHtml(nombreRaw.length > 35 ? nombreRaw.slice(0, 35) + '…' : nombreRaw);
+            if (nombre) chips.push(nombre);
+            if (n.valor_m) chips.push(`$${(parseFloat(n.valor_m) / 1000).toFixed(1)}B COP`);
+            if (n.valor_b) chips.push(`$${escapeHtml(String(n.valor_b))}B COP`);
+            if (n.contratos) chips.push(`${parseInt(n.contratos, 10)} contratos`);
+            if (n.entidades) chips.push(`${parseInt(n.entidades, 10)} entidades`);
+            if (n.dias_prorroga) chips.push(`${parseInt(n.dias_prorroga, 10)} días prórroga`);
 
             const fi = fmtFecha(n.fecha_inicio);
             const ff = fmtFecha(n.fecha_fin);
@@ -393,15 +646,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const paginatedItems = items.slice(start, end);
 
             grid.innerHTML = paginatedItems.map(n => {
-                const lbl = LABELS[n.tipo] || { icon: '📋', texto: n.tipo };
-                const nit = n.doc_id || '';
-                const nombre = (n.contratista || n.funcionario || n.entidad || 'Caso detectado').replace(/"/g, '&quot;');
+                const lbl = LABELS[n.tipo] || { icon: '📋', texto: escapeHtml(n.tipo) };
+                const nit = escapeHtml(n.doc_id || '');
+                const nombre = escapeHtml(n.contratista || n.funcionario || n.entidad || 'Caso detectado');
+                // narrativa y verificar pueden contener HTML controlado (buildVerificar genera links propios)
+                // pero los campos de texto del dataset se escapan antes de insertarse
+                const tituloDisplay = escapeHtml(n.funcionario || n.contratista || n.entidad || 'Caso detectado');
+                const narrativaEscapada = escapeHtml(n.narrativa);
                 return `
-                <div class="narrativa-card tipo-${n.tipo}" data-tipo="${n.tipo}" data-nit="${nit}" data-nombre="${nombre}">
-                    <span class="narrativa-badge ${n.tipo}">${lbl.icon} ${lbl.texto}</span>
-                    <div class="narrativa-titulo">${n.funcionario || n.contratista || n.entidad || 'Caso detectado'}</div>
+                <div class="narrativa-card tipo-${escapeHtml(n.tipo)}" data-tipo="${escapeHtml(n.tipo)}" data-nit="${nit}" data-nombre="${nombre}">
+                    <span class="narrativa-badge ${escapeHtml(n.tipo)}">${lbl.icon} ${lbl.texto}</span>
+                    <div class="narrativa-titulo">${tituloDisplay}</div>
                     <div class="narrativa-meta">${buildMeta(n)}</div>
-                    <p class="narrativa-texto">${n.narrativa}</p>
+                    <p class="narrativa-texto">${narrativaEscapada}</p>
                     <div class="narrativa-verificar">${buildVerificar(n)}</div>
                     ${nit ? '<div class="narrativa-chart-hint">📊 Ver gráfica de contratos</div>' : ''}
                 </div>`;
@@ -473,46 +730,73 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!tbody) return;
         tbody.innerHTML = '';
 
+        // Actualizar data-sort en los headers para que coincidan con los campos reales del JSON
+        const sortMap = {
+            'entidad': 'entidad_nombre',
+            'contratista': 'contratista_nombre',
+            'contrato_id': 'ct.id',
+            'dias_prorroga': 'ct.dias_adicionados',
+            'valor_m': 'ct.valor'
+        };
+        document.querySelectorAll('#table-sobrecostos th[data-sort]').forEach(th => {
+            const oldKey = th.getAttribute('data-sort');
+            if (sortMap[oldKey]) th.setAttribute('data-sort', sortMap[oldKey]);
+        });
+
         data.forEach(row => {
             const tr = document.createElement('tr');
 
-            // Entidad
+            // Entidad — el JSON puede traer placeholder 'Entidad (NIT: N/A)' si Neo4j no tiene el nombre
             let td = document.createElement('td');
-            td.textContent = row.entidad || row.entidad_nombre || 'N/A';
+            const entidadNombre = row.entidad_nombre || row.entidad || '';
+            td.textContent = (entidadNombre && !entidadNombre.startsWith('Entidad (NIT'))
+                ? entidadNombre
+                : (row.display_name && row.display_name !== 'Desconocido' ? row.display_name : 'Sin nombre');
             tr.appendChild(td);
 
             // Contratista
             td = document.createElement('td');
-            td.textContent = row.contratista || row.contratista_nombre || 'N/A';
+            const contratistaNombre = row.contratista_nombre || row.contratista || '';
+            td.textContent = (contratistaNombre && !contratistaNombre.startsWith('Contratista (DOC'))
+                ? contratistaNombre
+                : (row.display_name && row.display_name !== 'Desconocido' ? row.display_name : 'Sin nombre');
             tr.appendChild(td);
 
-            // ID
+            // ID Contrato
             td = document.createElement('td');
             td.className = 'mono';
-            td.textContent = row.contrato_id || row['ct.id'] || 'N/A';
+            td.textContent = row['ct.id'] || row.contrato_id || 'N/A';
             tr.appendChild(td);
 
             // Días extra con badge
             td = document.createElement('td');
-            const dias = parseInt(row.dias_prorroga || row['ct.dias_adicionados']) || 0;
+            const dias = parseInt(row['ct.dias_adicionados'] || row.dias_prorroga) || 0;
             let badgeClass = 'badge-orange';
             if (dias > 365) badgeClass = 'badge-red';
-            td.innerHTML = `<span class="badge ${badgeClass}">${dias} días</span>`;
+            td.innerHTML = `<span class="badge ${badgeClass}">${dias.toLocaleString('es-CO')} días</span>`;
             tr.appendChild(td);
 
-            // Valor (valor_m = millones, valor_b = billones)
+            // Valor en COP — el JSON trae ct.valor en pesos, convertimos a billones para consistencia
             td = document.createElement('td');
-            const val = row.valor_m ? row.valor_m / 1000 : (parseFloat(row['ct.valor_b']) || 0);
-            td.innerHTML = `<strong>$${val.toLocaleString('es-CO', { minimumFractionDigits: 1 })}B COP</strong>
-                <div class="valor-usd">${formatUSD(val)}</div>`;
+            const valorCOP = parseFloat(row['ct.valor']) || 0;
+            const valorB = valorCOP / 1e12;
+            const valorM = valorCOP / 1e6;
+            // Si el valor es >= 1 billón mostramos en B, si no en M
+            if (valorB >= 0.001) {
+                td.innerHTML = `<strong>$${valorB.toLocaleString('es-CO', { minimumFractionDigits: 3 })}B COP</strong>
+                    <div class="valor-usd">${formatUSD(valorB)}</div>`;
+            } else {
+                td.innerHTML = `<strong>$${Math.round(valorM).toLocaleString('es-CO')} M COP</strong>
+                    <div class="valor-usd">${formatUSD(valorB)}</div>`;
+            }
             tr.appendChild(td);
 
-            // Objeto (truncado con tooltip)
+            // Objeto (truncado con tooltip nativo)
             td = document.createElement('td');
-            const objTxt = row.objeto || row['ct.objeto'] || 'Sin descripción';
-            if (objTxt.length > 50) {
-                td.textContent = objTxt.substring(0, 50) + '...';
-                td.title = objTxt; // nativo tooltip
+            const objTxt = row['ct.objeto'] || row.objeto || 'Sin descripción';
+            if (objTxt.length > 60) {
+                td.textContent = objTxt.substring(0, 60) + '…';
+                td.title = objTxt;
             } else {
                 td.textContent = objTxt;
             }
@@ -521,7 +805,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tbody.appendChild(tr);
         });
 
-        setupTableSorting('table-sobrecostos', data, ['entidad', 'contratista', 'contrato_id', 'dias_prorroga', 'valor_m'], false, renderSobrecostosTable);
+        setupTableSorting('table-sobrecostos', data, ['entidad_nombre', 'contratista_nombre', 'ct.id', 'ct.dias_adicionados', 'ct.valor'], false, renderSobrecostosTable);
     };
 
     // 5. Ordenamiento de Tablas
@@ -601,7 +885,7 @@ document.addEventListener('DOMContentLoaded', () => {
             resultsContainer.innerHTML = '';
 
             if (results.length === 0) {
-                resultsContainer.innerHTML = '<div class="search-item"><div class="search-item-title text-secondary">No se encontraron resultados para "' + query + '"</div></div>';
+                resultsContainer.innerHTML = '<div class="search-item"><div class="search-item-title text-secondary">No se encontraron resultados para "' + escapeHtml(query) + '"</div></div>';
             } else {
                 results.forEach(item => {
                     const div = document.createElement('div');
@@ -612,22 +896,24 @@ document.addEventListener('DOMContentLoaded', () => {
                     let badgeClass = '';
 
                     if (item._type === 'Carrusel') {
-                        title = item.display_name || 'Desconocido';
-                        desc = `NIT: ${item['c.doc_id'] || 'N/A'} - ${item.entidades_distintas} Entidades - ${item.total_contratos} Contratos`;
+                        title = escapeHtml(item.display_name || 'Desconocido');
+                        desc = escapeHtml(`NIT: ${item['c.doc_id'] || 'N/A'} - ${item.entidades_distintas} Entidades - ${item.total_contratos} Contratos`);
                         badgeClass = 'badge-carrusel';
                     } else if (item._type === 'Nepotismo') {
-                        title = `${item.p?.nombre_display || item['p.nombre']} ↔ ${item._nombre_contratista_display || item.display_name}`;
-                        desc = `CC: ${item['p.doc_id'] || 'N/A'} - Contratos juntos: ${item.contratos_juntos}`;
+                        title = escapeHtml(`${item.p?.nombre_display || item['p.nombre'] || ''} ↔ ${item._nombre_contratista_display || item.display_name || ''}`);
+                        desc = escapeHtml(`CC: ${item['p.doc_id'] || 'N/A'} - Contratos juntos: ${item.contratos_juntos}`);
                         badgeClass = 'badge-nepotismo';
                     } else if (item._type === 'Sobrecosto') {
-                        title = item.contratista || item.contratista_nombre || 'Desconocido';
-                        desc = `ID: ${item.contrato_id || item['ct.id']} - ${item.dias_prorroga || item['ct.dias_adicionados']} días extra - Entidad: ${item.entidad || item.entidad_nombre}`;
+                        const cNombre = item['ct.contratista'] || item.contratista_nombre || item.contratista || '';
+                        title = escapeHtml(cNombre && !cNombre.startsWith('Contratista (DOC') ? cNombre : (item['ct.id'] || 'Desconocido'));
+                        const eNombre = item['ct.entidad'] || item.entidad_nombre || item.entidad || '';
+                        desc = escapeHtml(`ID: ${item['ct.id'] || item.contrato_id || 'N/A'} — ${item['ct.dias_adicionados'] || item.dias_prorroga || 0} días extra — Entidad: ${eNombre && !eNombre.startsWith('Entidad (NIT') ? eNombre : 'Sin nombre'}`);
                         badgeClass = 'badge-sobrecosto';
                     }
 
                     div.innerHTML = `
                         <div>
-                            <div class="search-item-title">${title} <span class="badge ${badgeClass}">${item._type}</span></div>
+                            <div class="search-item-title">${title} <span class="badge ${badgeClass}">${escapeHtml(item._type)}</span></div>
                             <div class="search-item-desc mono">${desc}</div>
                         </div>
                     `;
@@ -666,9 +952,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Let's assume the build script moved them or we fetch them relative.
                 // It's safer to fetch the JSONs we already have and convert them to CSV string here using JSZip
                 const [carruselRes, nepotismoRes, sobrecostosRes] = await Promise.all([
-                    fetch('data/carrusel.json'),
-                    fetch('data/nepotismo.json'),
-                    fetch('data/sobrecostos.json')
+                    fetch('/static_dashboard/data/carrusel.json'),
+                    fetch('/static_dashboard/data/nepotismo.json'),
+                    fetch('/static_dashboard/data/sobrecostos.json')
                 ]);
 
                 const c_data = await carruselRes.json();
@@ -893,6 +1179,25 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('periodistas').scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
     };
+
+    // ── Menú hamburguesa (mobile) ────────────────────────────────────────────────
+    const hamburger = document.getElementById('nav-hamburger');
+    const navLinks  = document.getElementById('nav-links');
+    if (hamburger && navLinks) {
+        hamburger.addEventListener('click', () => {
+            const isOpen = navLinks.classList.toggle('open');
+            hamburger.setAttribute('aria-expanded', String(isOpen));
+            hamburger.setAttribute('aria-label', isOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación');
+        });
+        // Cerrar menú al hacer click en un enlace
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                hamburger.setAttribute('aria-expanded', 'false');
+                hamburger.setAttribute('aria-label', 'Abrir menú de navegación');
+            });
+        });
+    }
 
     // Init
     loadData();

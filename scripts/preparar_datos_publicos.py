@@ -1,6 +1,7 @@
 import json
 import os
 import csv
+import gzip
 from datetime import datetime
 import re
 
@@ -9,6 +10,7 @@ INPUT_FILE = "reports/anomalias_con_fechas.json"
 DASHBOARD_DIR = "dashboard/data"
 CSV_DIR = "reports/csv"
 REPORT_DIR = "reports"
+SECOP2_DIR = "data/secop2_contratos"
 
 # Crear directorios si no existen
 os.makedirs(DASHBOARD_DIR, exist_ok=True)
@@ -105,6 +107,33 @@ def filter_lista(lista, max_items=50, is_person=False):
             
     return cleaned
 
+def buscar_nombres_secop2(target_ids):
+    """Busca entidad_nombre y contratista_nombre en SECOP II por id_contrato.
+    Devuelve dict {id_contrato: {entidad, contratista}}."""
+    resultado = {}
+    if not os.path.isdir(SECOP2_DIR):
+        print(f"  ADVERTENCIA: no se encontró {SECOP2_DIR}, los nombres de sobrecosto quedarán vacíos.")
+        return resultado
+    remaining = set(target_ids)
+    chunks = sorted(f for f in os.listdir(SECOP2_DIR) if f.endswith(".csv.gz"))
+    print(f"  Buscando {len(remaining)} IDs en {len(chunks)} chunks de SECOP II...")
+    for chunk in chunks:
+        if not remaining:
+            break
+        path = os.path.join(SECOP2_DIR, chunk)
+        with gzip.open(path, "rt", encoding="utf-8", errors="replace") as gz:
+            reader = csv.DictReader(gz)
+            for row in reader:
+                cid = (row.get("id_contrato") or "").strip()
+                if cid in remaining:
+                    entidad = (row.get("nombre_entidad") or "").strip().title()
+                    contratista = (row.get("proveedor_adjudicado") or "").strip().title()
+                    resultado[cid] = {"entidad": entidad, "contratista": contratista}
+                    remaining.discard(cid)
+    print(f"  Nombres resueltos: {len(resultado)}/{len(target_ids)} ({len(remaining)} sin coincidencia en SECOP II)")
+    return resultado
+
+
 def generate_csv(data, filename, columns):
     """Genera un archivo CSV."""
     with open(f"{CSV_DIR}/{filename}", "w", encoding="utf-8", newline="") as f:
@@ -128,13 +157,22 @@ def main():
     nepotismo = anomalias.get("nepotismo_ordenador_recurrente", [])
     sobrecostos = anomalias.get("sobrecosto_prorrogado", [])
     
+    # Sumar valores puros de las grandes categorías en billones
+    total_val_carrusel_b = round(sum(to_billions(c.get("total_valor", 0) or 0) for c in carrusel), 2)
+    total_val_nepotismo_b = round(sum(to_billions(n.get("valor_total", 0) or 0) for n in nepotismo), 2)
+    total_val_sobrecostos_b = round(sum(to_billions(s.get("ct.valor", 0) or 0) for s in sobrecostos), 2)
+    
     dashboard_stats = {
         "fecha": crudo.get("metadata", {}).get("fecha_generacion", "2026-03-05"),
         "total_contratos": stats.get("total_relaciones", 52000000), # Relaciones ~= contratos
         "valor_total_b": to_billions(stats.get("valor_total_contratos", 0)),
         "casos_carrusel": len(carrusel),
         "casos_nepotismo": len(nepotismo),
-        "casos_sobrecosto": len(sobrecostos)
+        "casos_sobrecosto": len(sobrecostos),
+        "presupuesto_origen_nota": "Fondos del Presupuesto General de la República, Regalías y Presupuesto de Entidades Territoriales ejecutados mediante SECOP.",
+        "total_val_carrusel_b": total_val_carrusel_b,
+        "total_val_nepotismo_b": total_val_nepotismo_b,
+        "total_val_sobrecostos_b": total_val_sobrecostos_b
     }
     
     # 2. PROCESAR CATEGORÍAS (TOP 50)
@@ -145,7 +183,25 @@ def main():
     nepotismo_top = filter_lista(nepotismo, 50, is_person=True)
     
     print("Procesando Sobrecostos...")
+    # Obtener nombres reales desde SECOP II antes de filter_lista (que los normaliza)
+    sobrecosto_ids = [s.get("ct.id", "") for s in sobrecostos if s.get("ct.id")]
+    nombres_secop2 = buscar_nombres_secop2(sobrecosto_ids)
+    # Inyectar nombres resueltos en los registros crudos antes de procesar
+    for s in sobrecostos:
+        ct_id = (s.get("ct.id") or "").strip()
+        if ct_id and ct_id in nombres_secop2:
+            if not s.get("entidad_nombre"):
+                s["entidad_nombre"] = nombres_secop2[ct_id]["entidad"]
+            if not s.get("contratista_nombre"):
+                s["contratista_nombre"] = nombres_secop2[ct_id]["contratista"]
     sobrecostos_top = filter_lista(sobrecostos, 50)
+    # Limpiar placeholders residuales: dejar cadena vacía en lugar de "Desconocido"
+    # para que el dashboard muestre "Sin nombre" de forma uniforme.
+    for s in sobrecostos_top:
+        if s.get("entidad_nombre") in ["Desconocido", None, ""]:
+            s["entidad_nombre"] = ""
+        if s.get("contratista_nombre") in ["Desconocido", None, ""]:
+            s["contratista_nombre"] = ""
 
     # 3. GUARDAR JSONs DASHBOARD
     with open(f"{DASHBOARD_DIR}/stats.json", "w", encoding="utf-8") as f:

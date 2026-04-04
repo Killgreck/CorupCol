@@ -20,7 +20,7 @@
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.7), 0 4px 6px -2px rgba(0, 0, 0, 0.5);
 
-    --transition: all 0.3s ease;
+    --transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     --font-ui: 'Inter', system-ui, -apple-system, sans-serif;
     --font-mono: 'JetBrains Mono', Consolas, monospace;
 }
@@ -115,6 +115,8 @@ a:hover {
     top: 0;
     z-index: 100;
     padding: 1rem 0;
+    /* Necesario para que el menú mobile (.nav-links.open) se posicione correctamente */
+    isolation: isolate;
 }
 
 .navbar .container {
@@ -856,9 +858,7 @@ th.sorted-asc .sort-icon {
         font-size: 1rem;
     }
 
-    .nav-links {
-        display: none;
-    }
+    /* .nav-links se controla via .open en JS; el default mobile está en las reglas del hamburger */
 
     .section-title {
         font-size: 2rem;
@@ -1309,15 +1309,22 @@ select.search-input:disabled {
 }
 
 .timeline-modal-body {
-    flex: 1;
+    flex-shrink: 0;
     padding: 1.5rem;
-    height: 360px;
+    height: 300px;
     position: relative;
 }
 
 .timeline-modal-body canvas {
     width: 100% !important;
     height: 100% !important;
+}
+
+#timeline-modal-detalle {
+    overflow-y: auto;
+    max-height: 420px;
+    border-top: 1px solid var(--border-color);
+    flex-shrink: 0;
 }
 
 .timeline-modal-footer {
@@ -1355,4 +1362,227 @@ select.search-input:disabled {
     font-size: 0.85rem;
     color: var(--text-secondary);
     font-family: var(--font-mono);
+}
+
+/* ── Banner de aviso (próximamente) ────────────────────────────────────────── */
+.banner-aviso {
+    background: #2d1a00;
+    border-bottom: 2px solid var(--color-naranja);
+    padding: 14px 0;
+    text-align: center;
+    font-size: 0.95rem;
+    color: var(--color-naranja);
+    letter-spacing: 0.03em;
+}
+
+/* ── Gráfica de presupuesto (donut) ─────────────────────────────────────────── */
+.budget-chart-wrapper {
+    max-width: 600px;
+    margin: 40px auto 0;
+    background: rgba(22, 27, 34, 0.6);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #30363d;
+}
+
+.budget-chart-title {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
+
+.budget-chart-canvas-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+}
+
+/* ── Banner de error al cargar datos ────────────────────────────────────────── */
+.error-banner {
+    background: rgba(230, 57, 70, 0.1);
+    border: 1px solid rgba(230, 57, 70, 0.4);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    color: var(--color-alerta);
+    text-align: center;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+}
+
+/* ── Hamburger menu (mobile) ────────────────────────────────────────────────── */
+.nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.nav-hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--text-secondary);
+    border-radius: 2px;
+    transition: background-color 0.2s;
+}
+
+.nav-hamburger:hover span {
+    background-color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+    .nav-hamburger {
+        display: flex;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: rgba(13, 17, 23, 0.97);
+        border-bottom: 1px solid var(--border-color);
+        flex-direction: column;
+        padding: 1rem 1.5rem;
+        gap: 1rem;
+        z-index: 99;
+    }
+
+    .nav-links.open {
+        display: flex;
+    }
+}
+
+/* ── Accesibilidad: reducir movimiento ──────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ── Tabla de detalle de contratos (drill-down en línea de tiempo) ──────────── */
+.detalle-contratos-wrapper {
+    margin-top: 1rem;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(13, 17, 23, 0.9);
+    animation: fadeIn 0.2s ease;
+}
+
+.detalle-contratos-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: rgba(56, 139, 253, 0.1);
+    border-bottom: 1px solid #30363d;
+    font-size: 0.9rem;
+    color: #c9d1d9;
+}
+
+.detalle-close-btn {
+    background: transparent;
+    border: 1px solid #30363d;
+    color: #8b949e;
+    border-radius: 4px;
+    padding: 0.2rem 0.6rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background 0.15s;
+}
+.detalle-close-btn:hover {
+    background: rgba(230, 57, 70, 0.15);
+    color: #da3633;
+    border-color: #da3633;
+}
+
+.detalle-table-scroll {
+    overflow-x: auto;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.detalle-contratos-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+    color: #c9d1d9;
+}
+
+.detalle-contratos-table thead th {
+    position: sticky;
+    top: 0;
+    background: #161b22;
+    color: #8b949e;
+    font-weight: 600;
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #30363d;
+    white-space: nowrap;
+    z-index: 1;
+}
+
+.detalle-contratos-table tbody tr {
+    border-bottom: 1px solid rgba(48, 54, 61, 0.6);
+    transition: background 0.1s;
+}
+
+.detalle-contratos-table tbody tr:hover {
+    background: rgba(56, 139, 253, 0.06);
+}
+
+.detalle-contratos-table tbody td {
+    padding: 0.5rem 0.75rem;
+    vertical-align: top;
+    max-width: 260px;
+}
+
+.detalle-objeto {
+    max-width: 260px;
+    white-space: normal;
+    line-height: 1.4;
+    font-size: 0.78rem;
+    color: #e6edf3;
+}
+
+.detalle-link {
+    color: #388bfd;
+    text-decoration: none;
+    font-size: 0.78rem;
+    white-space: nowrap;
+}
+.detalle-link:hover {
+    text-decoration: underline;
+}
+
+.detalle-sin-datos {
+    padding: 1rem;
+    color: #8b949e;
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+.badge-green {
+    background: rgba(46, 160, 67, 0.15);
+    color: #3fb950;
+    border: 1px solid rgba(46, 160, 67, 0.4);
+    border-radius: 4px;
+    padding: 0.1rem 0.4rem;
+    font-size: 0.75rem;
+    white-space: nowrap;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
 }

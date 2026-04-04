@@ -47,7 +47,7 @@ QUERIES = {
     MATCH (ct:Contrato)
     WHERE ct.dias_adicionados > 180 AND ct.valor > 100000000
     MATCH (e:Entidad)-[:FIRMÓ]->(ct)<-[:GANÓ]-(c:Contratista)
-    RETURN e.nombre AS entidad_nombre, c.nombre AS contratista_nombre, ct.id, ct.valor, ct.dias_adicionados, ct.objeto
+    RETURN e.nombre AS entidad_nombre, e.nit AS entidad_nit, c.nombre AS contratista_nombre, c.doc_id AS contratista_doc_id, ct.id, ct.valor, ct.dias_adicionados, ct.objeto
     ORDER BY ct.dias_adicionados DESC LIMIT 100
     """
 }

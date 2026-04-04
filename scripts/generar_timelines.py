@@ -11,6 +11,7 @@ from grafo.config import db
 
 DASHBOARD_DIR = os.path.join(parent_dir, "dashboard", "data")
 CARRUSEL_FILE = os.path.join(DASHBOARD_DIR, "carrusel.json")
+NEPOTISMO_FILE = os.path.join(DASHBOARD_DIR, "nepotismo.json")
 OUTPUT_FILE = os.path.join(DASHBOARD_DIR, "timelines.json")
 
 def to_billions(value):
@@ -27,12 +28,21 @@ def main():
         print("No se encontró carrusel.json")
         return
 
+    try:
+        with open(NEPOTISMO_FILE, "r", encoding="utf-8") as f:
+            nepotismo_data = json.load(f)
+    except FileNotFoundError:
+        print("No se encontró nepotismo.json")
+        nepotismo_data = []
+
     nits = [item["c.doc_id"] for item in carrusel_data if "c.doc_id" in item]
-    if not nits:
-        print("No se encontraron NITs en carrusel.json")
+    nits_nepotismo = [item["p.doc_id"] for item in nepotismo_data if "p.doc_id" in item]
+    
+    if not nits and not nits_nepotismo:
+        print("No se encontraron NITs ni CCs válidos")
         return
         
-    print(f"Buscando timelines para {len(nits)} contratistas...")
+    print(f"Buscando timelines para {len(nits)} contratistas y {len(nits_nepotismo)} ordenadores...")
 
     query = """
     UNWIND $nits AS target_nit
@@ -73,29 +83,72 @@ def main():
                 "contrato_id": record["contrato_id"]
             })
 
+        # --- SEGUNDA FASE: NEPOTISMO ---
+        if nits_nepotismo:
+            print("Asegurando índice en doc_id de Persona...")
+            session.run("CREATE INDEX persona_doc_id_idx IF NOT EXISTS FOR (p:Persona) ON (p.doc_id)")
+            
+            query_nepotismo = """
+            UNWIND $nits AS target_doc_id
+            MATCH (p:Persona {doc_id: target_doc_id})-[:ORDENÓ]->(ct:Contrato)
+            RETURN p.doc_id AS nit, ct.fecha_firma AS fecha, ct.valor AS valor, ct.id AS contrato_id
+            ORDER BY fecha
+            """
+            print(f"Ejecutando query de nepotismo...")
+            result_nep = session.run(query_nepotismo, nits=nits_nepotismo)
+            for record in result_nep:
+                nit = record["nit"]
+                fecha = record["fecha"]
+                valor = record["valor"]
+                if hasattr(fecha, 'isoformat'):
+                    fecha = fecha.isoformat()
+                
+                if fecha and len(str(fecha)) >= 7:
+                    mes_str = str(fecha)[:7]
+                else:
+                    mes_str = "Desconocido"
+
+                if nit not in timelines:
+                    timelines[nit] = []
+                    
+                timelines[nit].append({
+                    "fecha": mes_str,
+                    "valor": valor or 0,
+                    "contrato_id": record["contrato_id"]
+                })
+
     # Ahora agregamos los datos por mes/año
     aggregated_timelines = {}
     for nit, records in timelines.items():
         # Agrupar por mes o año. Vamos a agrupar por año-mes.
         grouped = {}
         for r in records:
-            mes = r["fecha"]
+            mes = r["fecha"] if r["fecha"] != "Desconocido" else "Sin Fecha"
             val_b = (r["valor"] / 1_000_000_000_000)  # Convert to billones for display? No, better keep it as is or Billions. Let's send Billions to match UI.
             if mes not in grouped:
                 grouped[mes] = {"valor_total_b": 0, "num_contratos": 0}
             grouped[mes]["valor_total_b"] += val_b
             grouped[mes]["num_contratos"] += 1
             
-        # Convert to sorted list
-        sorted_keys = sorted(grouped.keys())
-        aggregated_timelines[nit] = [
-            {
+        # Convert to sorted list con "Sin Fecha" al comienzo
+        sorted_keys = sorted([k for k in grouped.keys() if k != "Sin Fecha"])
+        final_list = []
+        
+        if "Sin Fecha" in grouped:
+            final_list.append({
+                "fecha": "Sin Fecha",
+                "valor_total_b": round(grouped["Sin Fecha"]["valor_total_b"], 4),
+                "num_contratos": grouped["Sin Fecha"]["num_contratos"]
+            })
+            
+        for k in sorted_keys:
+            final_list.append({
                 "fecha": k,
                 "valor_total_b": round(grouped[k]["valor_total_b"], 4),
                 "num_contratos": grouped[k]["num_contratos"]
-            }
-            for k in sorted_keys if k != "Desconocido"
-        ]
+            })
+            
+        aggregated_timelines[nit] = final_list
 
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump(aggregated_timelines, f, indent=2, ensure_ascii=False)

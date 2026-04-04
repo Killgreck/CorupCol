@@ -3,8 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-width=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/dashboard/">
     <title>CorupCol - Anticorrupción Colombia</title>
+    <meta name="description" content="17.8 millones de contratos públicos colombianos analizados con inteligencia artificial para detectar patrones de corrupción sistemática en el Estado colombiano.">
+    <meta property="og:title" content="CorupCol - Anticorrupción Colombia">
+    <meta property="og:description" content="Análisis de 17.8M contratos públicos (SECOP I/II, 2000–2026) con IA y grafos para detectar corrupción sistemática.">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>">
 
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,11 +20,15 @@
         rel="stylesheet">
 
     <!-- Estilos locales -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=4">
 
     <!-- D3 y JSZip CDN -->
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"
+        integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i"
+        crossorigin="anonymous" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"
+        integrity="sha384-+mbV2IY1Zk/X1p/nWllGySJSUN8uMs+gUAN10Or95UBH0fpj6GfKgPmgC5EXieXG"
+        crossorigin="anonymous" defer></script>
 </head>
 
 <body>
@@ -28,7 +38,10 @@
                 <span class="logo-icon">🔍</span>
                 <span class="logo-text">CorupCol</span>
             </div>
-            <nav class="nav-links">
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="nav-links">
+                <span></span><span></span><span></span>
+            </button>
+            <nav class="nav-links" id="nav-links">
                 <a href="#stats">Métricas</a>
                 <a href="#periodistas">📰 Hallazgos</a>
                 <a href="#red">Red Vínculos</a>
@@ -43,8 +56,7 @@
 
     <main>
         <!-- Banner próximamente -->
-        <div
-            style="background: #2d1a00; border-bottom: 2px solid var(--color-naranja); padding: 14px 0; text-align: center; font-size: 0.95rem; color: var(--color-naranja); letter-spacing: 0.03em;">
+        <div class="banner-aviso">
             🔒 Los hallazgos detallados serán publicados próximamente a través de un medio periodístico verificado.
             &nbsp;|&nbsp; Los datos provienen de fuentes oficiales del Estado colombiano (SECOP I/II — datos.gov.co).
         </div>
@@ -66,10 +78,19 @@
                         <div class="stat-value" id="counter-valor">$0</div>
                         <div class="stat-label">Valor Total Rastreable</div>
                         <div class="stat-usd" id="counter-valor-usd" title="Cargando tasa real...">cargando USD…</div>
+                        <div class="stat-source text-secondary mono" id="budget-source" style="font-size: 0.8rem; margin-top: 10px; line-height: 1.2;"></div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value" id="counter-anomalias">0</div>
                         <div class="stat-label">Anomalías Detectadas</div>
+                    </div>
+                </div>
+
+                <!-- Nueva gráfica Doughnut del presupuesto -->
+                <div class="budget-chart-wrapper hidden" id="budget-chart-wrapper">
+                    <h3 class="budget-chart-title">Distribución del Presupuesto Rastreable</h3>
+                    <div class="budget-chart-canvas-container">
+                        <canvas id="budget-donut-chart"></canvas>
                     </div>
                 </div>
             </div>
@@ -153,7 +174,7 @@
                         <button id="btn-aplicar-filtros" class="btn-primary"
                             style="flex: 2; padding: 1rem;">Filtrar</button>
                         <button id="btn-limpiar-filtros" class="btn-secondary" style="flex: 1; padding: 1rem;"
-                            title="Limpiar Filtros">✕</button>
+                            title="Limpiar Filtros" aria-label="Limpiar filtros">✕</button>
                     </div>
                 </div>
 
@@ -233,7 +254,7 @@
                     </div>
                     <div id="d3-graph" class="d3-wrapper"></div>
                     <div id="node-sidebar" class="node-sidebar hidden">
-                        <button class="close-sidebar">&times;</button>
+                        <button class="close-sidebar" aria-label="Cerrar panel de detalles">&times;</button>
                         <div class="sidebar-content" id="sidebar-details">
                             <!-- Detalles del nodo al hacer click -->
                         </div>
@@ -335,10 +356,10 @@
                     <button id="btn-download" class="btn-primary btn-lg">
                         <span class="btn-icon">📦</span> Descargar Todos los Datos (ZIP)
                     </button>
-                    <a href="https://github.com/usuario/CorupCol" target="_blank" class="btn-secondary btn-lg">
+                    <a href="https://github.com/Killgreck/CorupCol" target="_blank" rel="noopener noreferrer" class="btn-secondary btn-lg">
                         <span class="btn-icon">💻</span> Ver Código Fuente
                     </a>
-                    <a href="https://www.contraloria.gov.co/denuncias" target="_blank" class="btn-danger btn-lg">
+                    <a href="https://www.contraloria.gov.co/denuncias" target="_blank" rel="noopener noreferrer" class="btn-danger btn-lg">
                         <span class="btn-icon">🏛️</span> Reportar a la Contraloría
                     </a>
                 </div>
@@ -357,8 +378,8 @@
                 <div class="footer-col">
                     <h3>Fuentes de Datos</h3>
                     <ul>
-                        <li><a href="https://www.datos.gov.co" target="_blank">SECOP I (Datos Abiertos)</a></li>
-                        <li><a href="https://www.colombiacompra.gov.co" target="_blank">SECOP II (CCE)</a></li>
+                        <li><a href="https://www.datos.gov.co" target="_blank" rel="noopener noreferrer">SECOP I (Datos Abiertos)</a></li>
+                        <li><a href="https://www.colombiacompra.gov.co" target="_blank" rel="noopener noreferrer">SECOP II (CCE)</a></li>
                         <li>Análisis de 17.8M contratos + 32M nodos</li>
                     </ul>
                 </div>
@@ -366,7 +387,7 @@
                     <h3>Créditos</h3>
                     <p>Inspirado en el trabajo de <a
                             href="https://www.dn.pt/economia/ia-contra-a-corrupo-programador-brasileiro-cria-algoritmo-que-expe-os-esquemas-invisveis-do-estado"
-                            target="_blank">Bruno César (Brasil)</a>.</p>
+                            target="_blank" rel="noopener noreferrer">Bruno César (Brasil)</a>.</p>
                     <p>Construido con Python, Neo4j & D3.js</p>
                 </div>
             </div>
@@ -381,7 +402,7 @@
     <div id="tooltip" class="tooltip hidden"></div>
 
     <!-- Modal: Línea de Tiempo de Contratos -->
-    <div id="timeline-modal" class="timeline-modal hidden" role="dialog" aria-modal="true">
+    <div id="timeline-modal" class="timeline-modal hidden" role="dialog" aria-modal="true" aria-labelledby="timeline-modal-title">
         <div class="timeline-modal-backdrop"></div>
         <div class="timeline-modal-content">
             <div class="timeline-modal-header">
@@ -393,7 +414,11 @@
             </div>
             <div class="timeline-modal-body">
                 <canvas id="timeline-modal-canvas"></canvas>
+                <p class="text-secondary" style="font-size:0.78rem;margin:0.5rem 0 0;text-align:center;">
+                    💡 Haz click en una barra para ver el detalle de los contratos de ese período
+                </p>
             </div>
+            <div id="timeline-modal-detalle"></div>
             <div class="timeline-modal-footer">
                 <span class="text-secondary" style="font-size:0.8rem;">Valores en billones COP &nbsp;·&nbsp; Fuente: SECOP I/II</span>
             </div>
@@ -401,10 +426,12 @@
     </div>
 
     <!-- Scripts locales -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="js/periodos_politicos.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/grafo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"
+        integrity="sha384-NrKB+u6Ts6AtkIhwPixiKTzgSKNblyhlk0Sohlgar9UHUBzai/sgnNNWWd291xqt"
+        crossorigin="anonymous"></script>
+    <script src="js/periodos_politicos.js?v=4" defer></script>
+    <script src="js/main.js?v=4" defer></script>
+    <script src="js/grafo.js?v=4" defer></script>
 </body>
 
 </html>

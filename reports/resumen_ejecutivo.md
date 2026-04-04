@@ -1,6 +1,6 @@
 # Resumen Ejecutivo: Anomalías en Contratación Pública (SECOP I y II)
 
-**Fecha de Análisis:** 2026-03-12
+**Fecha de Análisis:** 2026-04-04
 **Registros Analizados:** Más de 52 millones
 **Valor Total Rastreable:** $7.056,9B COP
 
@@ -18,7 +18,7 @@ Este informe es el resultado del cruce masivo de toda la contratación pública 
    
 2. **Nepotismo / Favoritismo Direccionado**: El funcionario `Diana Patricia Arboleda Ramirez` ha aprobado o adjudicado `112` contratos recurrentes a `Congregacion De Religiosos Terciarios Capuchinos De Nuestra Señora De Los Dolores` por **$0,1B COP**. 
    
-3. **Prórrogas Excesivas (Sobrecostos de tiempo)**: El contrato `CO1.PCCNTR.1832328` otorgado a `Desconocido` tiene `1825` días de prórroga registrados, lo que desvirtúa la planeación original por un valor de **$0,0B COP**.
+3. **Prórrogas Excesivas (Sobrecostos de tiempo)**: El contrato `CO1.PCCNTR.1832328` otorgado a `Secretaria Distrital De Gobierno 1` tiene `1825` días de prórroga registrados, lo que desvirtúa la planeación original por un valor de **$0,0B COP**.
 
 *(Revise los anexos CSV para el Top 50 de cada categoría).*
 
