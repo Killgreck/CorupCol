@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/dashboard/">
+    <title>Contexto Político — CorupCol</title>
+    <meta name="description" content="Explora hallazgos por periodo político: filtra por presidente, gobernador, alcalde o rango de fechas.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=5">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"
+        integrity="sha384-NrKB+u6Ts6AtkIhwPixiKTzgSKNblyhlk0Sohlgar9UHUBzai/sgnNNWWd291xqt"
+        crossorigin="anonymous"></script>
+</head>
+<body>
+<script src="js/nav.js?v=5"></script>
+<main>
+    <section class="filtros-politicos-section" id="contexto">
+        <div class="container">
+            <div class="contexto-header text-center">
+                <h2 class="section-title">🇨🇴 Explorar por Contexto Político</h2>
+                <p class="section-desc mx-auto" style="max-width:800px;">
+                    Selecciona un periodo político o rango de fechas para ver los hallazgos
+                    y conocer quién gobernaba durante la suscripción de los contratos.
+                </p>
+            </div>
+
+            <div class="filtros-grid">
+                <div class="filtro-group">
+                    <label for="filtro-fecha-inicio" class="filtro-label">Desde:</label>
+                    <input type="date" id="filtro-fecha-inicio" class="search-input" style="width:100%">
+                </div>
+                <div class="filtro-group">
+                    <label for="filtro-fecha-fin" class="filtro-label">Hasta:</label>
+                    <input type="date" id="filtro-fecha-fin" class="search-input" style="width:100%">
+                </div>
+                <div class="filtro-group">
+                    <label for="filtro-presidente" class="filtro-label">Presidente de la Rep.:</label>
+                    <select id="filtro-presidente" class="search-input" style="width:100%">
+                        <option value="">Todos los periodos</option>
+                    </select>
+                </div>
+                <div class="filtro-group">
+                    <label for="filtro-departamento" class="filtro-label">Gobernador en depto:</label>
+                    <select id="filtro-departamento" class="search-input" style="width:100%" disabled>
+                        <option value="">Seleccione Departamento</option>
+                    </select>
+                </div>
+                <div class="filtro-group">
+                    <label for="filtro-ciudad" class="filtro-label">Alcalde en ciudad:</label>
+                    <select id="filtro-ciudad" class="search-input" style="width:100%" disabled>
+                        <option value="">Seleccione Ciudad</option>
+                    </select>
+                </div>
+                <div class="filtro-group btn-group" style="display:flex;gap:10px;align-items:flex-end;">
+                    <button id="btn-aplicar-filtros" class="btn-primary" style="flex:2;padding:1rem">Filtrar</button>
+                    <button id="btn-limpiar-filtros" class="btn-secondary" style="flex:1;padding:1rem" aria-label="Limpiar filtros">✕</button>
+                </div>
+            </div>
+
+            <div id="panel-contextual" class="panel-contextual hidden">
+                <div class="gobernantes-grid" id="gobernantes-grid"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Narrativas filtradas -->
+    <section class="narrativas-section hidden" id="ctx-narrativas-section">
+        <div class="container">
+            <div class="narrativas-header">
+                <div>
+                    <h2 class="section-title">📰 Hallazgos en el Periodo Seleccionado</h2>
+                    <p class="section-desc" id="ctx-narrativas-count"></p>
+                </div>
+                <a href="/dashboard/hallazgos.html" class="btn-secondary" style="white-space:nowrap">Ver todos los hallazgos →</a>
+            </div>
+            <div id="ctx-narrativas-grid" class="narrativas-grid"></div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>CorupCol</h3>
+                <p>Contextualiza los hallazgos de corrupción con el periodo político en que ocurrieron.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Periodos disponibles</h3>
+                <p>Presidentes desde Pastrana (1998) a Petro (2026). Gobernadores y alcaldes de 22 departamentos y 10 ciudades principales.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Navegación</h3>
+                <ul>
+                    <li><a href="/dashboard">← Inicio</a></li>
+                    <li><a href="/dashboard/hallazgos.html">📰 Hallazgos completos</a></li>
+                    <li><a href="/dashboard/red.html">Red de Vínculos</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="tagline">"Los datos son públicos. La corrupción no debería serlo."</p>
+        </div>
+    </div>
+</footer>
+
+<div id="tooltip" class="tooltip hidden"></div>
+
+<!-- Modal Timeline (para narrativas que tienen NIT con datos) -->
+<div id="timeline-modal" class="timeline-modal hidden" role="dialog" aria-modal="true" aria-labelledby="timeline-modal-title">
+    <div class="timeline-modal-backdrop"></div>
+    <div class="timeline-modal-content">
+        <div class="timeline-modal-header">
+            <div>
+                <div class="timeline-modal-label">📊 Contratos a lo largo del tiempo</div>
+                <h3 id="timeline-modal-title">—</h3>
+            </div>
+            <button class="timeline-modal-close" aria-label="Cerrar">&times;</button>
+        </div>
+        <div class="timeline-modal-body">
+            <canvas id="timeline-modal-canvas"></canvas>
+        </div>
+        <div id="timeline-modal-detalle"></div>
+        <div class="timeline-modal-footer">
+            <span class="text-secondary" style="font-size:0.8rem;">Valores en billones COP &nbsp;·&nbsp; Fuente: SECOP I/II</span>
+        </div>
+    </div>
+</div>
+
+<script src="js/periodos_politicos.js?v=5"></script>
+<script src="js/shared.js?v=5"></script>
+<script src="js/contexto.js?v=5"></script>
+</body>
+</html>

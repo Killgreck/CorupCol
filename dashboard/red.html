@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/dashboard/">
+    <title>Red de Vínculos — CorupCol</title>
+    <meta name="description" content="Grafo interactivo D3.js mostrando relaciones entre entidades, funcionarios y contratistas en casos críticos.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=5">
+    <script src="https://d3js.org/d3.v7.min.js"
+        integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i"
+        crossorigin="anonymous" defer></script>
+</head>
+<body>
+<script src="js/nav.js?v=5"></script>
+<main>
+    <section class="network-section" id="red">
+        <div class="container">
+            <div class="network-header">
+                <div>
+                    <h2 class="section-title mb-0">Red de Vínculos Sospechosos</h2>
+                    <p class="section-desc">Grafo interactivo mostrando las relaciones entre entidades, funcionarios
+                        y contratistas en casos críticos (Top 100). Arrastra, zoom y haz click en un nodo para ver detalles.</p>
+                </div>
+                <div class="network-controls">
+                    <label for="value-filter">Filtrar por relevancia:</label>
+                    <input type="range" id="value-filter" min="0" max="100" value="0">
+                    <button id="reset-zoom" class="btn-secondary">Reset Zoom</button>
+                </div>
+            </div>
+
+            <div id="grafo-fecha-notice" class="grafo-notice hidden"></div>
+            <div class="network-container">
+                <div class="network-legend">
+                    <div class="legend-item"><span class="color-dot entity"></span> Entidad</div>
+                    <div class="legend-item"><span class="color-dot contractor"></span> Contratista</div>
+                    <div class="legend-item"><span class="color-dot person"></span> Funcionario / Persona</div>
+                </div>
+                <div id="d3-graph" class="d3-wrapper"></div>
+                <div id="node-sidebar" class="node-sidebar hidden">
+                    <button class="close-sidebar" aria-label="Cerrar panel de detalles">&times;</button>
+                    <div class="sidebar-content" id="sidebar-details"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>CorupCol</h3>
+                <p>Grafo de vínculos entre entidades, contratistas y funcionarios en casos de contratación sospechosa.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Cómo usar el grafo</h3>
+                <ul>
+                    <li>Click en nodo → ver detalles y conexiones</li>
+                    <li>Scroll / pellizca → zoom</li>
+                    <li>Arrastra nodos → reposicionar</li>
+                    <li>Slider → filtrar por relevancia</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Navegación</h3>
+                <ul>
+                    <li><a href="/dashboard">← Inicio / Dashboard</a></li>
+                    <li><a href="/dashboard/hallazgos.html">📰 Hallazgos</a></li>
+                    <li><a href="/dashboard/busqueda.html">Búsqueda avanzada</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="tagline">"Los datos son públicos. La corrupción no debería serlo."</p>
+        </div>
+    </div>
+</footer>
+
+<div id="tooltip" class="tooltip hidden"></div>
+
+<script src="js/shared.js?v=6"></script>
+<script src="js/grafo.js?v=5" defer></script>
+</body>
+</html>

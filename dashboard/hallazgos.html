@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/dashboard/">
+    <title>Hallazgos — CorupCol</title>
+    <meta name="description" content="Hallazgos explicados para periodistas y ciudadanos: autocontratación, nepotismo, carrusel de contratos, prórrogas y empresas recientes.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=5">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"
+        integrity="sha384-NrKB+u6Ts6AtkIhwPixiKTzgSKNblyhlk0Sohlgar9UHUBzai/sgnNNWWd291xqt"
+        crossorigin="anonymous"></script>
+</head>
+<body>
+<script src="js/nav.js?v=5"></script>
+<main>
+    <div class="banner-aviso">
+        🔒 Los hallazgos detallados serán publicados próximamente a través de un medio periodístico verificado.
+        &nbsp;|&nbsp; Datos oficiales del Estado colombiano (SECOP I/II — datos.gov.co).
+    </div>
+
+    <section class="narrativas-section" id="periodistas">
+        <div class="container">
+            <div class="narrativas-header">
+                <div>
+                    <h2 class="section-title">📰 Hallazgos Explicados — Para Periodistas y Ciudadanos</h2>
+                    <p class="section-desc">Cada caso fue analizado por inteligencia artificial. Los datos son
+                        verificables en los portales oficiales del Estado colombiano.
+                        <strong>No afirmamos corrupción — señalamos patrones que merecen investigación.</strong></p>
+                </div>
+                <div class="narrativas-filtros">
+                    <button class="filtro-btn active" data-tipo="all">Todos</button>
+                    <button class="filtro-btn" data-tipo="autocontratacion">🔴 Autocontratación</button>
+                    <button class="filtro-btn" data-tipo="nepotismo">🟠 Nepotismo</button>
+                    <button class="filtro-btn" data-tipo="carrusel">🟡 Carrusel</button>
+                    <button class="filtro-btn" data-tipo="sobrecosto">⏱️ Prórroga</button>
+                    <button class="filtro-btn" data-tipo="empresa_reciente">🟣 Empresa Reciente</button>
+                </div>
+            </div>
+            <div id="narrativas-grid" class="narrativas-grid">
+                <div class="loading-placeholder">Cargando hallazgos…</div>
+            </div>
+            <div id="narrativas-pagination" class="pagination-container hidden"></div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>CorupCol</h3>
+                <p>Iniciativa de inteligencia artificial y ciencia de datos abierta contra la corrupción estatal.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Fuentes de Datos</h3>
+                <ul>
+                    <li><a href="https://www.datos.gov.co" target="_blank" rel="noopener noreferrer">SECOP I (Datos Abiertos)</a></li>
+                    <li><a href="https://www.colombiacompra.gov.co" target="_blank" rel="noopener noreferrer">SECOP II (CCE)</a></li>
+                    <li>Análisis de 17.8M contratos + 32M nodos</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Navegación</h3>
+                <ul>
+                    <li><a href="/dashboard">← Inicio / Dashboard</a></li>
+                    <li><a href="/dashboard/red.html">Red de Vínculos</a></li>
+                    <li><a href="/dashboard/busqueda.html">Búsqueda avanzada</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="tagline">"Los datos son públicos. La corrupción no debería serlo."</p>
+        </div>
+    </div>
+</footer>
+
+<div id="tooltip" class="tooltip hidden"></div>
+
+<!-- Modal: Línea de Tiempo de Contratos -->
+<div id="timeline-modal" class="timeline-modal hidden" role="dialog" aria-modal="true" aria-labelledby="timeline-modal-title">
+    <div class="timeline-modal-backdrop"></div>
+    <div class="timeline-modal-content">
+        <div class="timeline-modal-header">
+            <div>
+                <div class="timeline-modal-label">📊 Contratos a lo largo del tiempo</div>
+                <h3 id="timeline-modal-title">—</h3>
+            </div>
+            <button class="timeline-modal-close" aria-label="Cerrar">&times;</button>
+        </div>
+        <div class="timeline-modal-body">
+            <canvas id="timeline-modal-canvas"></canvas>
+            <p class="text-secondary" style="font-size:0.78rem;margin:0.5rem 0 0;text-align:center;">
+                💡 Haz click en una barra para ver el detalle de los contratos de ese período
+            </p>
+        </div>
+        <div id="timeline-modal-detalle"></div>
+        <div class="timeline-modal-footer">
+            <span class="text-secondary" style="font-size:0.8rem;">Valores en billones COP &nbsp;·&nbsp; Fuente: SECOP I/II</span>
+        </div>
+    </div>
+</div>
+
+<script src="js/shared.js?v=5"></script>
+<script src="js/hallazgos.js?v=5"></script>
+</body>
+</html>

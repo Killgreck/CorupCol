@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/dashboard/">
+    <title>Carrusel de Contratos — CorupCol</title>
+    <meta name="description" content="Top 20 estructuras de carrusel de contratos: contratistas que acumulan contratos a través de múltiples entidades del Estado.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=5">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"
+        integrity="sha384-NrKB+u6Ts6AtkIhwPixiKTzgSKNblyhlk0Sohlgar9UHUBzai/sgnNNWWd291xqt"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"
+        integrity="sha384-+mbV2IY1Zk/X1p/nWllGySJSUN8uMs+gUAN10Or95UBH0fpj6GfKgPmgC5EXieXG"
+        crossorigin="anonymous"></script>
+</head>
+<body>
+<script src="js/nav.js?v=5"></script>
+<main>
+    <section class="data-table-section" id="carrusel">
+        <div class="container">
+            <div class="page-section-header">
+                <div>
+                    <h2 class="section-title">🔄 Top 20: Carrusel de Contratos</h2>
+                    <p class="section-desc">Estructuras de contratación que acumulan decenas de contratos a través de
+                        múltiples entidades del Estado simultáneamente, posiblemente eludiendo topes legales.</p>
+                </div>
+                <button id="btn-download" class="btn-secondary">
+                    <span class="btn-icon">📦</span> Descargar CSV
+                </button>
+            </div>
+            <div class="table-responsive">
+                <table class="data-table" id="table-carrusel">
+                    <thead>
+                        <tr>
+                            <th data-sort="display_name">Contratista / Empresa <span class="sort-icon">↕</span></th>
+                            <th data-sort="c.doc_id">NIT <span class="sort-icon">↕</span></th>
+                            <th data-sort="entidades_distintas">Entidades <span class="sort-icon">↕</span></th>
+                            <th data-sort="total_contratos"># Contratos <span class="sort-icon">↕</span></th>
+                            <th data-sort="total_valor_b" class="sorted-desc">Valor Total (COP) <span class="sort-icon">↓</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td colspan="5" style="text-align:center;padding:30px;color:var(--text-secondary)">Cargando datos…</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="table-hint">💡 Haz click en cualquier fila para ver la línea de tiempo de contratos de ese NIT</p>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>CorupCol</h3>
+                <p>Análisis de patrones de carrusel de contratos en la contratación pública colombiana.</p>
+            </div>
+            <div class="footer-col">
+                <h3>¿Qué es un carrusel?</h3>
+                <p>Un contratista que obtiene contratos de muchas entidades distintas al mismo tiempo, posiblemente para eludir topes o la ley de garantías.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Navegación</h3>
+                <ul>
+                    <li><a href="/dashboard">← Inicio</a></li>
+                    <li><a href="/dashboard/nepotismo.html">Nepotismo</a></li>
+                    <li><a href="/dashboard/sobrecostos.html">Sobrecostos</a></li>
+                    <li><a href="/dashboard/busqueda.html">Búsqueda</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="tagline">"Los datos son públicos. La corrupción no debería serlo."</p>
+        </div>
+    </div>
+</footer>
+
+<div id="tooltip" class="tooltip hidden"></div>
+
+<script src="js/shared.js?v=5"></script>
+<script src="js/carruseles.js?v=5"></script>
+</body>
+</html>

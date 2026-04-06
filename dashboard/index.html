@@ -11,427 +11,188 @@
     <meta property="og:description" content="Análisis de 17.8M contratos públicos (SECOP I/II, 2000–2026) con IA y grafos para detectar corrupción sistemática.">
     <meta property="og:type" content="website">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>">
-
-    <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap"
-        rel="stylesheet">
-
-    <!-- Estilos locales -->
-    <link rel="stylesheet" href="css/style.css?v=4">
-
-    <!-- D3 y JSZip CDN -->
-    <script src="https://d3js.org/d3.v7.min.js"
-        integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i"
-        crossorigin="anonymous" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"
-        integrity="sha384-+mbV2IY1Zk/X1p/nWllGySJSUN8uMs+gUAN10Or95UBH0fpj6GfKgPmgC5EXieXG"
-        crossorigin="anonymous" defer></script>
-</head>
-
-<body>
-    <header class="navbar">
-        <div class="container">
-            <div class="logo">
-                <span class="logo-icon">🔍</span>
-                <span class="logo-text">CorupCol</span>
-            </div>
-            <button class="nav-hamburger" id="nav-hamburger" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="nav-links">
-                <span></span><span></span><span></span>
-            </button>
-            <nav class="nav-links" id="nav-links">
-                <a href="#stats">Métricas</a>
-                <a href="#periodistas">📰 Hallazgos</a>
-                <a href="#red">Red Vínculos</a>
-                <a href="#carrusel">Carruseles</a>
-                <a href="#nepotismo">Nepotismo</a>
-                <a href="#sobrecostos">Sobrecostos</a>
-                <a href="#contexto">Contexto Político</a>
-                <a href="#buscar" class="btn-buscar">Buscar 🔎</a>
-            </nav>
-        </div>
-    </header>
-
-    <main>
-        <!-- Banner próximamente -->
-        <div class="banner-aviso">
-            🔒 Los hallazgos detallados serán publicados próximamente a través de un medio periodístico verificado.
-            &nbsp;|&nbsp; Los datos provienen de fuentes oficiales del Estado colombiano (SECOP I/II — datos.gov.co).
-        </div>
-
-        <!-- Sección 0: Hero -->
-        <section class="hero" id="hero">
-            <div class="container text-center">
-                <h1 class="hero-title">¿A dónde va <span class="text-accent">tu dinero?</span></h1>
-                <p class="hero-subtitle">17.8 millones de contratos públicos colombianos (SECOP I + SECOP II, 2000–2026)
-                    analizados con inteligencia artificial y grafos para detectar patrones de corrupción sistemática.
-                </p>
-
-                <div class="stats-grid" id="stats">
-                    <div class="stat-card">
-                        <div class="stat-value" id="counter-contratos">0</div>
-                        <div class="stat-label">Contratos Analizados</div>
-                    </div>
-                    <div class="stat-card accent">
-                        <div class="stat-value" id="counter-valor">$0</div>
-                        <div class="stat-label">Valor Total Rastreable</div>
-                        <div class="stat-usd" id="counter-valor-usd" title="Cargando tasa real...">cargando USD…</div>
-                        <div class="stat-source text-secondary mono" id="budget-source" style="font-size: 0.8rem; margin-top: 10px; line-height: 1.2;"></div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value" id="counter-anomalias">0</div>
-                        <div class="stat-label">Anomalías Detectadas</div>
-                    </div>
-                </div>
-
-                <!-- Nueva gráfica Doughnut del presupuesto -->
-                <div class="budget-chart-wrapper hidden" id="budget-chart-wrapper">
-                    <h3 class="budget-chart-title">Distribución del Presupuesto Rastreable</h3>
-                    <div class="budget-chart-canvas-container">
-                        <canvas id="budget-donut-chart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sección 1: ¿Qué encontramos? -->
-        <section class="findings" id="resumen">
-            <div class="container">
-                <h2 class="section-title">Nuestros Hallazgos Principales</h2>
-                <div class="alert-grid">
-                    <div class="alert-card carrusel">
-                        <div class="alert-icon">🔄</div>
-                        <div class="alert-number" id="finding-carrusel">0</div>
-                        <div class="alert-text">Casos de carrusel de contratos eludiendo ley de garantías o topes.</div>
-                    </div>
-                    <div class="alert-card nepotismo">
-                        <div class="alert-icon">👥</div>
-                        <div class="alert-number" id="finding-nepotismo">0</div>
-                        <div class="alert-text">Pares ordenadores del gasto ↔ contratistas recurrentes sospechosos.
-                        </div>
-                    </div>
-                    <div class="alert-card sobrecostos">
-                        <div class="alert-icon">⏱️</div>
-                        <div class="alert-number" id="finding-sobrecostos">0</div>
-                        <div class="alert-text">Contratos con prórrogas excesivas mayores a 6 meses.</div>
-                    </div>
-                    <div class="alert-card concentracion">
-                        <div class="alert-icon">💰</div>
-                        <div class="alert-number">> 50%</div>
-                        <div class="alert-text">Concentración extrema del presupuesto en un grupo ínfimo de grandes
-                            contratistas.</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sección: Explorar por Contexto Político -->
-        <section class="filtros-politicos-section" id="contexto">
-            <div class="container">
-                <div class="contexto-header text-center">
-                    <h2 class="section-title">Explorar por Contexto Político</h2>
-                    <p class="section-desc mx-auto" style="max-width: 800px;">
-                        Selecciona un periodo político o de fechas para filtrar los hallazgos explicados.
-                        Conoce quién gobernaba durante la suscripción del primer contrato de la anomalía.
-                    </p>
-                </div>
-
-                <div class="filtros-grid">
-                    <div class="filtro-group">
-                        <label for="filtro-fecha-inicio" class="filtro-label">Desde:</label>
-                        <input type="date" id="filtro-fecha-inicio" class="search-input" style="width: 100%;">
-                    </div>
-                    <div class="filtro-group">
-                        <label for="filtro-fecha-fin" class="filtro-label">Hasta:</label>
-                        <input type="date" id="filtro-fecha-fin" class="search-input" style="width: 100%;">
-                    </div>
-                    <div class="filtro-group">
-                        <label for="filtro-presidente" class="filtro-label">Presidente de la Rep.:</label>
-                        <select id="filtro-presidente" class="search-input" style="width: 100%;">
-                            <option value="">Todos los periodos</option>
-                            <!-- Llenado por JS -->
-                        </select>
-                    </div>
-                    <div class="filtro-group">
-                        <label for="filtro-departamento" class="filtro-label">Gobernador en depto:</label>
-                        <select id="filtro-departamento" class="search-input" style="width: 100%;" disabled
-                            title="Seleccione primero un periodo presidencial o rango de fechas">
-                            <option value="">Seleccione Departamento</option>
-                            <!-- Llenado por JS -->
-                        </select>
-                    </div>
-                    <div class="filtro-group">
-                        <label for="filtro-ciudad" class="filtro-label">Alcalde en ciudad:</label>
-                        <select id="filtro-ciudad" class="search-input" style="width: 100%;" disabled
-                            title="Seleccione primero un periodo presidencial o rango de fechas">
-                            <option value="">Seleccione Ciudad</option>
-                            <!-- Llenado por JS -->
-                        </select>
-                    </div>
-                    <div class="filtro-group btn-group" style="display: flex; gap: 10px; align-items: flex-end;">
-                        <button id="btn-aplicar-filtros" class="btn-primary"
-                            style="flex: 2; padding: 1rem;">Filtrar</button>
-                        <button id="btn-limpiar-filtros" class="btn-secondary" style="flex: 1; padding: 1rem;"
-                            title="Limpiar Filtros" aria-label="Limpiar filtros">✕</button>
-                    </div>
-                </div>
-
-                <div id="panel-contextual" class="panel-contextual hidden">
-                    <div class="gobernantes-grid" id="gobernantes-grid">
-                        <!-- UI de Gobernantes inyectados por JS -->
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sección: Hallazgos para Periodistas -->
-        <section class="narrativas-section" id="periodistas">
-            <div class="container">
-                <div class="narrativas-header">
-                    <div>
-                        <h2 class="section-title">📰 Hallazgos Explicados — Para Periodistas y Ciudadanos</h2>
-                        <p class="section-desc">Cada caso fue analizado por inteligencia artificial. Los datos son
-                            verificables en los portales oficiales del Estado colombiano. <strong>No afirmamos
-                                corrupción — señalamos patrones que merecen investigación.</strong></p>
-                    </div>
-                    <div class="narrativas-filtros">
-                        <button class="filtro-btn active" data-tipo="all">Todos</button>
-                        <button class="filtro-btn" data-tipo="autocontratacion">🔴 Autocontratación</button>
-                        <button class="filtro-btn" data-tipo="nepotismo">🟠 Nepotismo</button>
-                        <button class="filtro-btn" data-tipo="carrusel">🟡 Carrusel</button>
-                        <button class="filtro-btn" data-tipo="sobrecosto">⏱️ Prórroga</button>
-                        <button class="filtro-btn" data-tipo="empresa_reciente">🟣 Empresa Reciente</button>
-                    </div>
-                </div>
-                <div id="narrativas-grid" class="narrativas-grid">
-                    <!-- Llenado por JS -->
-                </div>
-                <!-- Controles de Paginación -->
-                <div id="narrativas-pagination" class="pagination-container hidden">
-                    <!-- Llenado por JS -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Sección 6: Buscador (Se movió para mayor visibilidad inicial) -->
-        <section class="search-section" id="buscar">
-            <div class="container">
-                <div class="search-container">
-                    <input type="text" id="global-search" class="search-input"
-                        placeholder="Busca un NIT, cédula, nombre de empresa o funcionario...">
-                    <button class="search-btn">Buscar</button>
-                </div>
-                <div id="search-results" class="search-results hidden">
-                    <!-- Resultados se inyectan acá -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Sección 2: Red de Vínculos (D3.js) -->
-        <section class="network-section" id="red">
-            <div class="container">
-                <div class="network-header">
-                    <div>
-                        <h2 class="section-title mb-0">Red de Vínculos Sospechosos</h2>
-                        <p class="section-desc">Grafo interactivo mostrando las relaciones entre entidades, funcionarios
-                            y contratistas en casos críticos (Top 100).</p>
-                    </div>
-                    <div class="network-controls">
-                        <label for="value-filter">Filtrar por relevancia:</label>
-                        <input type="range" id="value-filter" min="0" max="100" value="0">
-                        <button id="reset-zoom" class="btn-secondary">Reset Zoom</button>
-                    </div>
-                </div>
-
-                <div id="grafo-fecha-notice" class="grafo-notice hidden"></div>
-                <div class="network-container">
-                    <div class="network-legend">
-                        <div class="legend-item"><span class="color-dot entity"></span> Entidad</div>
-                        <div class="legend-item"><span class="color-dot contractor"></span> Contratista</div>
-                        <div class="legend-item"><span class="color-dot person"></span> Funcionario / Persona</div>
-                    </div>
-                    <div id="d3-graph" class="d3-wrapper"></div>
-                    <div id="node-sidebar" class="node-sidebar hidden">
-                        <button class="close-sidebar" aria-label="Cerrar panel de detalles">&times;</button>
-                        <div class="sidebar-content" id="sidebar-details">
-                            <!-- Detalles del nodo al hacer click -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sección 3: Top 20 Carrusel -->
-        <section class="data-table-section" id="carrusel">
-            <div class="container">
-                <h2 class="section-title">Top 20: Carrusel de Contratos</h2>
-                <p class="section-desc">Estructuras de contratación que acumulan decenas de contratos a través de
-                    múltiples entidades del Estado simultáneamente.</p>
-                <div class="table-responsive">
-                    <table class="data-table" id="table-carrusel">
-                        <thead>
-                            <tr>
-                                <th data-sort="display_name">Contratista / Empresa <span class="sort-icon">↕</span></th>
-                                <th data-sort="c.doc_id">NIT <span class="sort-icon">↕</span></th>
-                                <th data-sort="entidades_distintas">Entidades <span class="sort-icon">↕</span></th>
-                                <th data-sort="total_contratos"># Contratos <span class="sort-icon">↕</span></th>
-                                <th data-sort="total_valor_b" class="sorted-desc">Valor Total (COP) <span
-                                        class="sort-icon">↓</span></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Llenado por JS -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sección 4: Top 20 Nepotismo -->
-        <section class="data-table-section dark-alt" id="nepotismo">
-            <div class="container">
-                <h2 class="section-title">Top 20: Repetición Sospechosa (Ordenador ↔ Contratista)</h2>
-                <p class="section-desc warning-text"><strong>Importante:</strong> Un ordenador del gasto es el
-                    funcionario que autoriza pagos. Altas repeticiones podrían indicar monopolios locales, aunque puede
-                    justificarse objetivamente en mercados pequeños.</p>
-                <div class="table-responsive">
-                    <table class="data-table" id="table-nepotismo">
-                        <thead>
-                            <tr>
-                                <th data-sort="p.nombre_display">Ordenador del Gasto <span class="sort-icon">↕</span>
-                                </th>
-                                <th data-sort="p.doc_id">CC Ordenador <span class="sort-icon">↕</span></th>
-                                <th data-sort="_nombre_contratista_display">Contratista Favorecido <span
-                                        class="sort-icon">↕</span></th>
-                                <th data-sort="contratos_juntos"># Contratos Juntos <span class="sort-icon">↕</span>
-                                </th>
-                                <th data-sort="valor_total_b" class="sorted-desc">Valor Total (COP) <span
-                                        class="sort-icon">↓</span></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Llenado por JS -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sección 5: Top 20 Prórrogas -->
-        <section class="data-table-section" id="sobrecostos">
-            <div class="container">
-                <h2 class="section-title">Top 20: Prórrogas Excesivas (Desfase de Planeación)</h2>
-                <p class="section-desc">Contratos que han requerido una cantidad anormal de días de adición de tiempo
-                    frente al plazo inicialmente planeado.</p>
-                <div class="table-responsive">
-                    <table class="data-table" id="table-sobrecostos">
-                        <thead>
-                            <tr>
-                                <th data-sort="entidad">Entidad Contratante <span class="sort-icon">↕</span></th>
-                                <th data-sort="contratista">Contratista <span class="sort-icon">↕</span></th>
-                                <th data-sort="contrato_id">ID Contrato <span class="sort-icon">↕</span></th>
-                                <th data-sort="dias_prorroga" class="sorted-desc">Días Extra <span
-                                        class="sort-icon">↓</span></th>
-                                <th data-sort="valor_m">Valor (COP) <span class="sort-icon">↕</span></th>
-                                <th>Objeto del Contrato</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Llenado por JS -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sección 7: Call to Action -->
-        <section class="cta-section">
-            <div class="container text-center">
-                <h2 class="section-title">¿Qué puedes hacer?</h2>
-                <p class="section-desc max-w-lg mx-auto">La transparencia requiere los ojos de todos. Descarga los datos
-                    crudos o reporta anomalías documentadas a las autoridades.</p>
-                <div class="cta-buttons">
-                    <button id="btn-download" class="btn-primary btn-lg">
-                        <span class="btn-icon">📦</span> Descargar Todos los Datos (ZIP)
-                    </button>
-                    <a href="https://github.com/Killgreck/CorupCol" target="_blank" rel="noopener noreferrer" class="btn-secondary btn-lg">
-                        <span class="btn-icon">💻</span> Ver Código Fuente
-                    </a>
-                    <a href="https://www.contraloria.gov.co/denuncias" target="_blank" rel="noopener noreferrer" class="btn-danger btn-lg">
-                        <span class="btn-icon">🏛️</span> Reportar a la Contraloría
-                    </a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <h3>CorupCol</h3>
-                    <p>Iniciativa de inteligencia artificial y ciencia de datos abierta contra la corrupción estatal.
-                    </p>
-                </div>
-                <div class="footer-col">
-                    <h3>Fuentes de Datos</h3>
-                    <ul>
-                        <li><a href="https://www.datos.gov.co" target="_blank" rel="noopener noreferrer">SECOP I (Datos Abiertos)</a></li>
-                        <li><a href="https://www.colombiacompra.gov.co" target="_blank" rel="noopener noreferrer">SECOP II (CCE)</a></li>
-                        <li>Análisis de 17.8M contratos + 32M nodos</li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h3>Créditos</h3>
-                    <p>Inspirado en el trabajo de <a
-                            href="https://www.dn.pt/economia/ia-contra-a-corrupo-programador-brasileiro-cria-algoritmo-que-expe-os-esquemas-invisveis-do-estado"
-                            target="_blank" rel="noopener noreferrer">Bruno César (Brasil)</a>.</p>
-                    <p>Construido con Python, Neo4j & D3.js</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>Fecha de análisis: <span id="footer-date">2026-03-05</span></p>
-                <p class="tagline">"Los datos son públicos. La corrupción no debería serlo."</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Tooltip para tablas y UI -->
-    <div id="tooltip" class="tooltip hidden"></div>
-
-    <!-- Modal: Línea de Tiempo de Contratos -->
-    <div id="timeline-modal" class="timeline-modal hidden" role="dialog" aria-modal="true" aria-labelledby="timeline-modal-title">
-        <div class="timeline-modal-backdrop"></div>
-        <div class="timeline-modal-content">
-            <div class="timeline-modal-header">
-                <div>
-                    <div class="timeline-modal-label">📊 Contratos a lo largo del tiempo</div>
-                    <h3 id="timeline-modal-title">—</h3>
-                </div>
-                <button class="timeline-modal-close" aria-label="Cerrar">&times;</button>
-            </div>
-            <div class="timeline-modal-body">
-                <canvas id="timeline-modal-canvas"></canvas>
-                <p class="text-secondary" style="font-size:0.78rem;margin:0.5rem 0 0;text-align:center;">
-                    💡 Haz click en una barra para ver el detalle de los contratos de ese período
-                </p>
-            </div>
-            <div id="timeline-modal-detalle"></div>
-            <div class="timeline-modal-footer">
-                <span class="text-secondary" style="font-size:0.8rem;">Valores en billones COP &nbsp;·&nbsp; Fuente: SECOP I/II</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Scripts locales -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=5">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"
         integrity="sha384-NrKB+u6Ts6AtkIhwPixiKTzgSKNblyhlk0Sohlgar9UHUBzai/sgnNNWWd291xqt"
         crossorigin="anonymous"></script>
-    <script src="js/periodos_politicos.js?v=4" defer></script>
-    <script src="js/main.js?v=4" defer></script>
-    <script src="js/grafo.js?v=4" defer></script>
-</body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"
+        integrity="sha384-+mbV2IY1Zk/X1p/nWllGySJSUN8uMs+gUAN10Or95UBH0fpj6GfKgPmgC5EXieXG"
+        crossorigin="anonymous"></script>
+</head>
 
+<body>
+<script src="js/nav.js?v=5"></script>
+
+<main>
+    <div class="banner-aviso">
+        🔒 Los hallazgos detallados serán publicados próximamente a través de un medio periodístico verificado.
+        &nbsp;|&nbsp; Los datos provienen de fuentes oficiales del Estado colombiano (SECOP I/II — datos.gov.co).
+    </div>
+
+    <!-- Hero -->
+    <section class="hero" id="hero">
+        <div class="container text-center">
+            <h1 class="hero-title">¿A dónde va <span class="text-accent">tu dinero?</span></h1>
+            <p class="hero-subtitle">17.8 millones de contratos públicos colombianos (SECOP I + SECOP II, 2000–2026)
+                analizados con inteligencia artificial y grafos para detectar patrones de corrupción sistemática.
+            </p>
+            <div class="stats-grid" id="stats">
+                <div class="stat-card">
+                    <div class="stat-value" id="counter-contratos">0</div>
+                    <div class="stat-label">Contratos Analizados</div>
+                </div>
+                <div class="stat-card accent">
+                    <div class="stat-value" id="counter-valor">$0</div>
+                    <div class="stat-label">Valor Total Rastreable</div>
+                    <div class="stat-usd" id="counter-valor-usd" title="Cargando tasa real...">cargando USD…</div>
+                    <div class="stat-source text-secondary mono" id="budget-source" style="font-size:0.8rem;margin-top:10px;line-height:1.2;"></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="counter-anomalias">0</div>
+                    <div class="stat-label">Anomalías Detectadas</div>
+                </div>
+            </div>
+            <div class="budget-chart-wrapper hidden" id="budget-chart-wrapper">
+                <h3 class="budget-chart-title">Distribución del Presupuesto Rastreable</h3>
+                <div class="budget-chart-canvas-container">
+                    <canvas id="budget-donut-chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hallazgos resumen → links a páginas -->
+    <section class="findings" id="resumen">
+        <div class="container">
+            <h2 class="section-title">Nuestros Hallazgos Principales</h2>
+            <div class="alert-grid">
+                <a href="/dashboard/carruseles.html" class="alert-card carrusel alert-card-link">
+                    <div class="alert-icon">🔄</div>
+                    <div class="alert-number" id="finding-carrusel">0</div>
+                    <div class="alert-text">Casos de carrusel de contratos eludiendo ley de garantías o topes.</div>
+                    <div class="alert-cta">Ver análisis →</div>
+                </a>
+                <a href="/dashboard/nepotismo.html" class="alert-card nepotismo alert-card-link">
+                    <div class="alert-icon">👥</div>
+                    <div class="alert-number" id="finding-nepotismo">0</div>
+                    <div class="alert-text">Pares ordenadores del gasto ↔ contratistas recurrentes sospechosos.</div>
+                    <div class="alert-cta">Ver análisis →</div>
+                </a>
+                <a href="/dashboard/sobrecostos.html" class="alert-card sobrecostos alert-card-link">
+                    <div class="alert-icon">⏱️</div>
+                    <div class="alert-number" id="finding-sobrecostos">0</div>
+                    <div class="alert-text">Contratos con prórrogas excesivas mayores a 6 meses.</div>
+                    <div class="alert-cta">Ver análisis →</div>
+                </a>
+                <a href="/dashboard/hallazgos.html" class="alert-card concentracion alert-card-link">
+                    <div class="alert-icon">💰</div>
+                    <div class="alert-number">&gt; 50%</div>
+                    <div class="alert-text">Concentración extrema del presupuesto en un grupo ínfimo de grandes contratistas.</div>
+                    <div class="alert-cta">Ver hallazgos →</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Explorar páginas -->
+    <section class="findings" style="background:var(--bg-surface);">
+        <div class="container">
+            <h2 class="section-title text-center">Explora el Dashboard</h2>
+            <div class="explore-grid">
+                <a href="/dashboard/hallazgos.html" class="explore-card">
+                    <span class="explore-icon">📰</span>
+                    <h3>Hallazgos</h3>
+                    <p>Casos explicados para periodistas y ciudadanos. Filtra por tipo y ve la línea de tiempo.</p>
+                </a>
+                <a href="/dashboard/red.html" class="explore-card">
+                    <span class="explore-icon">🕸️</span>
+                    <h3>Red de Vínculos</h3>
+                    <p>Grafo D3 interactivo con relaciones entre entidades, funcionarios y contratistas.</p>
+                </a>
+                <a href="/dashboard/carruseles.html" class="explore-card">
+                    <span class="explore-icon">🔄</span>
+                    <h3>Carruseles</h3>
+                    <p>Top 20 estructuras de carrusel. Click en fila para ver línea de tiempo.</p>
+                </a>
+                <a href="/dashboard/nepotismo.html" class="explore-card">
+                    <span class="explore-icon">👥</span>
+                    <h3>Nepotismo</h3>
+                    <p>Pares ordenador↔contratista con repetición sospechosa.</p>
+                </a>
+                <a href="/dashboard/sobrecostos.html" class="explore-card">
+                    <span class="explore-icon">⏱️</span>
+                    <h3>Prórrogas Excesivas</h3>
+                    <p>Contratos con desfase de planeación anormal.</p>
+                </a>
+                <a href="/dashboard/contexto.html" class="explore-card">
+                    <span class="explore-icon">🇨🇴</span>
+                    <h3>Contexto Político</h3>
+                    <p>Filtra por presidente, gobernador, alcalde o rango de fechas.</p>
+                </a>
+                <a href="/dashboard/busqueda.html" class="explore-card explore-card-highlight">
+                    <span class="explore-icon">🔎</span>
+                    <h3>Búsqueda Avanzada</h3>
+                    <p>Busca por NIT, nombre de empresa o palabra clave. Tabla infinita con drill-down.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="container text-center">
+            <h2 class="section-title">¿Qué puedes hacer?</h2>
+            <p class="section-desc max-w-lg mx-auto">La transparencia requiere los ojos de todos. Descarga los datos
+                crudos o reporta anomalías documentadas a las autoridades.</p>
+            <div class="cta-buttons">
+                <button id="btn-download" class="btn-primary btn-lg">
+                    <span class="btn-icon">📦</span> Descargar Todos los Datos (ZIP)
+                </button>
+                <a href="https://github.com/Killgreck/CorupCol" target="_blank" rel="noopener noreferrer" class="btn-secondary btn-lg">
+                    <span class="btn-icon">💻</span> Ver Código Fuente
+                </a>
+                <a href="https://www.contraloria.gov.co/denuncias" target="_blank" rel="noopener noreferrer" class="btn-danger btn-lg">
+                    <span class="btn-icon">🏛️</span> Reportar a la Contraloría
+                </a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>CorupCol</h3>
+                <p>Iniciativa de inteligencia artificial y ciencia de datos abierta contra la corrupción estatal.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Fuentes de Datos</h3>
+                <ul>
+                    <li><a href="https://www.datos.gov.co" target="_blank" rel="noopener noreferrer">SECOP I (Datos Abiertos)</a></li>
+                    <li><a href="https://www.colombiacompra.gov.co" target="_blank" rel="noopener noreferrer">SECOP II (CCE)</a></li>
+                    <li>Análisis de 17.8M contratos + 32M nodos</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Créditos</h3>
+                <p>Inspirado en el trabajo de <a href="https://www.dn.pt/economia/ia-contra-a-corrupo-programador-brasileiro-cria-algoritmo-que-expe-os-esquemas-invisveis-do-estado" target="_blank" rel="noopener noreferrer">Bruno César (Brasil)</a>.</p>
+                <p>Construido con Python, Neo4j & D3.js</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Fecha de análisis: <span id="footer-date">—</span></p>
+            <p class="tagline">"Los datos son públicos. La corrupción no debería serlo."</p>
+        </div>
+    </div>
+</footer>
+
+<div id="tooltip" class="tooltip hidden"></div>
+
+<script src="js/shared.js?v=5"></script>
+<script src="js/index.js?v=5"></script>
+</body>
 </html>

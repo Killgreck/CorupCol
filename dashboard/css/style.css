@@ -158,6 +158,15 @@ a:hover {
     text-decoration: none;
 }
 
+.nav-links a.nav-active {
+    color: var(--text-primary);
+}
+
+.nav-links a.nav-active:not(.btn-buscar) {
+    border-bottom: 2px solid var(--color-azul);
+    padding-bottom: 0.25rem;
+}
+
 .btn-buscar {
     background-color: var(--bg-surface);
     border: 1px solid var(--border-color);
@@ -248,6 +257,12 @@ a:hover {
     letter-spacing: 0.5px;
 }
 
+.stat-source {
+    font-size: 0.8rem;
+    margin-top: 10px;
+    line-height: 1.2;
+}
+
 .valor-usd {
     font-family: var(--font-mono);
     font-size: 0.75rem;
@@ -320,6 +335,16 @@ section {
 
 .alert-card.concentracion {
     border-top-color: var(--color-azul);
+}
+
+.dashboard-link-card {
+    display: block;
+    color: inherit;
+}
+
+.dashboard-link-card:hover {
+    color: inherit;
+    text-decoration: none;
 }
 
 .alert-icon {
@@ -570,6 +595,70 @@ th.sorted-asc .sort-icon {
     background: linear-gradient(90deg, var(--color-alerta), var(--color-naranja));
 }
 
+/* Portada dividida */
+.dashboard-pages-section {
+    background: linear-gradient(180deg, rgba(13, 17, 23, 1) 0%, rgba(22, 27, 34, 0.55) 100%);
+}
+
+.page-section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.page-section-header .section-desc {
+    margin-bottom: 0;
+}
+
+.dashboard-pages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.25rem;
+}
+
+.dashboard-page-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-height: 210px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    color: var(--text-primary);
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+}
+
+.dashboard-page-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-azul);
+    color: var(--text-primary);
+    text-decoration: none;
+    box-shadow: var(--shadow-lg);
+}
+
+.dashboard-page-card.featured {
+    border-color: rgba(56, 139, 253, 0.55);
+    background: linear-gradient(180deg, rgba(56, 139, 253, 0.12), var(--bg-surface));
+}
+
+.dashboard-page-icon {
+    font-size: 2rem;
+}
+
+.dashboard-page-card strong {
+    font-size: 1.15rem;
+}
+
+.dashboard-page-card span:last-child {
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+}
+
 /* Componente Grafo D3 */
 .network-header {
     display: flex;
@@ -766,6 +855,14 @@ th.sorted-asc .sort-icon {
     border-color: #8b949e;
     transform: translateY(-2px);
     text-decoration: none;
+}
+
+.btn-sm {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.78rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: var(--transition);
 }
 
 .btn-danger {
@@ -1586,3 +1683,170 @@ select.search-input:disabled {
     from { opacity: 0; transform: translateY(-6px); }
     to   { opacity: 1; transform: translateY(0); }
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Multi-página — estilos nuevos (v5)
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Nav activa ─────────────────────────────────────────────────────────── */
+.nav-links a.nav-active {
+    color: var(--text-primary);
+    border-bottom: 2px solid var(--color-azul);
+    padding-bottom: 2px;
+}
+
+/* ── Alert cards como links ─────────────────────────────────────────────── */
+.alert-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.alert-card-link:hover {
+    text-decoration: none;
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+.alert-cta {
+    margin-top: 10px;
+    font-size: 0.82em;
+    color: var(--color-azul);
+    font-weight: 600;
+}
+
+/* ── Grid de exploración (landing) ─────────────────────────────────────── */
+.explore-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.2rem;
+    margin-top: 2rem;
+}
+.explore-card {
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.explore-card:hover {
+    text-decoration: none;
+    border-color: var(--color-azul);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+.explore-card h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--text-primary);
+}
+.explore-card p {
+    margin: 0;
+    font-size: 0.85em;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+.explore-icon {
+    font-size: 1.6rem;
+    line-height: 1;
+}
+.explore-card-highlight {
+    border-color: var(--color-azul);
+    background: rgba(56, 139, 253, 0.05);
+}
+.explore-card-highlight:hover {
+    border-color: #58a6ff;
+    background: rgba(56, 139, 253, 0.1);
+}
+
+/* ── Cabecera de sección en páginas internas ────────────────────────────── */
+.page-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+.table-hint {
+    margin-top: 0.75rem;
+    font-size: 0.82em;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+/* ── Botón pequeño ──────────────────────────────────────────────────────── */
+.btn-sm {
+    padding: 4px 10px;
+    font-size: 0.8em;
+    border-radius: 5px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+/* ── Búsqueda page ──────────────────────────────────────────────────────── */
+.busqueda-page {
+    min-height: 80vh;
+    padding-top: 3rem;
+}
+.busqueda-header {
+    margin-bottom: 2rem;
+}
+.busqueda-search-bar {
+    max-width: 800px;
+    margin: 0 auto 1rem;
+}
+.busqueda-input-main {
+    font-size: 1.1rem !important;
+    padding: 0.85rem 1.25rem !important;
+}
+.busqueda-meta {
+    max-width: 800px;
+    margin: 0 auto 0.5rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    font-size: 0.85em;
+}
+.busqueda-table td {
+    vertical-align: top;
+    padding: 0.65rem 0.75rem;
+}
+.busqueda-table .valor-usd {
+    font-size: 0.78em;
+    color: var(--text-secondary);
+}
+
+/* ── Drill-down row ─────────────────────────────────────────────────────── */
+.drill-row td {
+    padding: 0 !important;
+    background: var(--bg-surface);
+}
+.drill-row .detalle-contratos-table {
+    width: 100%;
+    font-size: 0.82em;
+    border-collapse: collapse;
+}
+.drill-row .detalle-contratos-table th,
+.drill-row .detalle-contratos-table td {
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* ── Loading placeholder ────────────────────────────────────────────────── */
+.loading-placeholder {
+    padding: 40px;
+    text-align: center;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* ── Contexto: narrativas section initially hidden ──────────────────────── */
+#ctx-narrativas-section.hidden { display: none; }
+
+/* ── Logo como link ─────────────────────────────────────────────────────── */
+.navbar .logo:hover .logo-text { color: #58a6ff; }

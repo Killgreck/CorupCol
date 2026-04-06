@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/dashboard/">
+    <title>Nepotismo / Asignación Repetitiva — CorupCol</title>
+    <meta name="description" content="Top 20 pares ordenador del gasto ↔ contratista con repetición sospechosa en contratación pública colombiana.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=5">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"
+        integrity="sha384-NrKB+u6Ts6AtkIhwPixiKTzgSKNblyhlk0Sohlgar9UHUBzai/sgnNNWWd291xqt"
+        crossorigin="anonymous"></script>
+</head>
+<body>
+<script src="js/nav.js?v=5"></script>
+<main>
+    <section class="data-table-section dark-alt" id="nepotismo">
+        <div class="container">
+            <div class="page-section-header">
+                <div>
+                    <h2 class="section-title">👥 Top 20: Repetición Sospechosa (Ordenador ↔ Contratista)</h2>
+                    <p class="section-desc warning-text"><strong>Importante:</strong> Un ordenador del gasto es el funcionario que autoriza pagos. Altas repeticiones
+                        podrían indicar monopolios locales, aunque puede justificarse objetivamente en mercados pequeños.
+                        <strong style="color:var(--text-primary)">No afirmamos irregularidad — señalamos patrones.</strong></p>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="data-table" id="table-nepotismo">
+                    <thead>
+                        <tr>
+                            <th data-sort="p.nombre_display">Ordenador del Gasto <span class="sort-icon">↕</span></th>
+                            <th data-sort="p.doc_id">CC Ordenador <span class="sort-icon">↕</span></th>
+                            <th data-sort="_nombre_contratista_display">Contratista Favorecido <span class="sort-icon">↕</span></th>
+                            <th data-sort="contratos_juntos"># Contratos Juntos <span class="sort-icon">↕</span></th>
+                            <th data-sort="valor_total_b" class="sorted-desc">Valor Total (COP) <span class="sort-icon">↓</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td colspan="5" style="text-align:center;padding:30px;color:var(--text-secondary)">Cargando datos…</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="table-hint">💡 Haz click en cualquier fila para ver la línea de tiempo de contratos del ordenador del gasto</p>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>CorupCol</h3>
+                <p>Análisis de patrones de asignación repetitiva en la contratación pública colombiana.</p>
+            </div>
+            <div class="footer-col">
+                <h3>¿Qué significa?</h3>
+                <p>Un ordenador del gasto que contrata sistemáticamente al mismo proveedor genera un patrón de concentración que merece escrutinio, especialmente cuando el valor acumulado es alto.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Navegación</h3>
+                <ul>
+                    <li><a href="/dashboard">← Inicio</a></li>
+                    <li><a href="/dashboard/carruseles.html">Carruseles</a></li>
+                    <li><a href="/dashboard/sobrecostos.html">Sobrecostos</a></li>
+                    <li><a href="/dashboard/busqueda.html">Búsqueda</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="tagline">"Los datos son públicos. La corrupción no debería serlo."</p>
+        </div>
+    </div>
+</footer>
+
+<div id="tooltip" class="tooltip hidden"></div>
+
+<script src="js/shared.js?v=5"></script>
+<script src="js/nepotismo.js?v=5"></script>
+</body>
+</html>

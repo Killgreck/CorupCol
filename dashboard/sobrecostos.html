@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/dashboard/">
+    <title>Prórrogas Excesivas — CorupCol</title>
+    <meta name="description" content="Top 20 contratos con prórrogas excesivas: contratos que requirieron una cantidad anormal de días adicionales frente al plazo inicialmente planeado.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=5">
+</head>
+<body>
+<script src="js/nav.js?v=5"></script>
+<main>
+    <section class="data-table-section" id="sobrecostos">
+        <div class="container">
+            <div class="page-section-header">
+                <div>
+                    <h2 class="section-title">⏱️ Top 20: Prórrogas Excesivas (Desfase de Planeación)</h2>
+                    <p class="section-desc">Contratos que han requerido una cantidad anormal de días de adición
+                        frente al plazo inicialmente planeado. Prórrogas mayores a 365 días destacadas en rojo.</p>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="data-table" id="table-sobrecostos">
+                    <thead>
+                        <tr>
+                            <th data-sort="entidad">Entidad Contratante <span class="sort-icon">↕</span></th>
+                            <th data-sort="contratista">Contratista <span class="sort-icon">↕</span></th>
+                            <th data-sort="contrato_id">ID Contrato <span class="sort-icon">↕</span></th>
+                            <th data-sort="dias_prorroga" class="sorted-desc">Días Extra <span class="sort-icon">↓</span></th>
+                            <th data-sort="valor_m">Valor (COP) <span class="sort-icon">↕</span></th>
+                            <th>Objeto del Contrato</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td colspan="6" style="text-align:center;padding:30px;color:var(--text-secondary)">Cargando datos…</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>CorupCol</h3>
+                <p>Análisis de desfase de planeación y prórrogas excesivas en contratos públicos colombianos.</p>
+            </div>
+            <div class="footer-col">
+                <h3>¿Por qué importa?</h3>
+                <p>Las prórrogas repetidas inflan el costo real del Estado y pueden indicar planeación deficiente, favoritismo o incapacidad técnica del contratista.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Navegación</h3>
+                <ul>
+                    <li><a href="/dashboard">← Inicio</a></li>
+                    <li><a href="/dashboard/carruseles.html">Carruseles</a></li>
+                    <li><a href="/dashboard/nepotismo.html">Nepotismo</a></li>
+                    <li><a href="/dashboard/busqueda.html">Búsqueda</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="tagline">"Los datos son públicos. La corrupción no debería serlo."</p>
+        </div>
+    </div>
+</footer>
+
+<div id="tooltip" class="tooltip hidden"></div>
+
+<script src="js/shared.js?v=5"></script>
+<script src="js/sobrecostos.js?v=5"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/dashboard/">
+    <title>Búsqueda Avanzada — CorupCol</title>
+    <meta name="description" content="Busca empresas, contratistas y funcionarios por nombre, NIT o cédula en los datos de contratación pública colombiana.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=5">
+</head>
+<body>
+<script src="js/nav.js?v=5"></script>
+<main>
+    <section class="search-section busqueda-page" id="buscar">
+        <div class="container">
+            <div class="busqueda-header text-center">
+                <h1 class="section-title">🔎 Búsqueda en Base de Datos</h1>
+                <p class="section-desc mx-auto" style="max-width:700px;">
+                    Busca por <strong>nombre de empresa</strong>, <strong>NIT</strong>, <strong>cédula</strong>
+                    o cualquier <strong>palabra clave</strong>. Carga todos los registros de carrusel,
+                    nepotismo y prórrogas. Click en "Ver contratos" para ver el detalle individual.
+                </p>
+            </div>
+
+            <div class="search-container busqueda-search-bar">
+                <input type="text" id="busqueda-input" class="search-input busqueda-input-main"
+                    placeholder="Ej: 900123456, CONSTRUCTORA BOGOTA, Juan García…"
+                    autofocus autocomplete="off" spellcheck="false">
+                <button class="search-btn" id="busqueda-btn">Buscar</button>
+            </div>
+
+            <div class="busqueda-meta">
+                <span id="busqueda-count" class="text-secondary mono">Cargando…</span>
+                <span class="text-secondary" style="font-size:0.8em;">· Datos: Carrusel + Nepotismo + Prórrogas</span>
+            </div>
+
+            <div id="busqueda-empty" style="display:none;padding:40px;text-align:center;color:var(--text-secondary);">
+                <p style="font-size:1.1em;">Sin resultados para esa búsqueda.</p>
+                <p style="font-size:0.9em;margin-top:8px;">Intenta con un NIT diferente o verifica la ortografía.</p>
+            </div>
+
+            <div class="table-responsive" style="margin-top:1.5rem;">
+                <table class="data-table busqueda-table">
+                    <thead>
+                        <tr>
+                            <th style="width:110px">Tipo</th>
+                            <th>Nombre / Empresa</th>
+                            <th style="width:140px">NIT / CC / ID</th>
+                            <th>Lo que hace / Objeto / Patrón</th>
+                            <th style="width:130px">Valor Estimado</th>
+                            <th style="width:130px">Contratos</th>
+                        </tr>
+                    </thead>
+                    <tbody id="busqueda-tbody"></tbody>
+                </table>
+            </div>
+
+            <!-- Sentinel para scroll infinito -->
+            <div id="busqueda-loader" style="display:none;text-align:center;padding:20px;color:var(--text-secondary);">
+                <span class="mono">Cargando más resultados…</span>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>CorupCol · Búsqueda</h3>
+                <p>Busca en todos los registros de anomalías detectadas por inteligencia artificial.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Cómo buscar</h3>
+                <ul>
+                    <li><strong>Por NIT:</strong> 900123456 (exacto)</li>
+                    <li><strong>Por nombre:</strong> palabra clave del nombre</li>
+                    <li><strong>Por cédula:</strong> número de identificación</li>
+                    <li><strong>Por objeto:</strong> describe el contrato</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Navegación</h3>
+                <ul>
+                    <li><a href="/dashboard">← Inicio</a></li>
+                    <li><a href="/dashboard/hallazgos.html">📰 Hallazgos</a></li>
+                    <li><a href="/dashboard/red.html">Red de Vínculos</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="tagline">"Los datos son públicos. La corrupción no debería serlo."</p>
+        </div>
+    </div>
+</footer>
+
+<div id="tooltip" class="tooltip hidden"></div>
+
+<script src="js/shared.js?v=5"></script>
+<script src="js/busqueda.js?v=5"></script>
+</body>
+</html>
