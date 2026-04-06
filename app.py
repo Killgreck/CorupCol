@@ -315,6 +315,7 @@ _SEARCH_COLS = ('id','objeto','entidad','nit_entidad','contratista',
 
 # Conexión persistente por proceso (gunicorn fork-safe: se crea post-fork)
 _search_conn: sqlite3.Connection | None = None
+_total_contratos: int | None = None  # cached COUNT(*) — full scan es costoso, solo una vez
 
 def _get_search_conn() -> sqlite3.Connection:
     global _search_conn
@@ -326,6 +327,13 @@ def _get_search_conn() -> sqlite3.Connection:
         _search_conn.execute('PRAGMA temp_store=MEMORY')
         _search_conn.execute('PRAGMA mmap_size=268435456') # 256 MB mmap
     return _search_conn
+
+
+def _get_total_contratos(conn: sqlite3.Connection) -> int:
+    global _total_contratos
+    if _total_contratos is None:
+        _total_contratos = conn.execute('SELECT COUNT(*) FROM contratos').fetchone()[0]
+    return _total_contratos
 
 
 def _sanitize_fts(q: str) -> str:
@@ -364,31 +372,33 @@ def api_search():
             'results': [], 'total': 0, 'page': 1, 'pages': 0
         }), 503
 
-    raw_q  = (request.args.get('q') or '').strip()
-    page   = _parse_int_arg('page', 1, 1, 10_000)
-    limit  = _parse_int_arg('limit', 50, 10, 100)
-    offset = (page - 1) * limit
+    raw_q      = (request.args.get('q') or '').strip()
+    page       = _parse_int_arg('page', 1, 1, 10_000)
+    limit      = _parse_int_arg('limit', 50, 10, 100)
+    offset     = (page - 1) * limit
+    known_total = _parse_int_arg('known_total', -1, -1, 50_000_000)
 
     try:
         conn = _get_search_conn()
 
         if not raw_q:
-            # Sin query: mostrar contratos recientes
+            # Sin query: mostrar contratos recientes — COUNT cacheado en memoria
             rows  = conn.execute(
                 'SELECT * FROM contratos ORDER BY fecha DESC LIMIT ? OFFSET ?',
                 (limit, offset)
             ).fetchall()
-            total = conn.execute('SELECT COUNT(*) FROM contratos').fetchone()[0]
+            total = _get_total_contratos(conn)
 
         else:
             fts_q = _sanitize_fts(raw_q)
 
             if fts_q is None:
-                # Búsqueda por NIT/cédula exacta
+                # Búsqueda por NIT/cédula exacta (indexed)
                 rows  = conn.execute(
                     'SELECT * FROM contratos WHERE doc_contratista=? ORDER BY fecha DESC LIMIT ? OFFSET ?',
                     (raw_q, limit, offset)
                 ).fetchall()
+                # COUNT por NIT es rápido (usa idx_doc)
                 total = conn.execute(
                     'SELECT COUNT(*) FROM contratos WHERE doc_contratista=?', (raw_q,)
                 ).fetchone()[0]
@@ -405,11 +415,15 @@ def api_search():
                     ORDER BY rank
                     LIMIT ? OFFSET ?
                 ''', (fts_q, limit, offset)).fetchall()
-                total = conn.execute('''
-                    SELECT COUNT(*) FROM contratos c
-                    JOIN contratos_fts f ON c.id = f.rowid
-                    WHERE contratos_fts MATCH ?
-                ''', (fts_q,)).fetchone()[0]
+                # En páginas > 1 el cliente ya conoce el total — evitar FTS COUNT costoso
+                if known_total >= 0 and page > 1:
+                    total = known_total
+                else:
+                    total = conn.execute('''
+                        SELECT COUNT(*) FROM contratos c
+                        JOIN contratos_fts f ON c.id = f.rowid
+                        WHERE contratos_fts MATCH ?
+                    ''', (fts_q,)).fetchone()[0]
 
         return jsonify({
             'results': [dict(r) for r in rows],

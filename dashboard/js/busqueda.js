@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let _loading      = false;
     let _lastQuery    = '';
     let _debounceTimer = null;
+    let _knownTotal   = -1;
 
     const input   = document.getElementById('busqueda-input');
     const btn     = document.getElementById('busqueda-btn');
@@ -115,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             const params = new URLSearchParams({ q, page, limit: LIMIT });
+            if (page > 1 && _knownTotal >= 0) params.set('known_total', _knownTotal);
             const res  = await fetch(`/api/search?${params}`);
             const data = await res.json();
 
@@ -129,6 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
             _page       = data.page;
             _totalPages = data.pages;
             _lastQuery  = q;
+            _knownTotal = data.total;
 
             renderRows(data.results);
             renderPager();
@@ -158,6 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const triggerSearch = () => {
         const q = input.value.trim();
         _lastQuery = q;
+        _knownTotal = -1;
         doSearch(q, 1);
     };
 
