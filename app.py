@@ -313,11 +313,19 @@ _SEARCH_COLS = ('id','objeto','entidad','nit_entidad','contratista',
                 'doc_contratista','valor','fecha','estado',
                 'depto','ciudad','url','fuente','numero')
 
-def _get_search_conn():
-    conn = sqlite3.connect(_SEARCH_DB, check_same_thread=False)
-    conn.row_factory = sqlite3.Row
-    conn.execute('PRAGMA query_only=ON')
-    return conn
+# Conexión persistente por proceso (gunicorn fork-safe: se crea post-fork)
+_search_conn: sqlite3.Connection | None = None
+
+def _get_search_conn() -> sqlite3.Connection:
+    global _search_conn
+    if _search_conn is None:
+        _search_conn = sqlite3.connect(_SEARCH_DB, check_same_thread=False)
+        _search_conn.row_factory = sqlite3.Row
+        _search_conn.execute('PRAGMA query_only=ON')
+        _search_conn.execute('PRAGMA cache_size=-65536')   # 64 MB cache
+        _search_conn.execute('PRAGMA temp_store=MEMORY')
+        _search_conn.execute('PRAGMA mmap_size=268435456') # 256 MB mmap
+    return _search_conn
 
 
 def _sanitize_fts(q: str) -> str:
@@ -361,7 +369,6 @@ def api_search():
     limit  = _parse_int_arg('limit', 50, 10, 100)
     offset = (page - 1) * limit
 
-    conn = None
     try:
         conn = _get_search_conn()
 
@@ -415,9 +422,6 @@ def api_search():
     except Exception:
         logger.exception("api_search failed")
         return jsonify({'error': 'Error interno de búsqueda.', 'results': [], 'total': 0, 'page': 1, 'pages': 0}), 500
-    finally:
-        if conn is not None:
-            conn.close()
 
 
 # ---------------------------------------------------------------------------
