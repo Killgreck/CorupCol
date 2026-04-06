@@ -1,22 +1,22 @@
-// busqueda.js — Búsqueda SECOP completa (SECOP I + II, 2000-2026)
-// Usa el endpoint /api/search que busca en el índice FTS5 SQLite
+// busqueda.js — Búsqueda SECOP (SECOP I + II, 2000-2026) con paginación
 document.addEventListener('DOMContentLoaded', () => {
 
-    // ── Estado ──────────────────────────────────────────────────────────────
+    const LIMIT = 10;
+
     let _page         = 1;
     let _totalPages   = 1;
     let _loading      = false;
     let _lastQuery    = '';
     let _debounceTimer = null;
 
-    // ── Elementos DOM ────────────────────────────────────────────────────────
-    const input     = document.getElementById('busqueda-input');
-    const btn       = document.getElementById('busqueda-btn');
-    const tbody     = document.getElementById('busqueda-tbody');
-    const countEl   = document.getElementById('busqueda-count');
-    const emptyEl   = document.getElementById('busqueda-empty');
-    const errorEl   = document.getElementById('busqueda-error');
-    const loader    = document.getElementById('busqueda-loader');
+    const input   = document.getElementById('busqueda-input');
+    const btn     = document.getElementById('busqueda-btn');
+    const tbody   = document.getElementById('busqueda-tbody');
+    const countEl = document.getElementById('busqueda-count');
+    const emptyEl = document.getElementById('busqueda-empty');
+    const errorEl = document.getElementById('busqueda-error');
+    const loader  = document.getElementById('busqueda-loader');
+    const pagerEl = document.getElementById('busqueda-pager');
 
     // ── Helpers ──────────────────────────────────────────────────────────────
     const fmt = (v) => {
@@ -27,46 +27,39 @@ document.addEventListener('DOMContentLoaded', () => {
         return `$${n.toLocaleString('es-CO', {maximumFractionDigits:0})}`;
     };
 
-    const fmtFecha = (s) => {
-        if (!s) return '—';
-        return s.substring(0, 10);
-    };
-
     const estadoBadge = (estado) => {
         if (!estado) return '—';
         const e = estado.toLowerCase();
         const cls = e.includes('ejecut') || e.includes('celebr') ? 'badge-green'
                   : e.includes('terminad') || e.includes('liquid') ? 'badge-orange'
                   : 'badge-red';
-        return `<span class="badge ${cls} js-small-badge">${escapeHtml(estado)}</span>`;
+        return `<span class="badge ${cls}" style="font-size:0.75em">${escapeHtml(estado)}</span>`;
     };
 
     const fuenteBadge = (f) => {
         const cls = (f || '').includes('2') ? 'badge-azul' : 'badge-green';
-        return `<span class="badge ${cls} js-small-badge">${escapeHtml(f || 'SECOP')}</span>`;
+        return `<span class="badge ${cls}" style="font-size:0.75em">${escapeHtml(f || 'SECOP')}</span>`;
     };
 
-    // ── Render de filas ──────────────────────────────────────────────────────
-    const renderRows = (rows, append = false) => {
-        if (!append) tbody.innerHTML = '';
-        if (!rows.length) return;
-
+    // ── Render filas ─────────────────────────────────────────────────────────
+    const renderRows = (rows) => {
+        tbody.innerHTML = '';
         rows.forEach(c => {
             const tr = document.createElement('tr');
             const objeto = (c.objeto || '—');
             const objetoCorto = objeto.length > 100 ? objeto.substring(0, 100) + '…' : objeto;
             const safeUrl = typeof safeExternalUrl === 'function' ? safeExternalUrl(c.url) : null;
             tr.innerHTML = `
-                <td class="js-nowrap">${fuenteBadge(c.fuente)}</td>
+                <td style="white-space:nowrap">${fuenteBadge(c.fuente)}</td>
                 <td class="busqueda-objeto" title="${escapeHtml(objeto)}">${escapeHtml(objetoCorto)}</td>
                 <td>${escapeHtml(c.entidad || '—')}</td>
-                <td class="mono js-nowrap">${escapeHtml(c.nit_entidad || '—')}</td>
+                <td class="mono" style="white-space:nowrap">${escapeHtml(c.nit_entidad || '—')}</td>
                 <td>${escapeHtml(c.contratista || '—')}</td>
-                <td class="mono js-nowrap">${escapeHtml(c.doc_contratista || '—')}</td>
-                <td class="mono js-nowrap js-right"><strong>${escapeHtml(fmt(c.valor))}</strong></td>
-                <td class="js-nowrap">${escapeHtml(fmtFecha(c.fecha))}</td>
+                <td class="mono" style="white-space:nowrap">${escapeHtml(c.doc_contratista || '—')}</td>
+                <td class="mono" style="white-space:nowrap;text-align:right"><strong>${escapeHtml(fmt(c.valor))}</strong></td>
+                <td style="white-space:nowrap">${escapeHtml((c.fecha || '—').substring(0,10))}</td>
                 <td>${estadoBadge(c.estado)}</td>
-                <td class="js-nowrap js-small">${escapeHtml(c.depto || '—')}</td>
+                <td style="white-space:nowrap;font-size:0.82em">${escapeHtml(c.depto || '—')}</td>
                 <td>${safeUrl
                     ? `<a href="${escapeHtml(safeUrl)}" target="_blank" rel="noopener noreferrer" class="detalle-link">Ver →</a>`
                     : '—'}</td>`;
@@ -74,93 +67,108 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // ── Llamada al API ───────────────────────────────────────────────────────
-    const doSearch = async (q, page = 1, append = false) => {
+    // ── Paginador ────────────────────────────────────────────────────────────
+    const renderPager = () => {
+        if (!pagerEl) return;
+        pagerEl.innerHTML = '';
+        if (_totalPages <= 1) return;
+
+        const mkBtn = (label, page, disabled, active) => {
+            const b = document.createElement('button');
+            b.textContent = label;
+            b.className = 'pager-btn' + (active ? ' pager-active' : '');
+            b.disabled = disabled;
+            if (!disabled) b.addEventListener('click', () => doSearch(_lastQuery, page));
+            return b;
+        };
+
+        pagerEl.appendChild(mkBtn('←', _page - 1, _page <= 1, false));
+
+        // Páginas visibles: primera, actual±2, última
+        const pages = new Set([1, _totalPages]);
+        for (let i = Math.max(1, _page - 2); i <= Math.min(_totalPages, _page + 2); i++) pages.add(i);
+        let prev = 0;
+        [...pages].sort((a,b)=>a-b).forEach(p => {
+            if (prev && p - prev > 1) {
+                const dots = document.createElement('span');
+                dots.textContent = '…';
+                dots.className = 'pager-dots';
+                pagerEl.appendChild(dots);
+            }
+            pagerEl.appendChild(mkBtn(p, p, false, p === _page));
+            prev = p;
+        });
+
+        pagerEl.appendChild(mkBtn('→', _page + 1, _page >= _totalPages, false));
+    };
+
+    // ── API ──────────────────────────────────────────────────────────────────
+    const doSearch = async (q, page = 1) => {
         if (_loading) return;
         _loading = true;
 
-        if (!append) {
-            tbody.innerHTML = '';
-            if (loader) loader.style.display = 'block';
-        }
+        tbody.innerHTML = '';
+        if (loader) loader.style.display = 'block';
         if (emptyEl) emptyEl.style.display = 'none';
-        if (errorEl) errorEl.style.display = 'none';
+        if (errorEl) { errorEl.textContent = ''; errorEl.style.display = 'none'; }
+        if (pagerEl) pagerEl.innerHTML = '';
 
         try {
-            const params = new URLSearchParams({ q, page, limit: 50 });
-            const res    = await fetch(`/api/search?${params}`);
-            const data   = await res.json();
+            const params = new URLSearchParams({ q, page, limit: LIMIT });
+            const res  = await fetch(`/api/search?${params}`);
+            const data = await res.json();
+
+            if (loader) loader.style.display = 'none';
 
             if (data.error) {
-                if (errorEl) {
-                    errorEl.textContent = `⚠ ${data.error}`;
-                    errorEl.style.display = 'block';
-                }
-                if (loader) loader.style.display = 'none';
+                if (errorEl) { errorEl.textContent = `⚠ ${data.error}`; errorEl.style.display = 'block'; }
                 _loading = false;
                 return;
             }
 
             _page       = data.page;
             _totalPages = data.pages;
+            _lastQuery  = q;
 
-            renderRows(data.results, append);
+            renderRows(data.results);
+            renderPager();
 
             if (countEl) {
-                const label = q ? `${data.total.toLocaleString('es-CO')} resultado${data.total !== 1 ? 's' : ''}`
-                               : `${data.total.toLocaleString('es-CO')} contratos en total (SECOP I + II)`;
-                countEl.textContent = label;
+                countEl.textContent = q
+                    ? `${data.total.toLocaleString('es-CO')} resultado${data.total !== 1 ? 's' : ''} · pág ${_page}/${_totalPages}`
+                    : `${data.total.toLocaleString('es-CO')} contratos · pág ${_page}/${_totalPages}`;
             }
 
-            if (!data.results.length && !append) {
+            if (!data.results.length) {
                 if (emptyEl) emptyEl.style.display = 'block';
             }
 
-            // Mostrar loader para siguiente página si hay más
-            if (loader) {
-                loader.style.display = (_page < _totalPages) ? 'block' : 'none';
-            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
 
         } catch (err) {
-            console.error('Error en búsqueda:', err);
-            if (errorEl) {
-                errorEl.textContent = '⚠ Error al conectar con el servidor. Recarga la página.';
-                errorEl.style.display = 'block';
-            }
+            console.error(err);
             if (loader) loader.style.display = 'none';
+            if (errorEl) { errorEl.textContent = '⚠ Error al conectar con el servidor.'; errorEl.style.display = 'block'; }
         }
 
         _loading = false;
     };
 
-    // ── Scroll infinito via IntersectionObserver ─────────────────────────────
-    if (loader) {
-        new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting && _page < _totalPages && !_loading) {
-                doSearch(_lastQuery, _page + 1, true);
-            }
-        }, { rootMargin: '300px' }).observe(loader);
-    }
-
-    // ── Input con debounce ───────────────────────────────────────────────────
+    // ── Triggers ─────────────────────────────────────────────────────────────
     const triggerSearch = () => {
         const q = input.value.trim();
         _lastQuery = q;
-        _page = 1;
-        doSearch(q, 1, false);
+        doSearch(q, 1);
     };
 
     input.addEventListener('input', () => {
         clearTimeout(_debounceTimer);
-        _debounceTimer = setTimeout(triggerSearch, 350);
+        _debounceTimer = setTimeout(triggerSearch, 400);
     });
-
     input.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') { clearTimeout(_debounceTimer); triggerSearch(); }
     });
-
     if (btn) btn.addEventListener('click', () => { clearTimeout(_debounceTimer); triggerSearch(); });
 
-    // ── Carga inicial: contratos recientes ───────────────────────────────────
-    doSearch('', 1, false);
+    doSearch('', 1);
 });

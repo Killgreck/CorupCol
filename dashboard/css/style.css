@@ -1850,3 +1850,19 @@ select.search-input:disabled {
 
 /* ── Logo como link ─────────────────────────────────────────────────────── */
 .navbar .logo:hover .logo-text { color: #58a6ff; }
+
+/* ── Paginador búsqueda ──────────────────────────────────────────────────── */
+.pager-btn {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background 0.15s;
+}
+.pager-btn:hover:not(:disabled) { background: var(--accent); color: #fff; }
+.pager-btn:disabled { opacity: 0.35; cursor: default; }
+.pager-active { background: var(--accent) !important; color: #fff !important; border-color: var(--accent); }
+.pager-dots { padding: 6px 4px; color: var(--text-secondary); font-size: 0.85rem; }
