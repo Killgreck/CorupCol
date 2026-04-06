@@ -1,7 +1,9 @@
 import os
 import sqlite3
 import re
+import logging
 from pathlib import Path
+from urllib.parse import unquote, urlsplit
 from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
@@ -29,21 +31,57 @@ USERNAME_MIN = 3
 USERNAME_MAX = 64
 PASSWORD_MIN = 8
 PASSWORD_MAX = 128
+DEFAULT_ALLOWED_HOSTS = 'localhost,127.0.0.1,::1,corupcol.onyxsys.net'
+
+
+def _parse_allowed_hosts(raw_hosts: str) -> set[str]:
+    return {host.strip().lower() for host in raw_hosts.split(',') if host.strip()}
+
+
+def _host_without_port(host_header: str) -> str:
+    host = (host_header or '').strip().lower()
+    if host.startswith('[') and ']' in host:
+        return host[1:host.index(']')]
+    return host.rsplit(':', 1)[0]
+
+
+class TrustedHostMiddleware:
+    def __init__(self, wsgi_app, allowed_hosts: set[str]):
+        self.wsgi_app = wsgi_app
+        self.allowed_hosts = allowed_hosts
+
+    def __call__(self, environ, start_response):
+        host = _host_without_port(environ.get('HTTP_HOST') or environ.get('SERVER_NAME') or '')
+        if host not in self.allowed_hosts:
+            start_response(
+                '400 Bad Request',
+                [('Content-Type', 'text/plain; charset=utf-8')],
+            )
+            return [b'Invalid Host header']
+        return self.wsgi_app(environ, start_response)
 
 # Initialize Flask App
 app = Flask(
     __name__,
-    static_folder='dashboard',
-    static_url_path='/static_dashboard',
+    static_folder=None,
     template_folder='templates',
+)
+app.wsgi_app = TrustedHostMiddleware(
+    app.wsgi_app,
+    _parse_allowed_hosts(os.environ.get('ALLOWED_HOSTS', DEFAULT_ALLOWED_HOSTS)),
 )
 app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
     'DATABASE_URL', 'sqlite:///users.db'
 )
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['MAX_CONTENT_LENGTH'] = int(os.environ.get('MAX_CONTENT_LENGTH', 16 * 1024 * 1024))
+app.config['SESSION_COOKIE_SECURE'] = os.environ.get('SESSION_COOKIE_SECURE', '1') == '1'
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = os.environ.get('SESSION_COOKIE_SAMESITE', 'Lax')
 # WTF CSRF — habilitado por defecto al instanciar CSRFProtect
 app.config['WTF_CSRF_TIME_LIMIT'] = 3600  # 1 hora
+logger = logging.getLogger(__name__)
 
 # Security headers via after_request
 @app.after_request
@@ -54,11 +92,14 @@ def set_security_headers(response):
     response.headers['X-XSS-Protection'] = '0'  # Moderno: desactivar el XSS auditor roto
     response.headers['Content-Security-Policy'] = (
         "default-src 'self'; "
-        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+        "style-src 'self' https://fonts.googleapis.com; "
         "font-src 'self' https://fonts.gstatic.com; "
         "script-src 'self' https://d3js.org https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; "
         "img-src 'self' data:; "
         "connect-src 'self' https://open.er-api.com; "
+        "object-src 'none'; "
+        "base-uri 'self'; "
+        "form-action 'self'; "
         "frame-ancestors 'none';"
     )
     return response
@@ -126,9 +167,19 @@ def _is_safe_next(next_url: str | None) -> bool:
     """Valida que el parámetro next sea una ruta relativa interna (evita open redirect)."""
     if not next_url:
         return False
-    # Sólo se permite paths que empiecen con / y no contengan //
-    # (que podría interpretarse como protocolo relativo en algunos navegadores)
-    return next_url.startswith('/') and not next_url.startswith('//')
+    decoded_url = unquote(next_url)
+    parsed = urlsplit(decoded_url)
+    if parsed.scheme or parsed.netloc:
+        return False
+    if not decoded_url.startswith('/') or decoded_url.startswith('//'):
+        return False
+    # Browsers and proxies disagree on slash-like characters; fail closed.
+    blocked_chars = {'\\', '\u2044', '\u2215', '\u29f8', '\uff0f'}
+    if any(char in decoded_url for char in blocked_chars):
+        return False
+    if any(ord(char) < 32 for char in decoded_url):
+        return False
+    return True
 
 
 # ---------------------------------------------------------------------------
@@ -168,7 +219,6 @@ def register():
     if current_user.is_authenticated:
         return redirect(url_for('dashboard'))
 
-
     if request.method == 'POST':
         username = (request.form.get('username') or '').strip()
         password = request.form.get('password') or ''
@@ -202,7 +252,7 @@ def register():
     return render_template('register.html')
 
 
-@app.route('/logout')
+@app.route('/logout', methods=['GET', 'POST'])
 @login_required
 def logout():
     logout_user()
@@ -230,6 +280,23 @@ def serve_dashboard_assets(filename):
     if safe_path is None:
         from flask import abort
         abort(404)
+    return send_from_directory(dashboard_dir, filename)
+
+
+@app.route('/public/<path:filename>')
+def public_assets(filename):
+    """Sirve solo assets publicos necesarios para landing/login/register."""
+    public_allowlist = {
+        'css/style.css',
+        'css/auth.css',
+        'css/corrupworld.css',
+    }
+    if filename not in public_allowlist:
+        from flask import abort
+        abort(404)
+    dashboard_dir = os.path.abspath(
+        os.path.join(os.path.dirname(__file__), 'dashboard')
+    )
     return send_from_directory(dashboard_dir, filename)
 
 
@@ -271,6 +338,15 @@ def _sanitize_fts(q: str) -> str:
     return ' '.join(f'"{t}"' for t in tokens if t)
 
 
+def _parse_int_arg(name: str, default: int, minimum: int, maximum: int) -> int:
+    raw_value = request.args.get(name, default)
+    try:
+        value = int(raw_value)
+    except (TypeError, ValueError):
+        return default
+    return min(maximum, max(minimum, value))
+
+
 @app.route('/api/search')
 @login_required
 def api_search():
@@ -281,10 +357,11 @@ def api_search():
         }), 503
 
     raw_q  = (request.args.get('q') or '').strip()
-    page   = max(1, int(request.args.get('page', 1) or 1))
-    limit  = min(100, max(10, int(request.args.get('limit', 50) or 50)))
+    page   = _parse_int_arg('page', 1, 1, 10_000)
+    limit  = _parse_int_arg('limit', 50, 10, 100)
     offset = (page - 1) * limit
 
+    conn = None
     try:
         conn = _get_search_conn()
 
@@ -327,7 +404,6 @@ def api_search():
                     WHERE contratos_fts MATCH ?
                 ''', (fts_q,)).fetchone()[0]
 
-        conn.close()
         return jsonify({
             'results': [dict(r) for r in rows],
             'total':   total,
@@ -336,8 +412,12 @@ def api_search():
             'query':   raw_q,
         })
 
-    except Exception as e:
-        return jsonify({'error': str(e), 'results': [], 'total': 0, 'page': 1, 'pages': 0}), 500
+    except Exception:
+        logger.exception("api_search failed")
+        return jsonify({'error': 'Error interno de búsqueda.', 'results': [], 'total': 0, 'page': 1, 'pages': 0}), 500
+    finally:
+        if conn is not None:
+            conn.close()
 
 
 # ---------------------------------------------------------------------------
@@ -345,10 +425,12 @@ def api_search():
 # ---------------------------------------------------------------------------
 if __name__ == '__main__':
     debug_mode = os.environ.get('FLASK_DEBUG', '0') == '1'
+    host = os.environ.get('FLASK_RUN_HOST', '127.0.0.1')
+    port = int(os.environ.get('FLASK_RUN_PORT', 5000))
     print("╔══════════════════════════════════════════════╗")
     print("║        CorupCol — Authenticated Server        ║")
     print("╠══════════════════════════════════════════════╣")
-    print("║  URL:  http://localhost:5000                   ║")
+    print(f"║  URL:  http://{host}:{port:<5}                 ║")
     print("║  Admin: Login required to view dashboard     ║")
     print("╚══════════════════════════════════════════════╝")
-    app.run(host='0.0.0.0', port=5000, debug=debug_mode)
+    app.run(host=host, port=port, debug=debug_mode)
