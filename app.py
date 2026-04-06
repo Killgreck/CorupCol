@@ -168,15 +168,6 @@ def register():
     if current_user.is_authenticated:
         return redirect(url_for('dashboard'))
 
-    # Registro restringido: sólo se permite si aún no existe ningún usuario
-    # (primer arranque). Para añadir usuarios adicionales, un administrador
-    # debe hacerlo directamente en la BD o via CLI.
-    with app.app_context():
-        user_count = db.session.query(db.func.count(User.id)).scalar()
-
-    if user_count > 0:
-        flash('El registro público está desactivado.', 'error')
-        return redirect(url_for('login'))
 
     if request.method == 'POST':
         username = (request.form.get('username') or '').strip()
