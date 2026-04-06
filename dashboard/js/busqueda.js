@@ -38,12 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const cls = e.includes('ejecut') || e.includes('celebr') ? 'badge-green'
                   : e.includes('terminad') || e.includes('liquid') ? 'badge-orange'
                   : 'badge-red';
-        return `<span class="badge ${cls}" style="font-size:0.75em">${escapeHtml(estado)}</span>`;
+        return `<span class="badge ${cls} js-small-badge">${escapeHtml(estado)}</span>`;
     };
 
     const fuenteBadge = (f) => {
         const cls = (f || '').includes('2') ? 'badge-azul' : 'badge-green';
-        return `<span class="badge ${cls}" style="font-size:0.75em">${escapeHtml(f || 'SECOP')}</span>`;
+        return `<span class="badge ${cls} js-small-badge">${escapeHtml(f || 'SECOP')}</span>`;
     };
 
     // ── Render de filas ──────────────────────────────────────────────────────
@@ -55,19 +55,20 @@ document.addEventListener('DOMContentLoaded', () => {
             const tr = document.createElement('tr');
             const objeto = (c.objeto || '—');
             const objetoCorto = objeto.length > 100 ? objeto.substring(0, 100) + '…' : objeto;
+            const safeUrl = typeof safeExternalUrl === 'function' ? safeExternalUrl(c.url) : null;
             tr.innerHTML = `
-                <td style="white-space:nowrap">${fuenteBadge(c.fuente)}</td>
+                <td class="js-nowrap">${fuenteBadge(c.fuente)}</td>
                 <td class="busqueda-objeto" title="${escapeHtml(objeto)}">${escapeHtml(objetoCorto)}</td>
                 <td>${escapeHtml(c.entidad || '—')}</td>
-                <td class="mono" style="white-space:nowrap">${escapeHtml(c.nit_entidad || '—')}</td>
+                <td class="mono js-nowrap">${escapeHtml(c.nit_entidad || '—')}</td>
                 <td>${escapeHtml(c.contratista || '—')}</td>
-                <td class="mono" style="white-space:nowrap">${escapeHtml(c.doc_contratista || '—')}</td>
-                <td class="mono" style="white-space:nowrap;text-align:right"><strong>${escapeHtml(fmt(c.valor))}</strong></td>
-                <td style="white-space:nowrap">${escapeHtml(fmtFecha(c.fecha))}</td>
+                <td class="mono js-nowrap">${escapeHtml(c.doc_contratista || '—')}</td>
+                <td class="mono js-nowrap js-right"><strong>${escapeHtml(fmt(c.valor))}</strong></td>
+                <td class="js-nowrap">${escapeHtml(fmtFecha(c.fecha))}</td>
                 <td>${estadoBadge(c.estado)}</td>
-                <td style="white-space:nowrap;font-size:0.82em">${escapeHtml(c.depto || '—')}</td>
-                <td>${c.url
-                    ? `<a href="${escapeHtml(c.url)}" target="_blank" rel="noopener noreferrer" class="detalle-link">Ver →</a>`
+                <td class="js-nowrap js-small">${escapeHtml(c.depto || '—')}</td>
+                <td>${safeUrl
+                    ? `<a href="${escapeHtml(safeUrl)}" target="_blank" rel="noopener noreferrer" class="detalle-link">Ver →</a>`
                     : '—'}</td>`;
             tbody.appendChild(tr);
         });

@@ -15,6 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css?v=5">
+    <link rel="stylesheet" href="css/dashboard-pages.css?v=1">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"
         integrity="sha384-NrKB+u6Ts6AtkIhwPixiKTzgSKNblyhlk0Sohlgar9UHUBzai/sgnNNWWd291xqt"
         crossorigin="anonymous"></script>
@@ -48,7 +49,7 @@
                     <div class="stat-value" id="counter-valor">$0</div>
                     <div class="stat-label">Valor Total Rastreable</div>
                     <div class="stat-usd" id="counter-valor-usd" title="Cargando tasa real...">cargando USD…</div>
-                    <div class="stat-source text-secondary mono" id="budget-source" style="font-size:0.8rem;margin-top:10px;line-height:1.2;"></div>
+                    <div class="stat-source text-secondary mono budget-source" id="budget-source"></div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-value" id="counter-anomalias">0</div>
@@ -98,7 +99,7 @@
     </section>
 
     <!-- Explorar páginas -->
-    <section class="findings" style="background:var(--bg-surface);">
+    <section class="findings dashboard-surface">
         <div class="container">
             <h2 class="section-title text-center">Explora el Dashboard</h2>
             <div class="explore-grid">

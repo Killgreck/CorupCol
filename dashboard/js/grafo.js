@@ -17,13 +17,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── Cargar y dibujar ─────────────────────────────────────────────────────────
     const initGraph = async () => {
         try {
-            const res = await fetch('/static_dashboard/data/grafo_red.json');
-            _allData = await res.json();
+            _allData = typeof fetchDashboardJSON === 'function'
+                ? await fetchDashboardJSON('grafo_red.json')
+                : await fetch('/dashboard/data/grafo_red.json').then(res => res.json());
             drawGraph(_allData);
         } catch (error) {
             console.error("Error cargando grafo:", error);
             document.getElementById('d3-graph').innerHTML =
-                '<div style="padding:20px;text-align:center;color:var(--text-secondary);">No se pudo cargar la red. Ejecuta primero preparar_datos_publicos.py</div>';
+                '<div class="js-graph-error">No se pudo cargar la red. Ejecuta primero preparar_datos_publicos.py</div>';
         }
     };
 
@@ -99,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         _node.on('mouseover', (event, d) => {
             tooltip.innerHTML = `<strong>${escapeHtml(d.name)}</strong><br>
                 <span class="text-secondary">${escapeHtml(d.label)}</span>
-                ${d.fecha ? `<br><span style="color:var(--color-azul);font-size:0.8em;">${escapeHtml(d.fecha)}</span>` : ''}`;
+                ${d.fecha ? `<br><span class="js-graph-date">${escapeHtml(d.fecha)}</span>` : ''}`;
             tooltip.style.left = (event.pageX + 10) + 'px';
             tooltip.style.top  = (event.pageY + 10) + 'px';
             tooltip.classList.remove('hidden');
@@ -196,9 +197,9 @@ document.addEventListener('DOMContentLoaded', () => {
         let html = `
             <h3>${escapeHtml(nodeInfo.name)}</h3>
             <p><strong>Tipo:</strong> <span class="badge badge-orange">${escapeHtml(nodeInfo.label)}</span></p>
-            ${nodeInfo.fecha ? `<p><strong>Fecha:</strong> <span style="color:var(--color-azul)">${escapeHtml(nodeInfo.fecha)}</span></p>` : ''}
+            ${nodeInfo.fecha ? `<p><strong>Fecha:</strong> <span class="js-graph-date">${escapeHtml(nodeInfo.fecha)}</span></p>` : ''}
             <p><strong>Impacto Relativo:</strong> ${Math.round(nodeInfo.val)}</p>
-            <h4 style="margin-top:20px;font-size:1rem;">Conexiones (${connectedLinks.length})</h4>
+            <h4 class="js-graph-heading">Conexiones (${connectedLinks.length})</h4>
             <ul class="link-list">`;
 
         if (!connectedLinks.length) {
@@ -216,9 +217,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     ? `$${parseFloat(l.value).toLocaleString('es-CO')}B COP`
                     : 'Relación estructural';
                 html += `<li>
-                    <span style="color:var(--text-secondary);font-size:0.8em;">[${escapeHtml(l.type)}]</span><br>
+                    <span class="js-graph-link-type">[${escapeHtml(l.type)}]</span><br>
                     ${escapeHtml(verb)} <strong>${escapeHtml(other.name)}</strong><br>
-                    <span class="mono" style="color:var(--color-naranja);">${escapeHtml(valStr)}</span>
+                    <span class="mono js-graph-value">${escapeHtml(valStr)}</span>
                 </li>`;
             });
         }

@@ -3,6 +3,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const COLS = ['display_name', 'c.doc_id', 'entidades_distintas', 'total_contratos', 'total_valor_b'];
 
+    const appendValueBar = (td, pct) => {
+        const container = document.createElement('div');
+        container.className = 'value-bar-container js-value-bar-container';
+        const fill = document.createElement('div');
+        fill.className = 'value-bar js-value-bar-fill';
+        fill.style.width = `${pct}%`;
+        container.appendChild(fill);
+        td.appendChild(container);
+    };
+
     const renderTable = (data) => {
         const tbody = document.querySelector('#table-carrusel tbody');
         if (!tbody) return;
@@ -18,8 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     const n = parseFloat(val) || 0;
                     const pct = maxVal > 0 ? (n / maxVal) * 100 : 0;
                     td.innerHTML = `<strong>$${n.toLocaleString('es-CO', { minimumFractionDigits: 1 })}B COP</strong>
-                        <div class="valor-usd">${formatUSD(n)}</div>
-                        <div class="value-bar-container"><div class="value-bar" style="width:${pct}%"></div></div>`;
+                        <div class="valor-usd">${formatUSD(n)}</div>`;
+                    appendValueBar(td, pct);
                 } else {
                     td.textContent = val !== undefined && val !== null ? val : 'N/A';
                     if (col.includes('doc_id')) td.className = 'mono';
@@ -28,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (row['c.doc_id']) {
-                tr.style.cursor = 'pointer';
+                tr.classList.add('js-table-row-clickable');
                 tr.addEventListener('click', () => {
                     const existing = tr.nextElementSibling;
                     if (existing?.classList.contains('chart-row')) {

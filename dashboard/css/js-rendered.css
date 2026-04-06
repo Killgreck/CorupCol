@@ -1,0 +1,114 @@
+.nav-logo-link {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.js-nowrap {
+    white-space: nowrap;
+}
+
+.js-right {
+    text-align: right;
+}
+
+.js-small {
+    font-size: 0.82em;
+}
+
+.js-small-badge {
+    font-size: 0.75em;
+}
+
+.js-error-banner {
+    padding: 12px 16px;
+    background: rgba(248, 81, 73, 0.15);
+    border: 1px solid rgba(248, 81, 73, 0.4);
+    border-radius: 6px;
+    color: #f85149;
+    margin-bottom: 1rem;
+}
+
+.error-banner {
+    padding: 12px 16px;
+    background: rgba(248, 81, 73, 0.15);
+    border: 1px solid rgba(248, 81, 73, 0.4);
+    border-radius: 6px;
+    color: #f85149;
+    margin-bottom: 1rem;
+}
+
+.js-empty-state,
+.js-error-state,
+.js-notice {
+    padding: 20px;
+    text-align: center;
+}
+
+.js-notice {
+    color: var(--text-secondary);
+}
+
+.js-section-notice {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 12px;
+}
+
+.js-graph-error {
+    padding: 20px;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.js-graph-date {
+    color: var(--color-azul);
+    font-size: 0.8em;
+}
+
+.js-graph-heading {
+    margin-top: 20px;
+    font-size: 1rem;
+}
+
+.js-graph-link-type {
+    color: var(--text-secondary);
+    font-size: 0.8em;
+}
+
+.js-graph-value {
+    color: var(--color-naranja);
+}
+
+.js-value-bar-container {
+    width: 100%;
+}
+
+.js-value-bar-fill {
+    height: 8px;
+    background: linear-gradient(90deg, #388bfd, #58a6ff);
+    border-radius: 999px;
+}
+
+.js-table-row-clickable {
+    cursor: pointer;
+}
+
+.js-cursor-pointer {
+    cursor: pointer;
+}
+
+.js-search-result {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+}
+
+.js-search-title {
+    font-weight: 600;
+}
+
+.js-search-desc {
+    color: var(--text-secondary);
+}

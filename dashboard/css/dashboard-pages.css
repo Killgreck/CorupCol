@@ -1,0 +1,177 @@
+.max-w-700 {
+    max-width: 700px;
+}
+
+.max-w-800 {
+    max-width: 800px;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.mt-1-5 {
+    margin-top: 1.5rem;
+}
+
+.text-center-soft {
+    text-align: center;
+}
+
+.loading-cell {
+    text-align: center;
+    padding: 30px;
+    color: var(--text-secondary);
+}
+
+.loading-cell-large {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-secondary);
+}
+
+.note-small {
+    font-size: 0.8rem;
+    margin-top: 10px;
+    line-height: 1.2;
+}
+
+.note-xsmall {
+    font-size: 0.8rem;
+}
+
+.note-small-center {
+    font-size: 0.78rem;
+    margin: 0.5rem 0 0;
+    text-align: center;
+}
+
+.note-muted-centered {
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+.text-primary-strong {
+    color: var(--text-primary);
+}
+
+.dashboard-surface {
+    background: var(--bg-surface);
+}
+
+.search-error {
+    display: none;
+    padding: 12px 16px;
+    background: rgba(248, 81, 73, 0.15);
+    border: 1px solid rgba(248, 81, 73, 0.4);
+    border-radius: 6px;
+    color: #f85149;
+    margin-bottom: 1rem;
+}
+
+.search-empty {
+    display: none;
+    padding: 40px;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.search-empty-title {
+    font-size: 1.1em;
+}
+
+.search-empty-subtitle {
+    font-size: 0.9em;
+    margin-top: 8px;
+}
+
+.table-section-spacer {
+    margin-top: 1.5rem;
+}
+
+.col-fuente {
+    width: 80px;
+}
+
+.col-nit-entidad {
+    width: 120px;
+}
+
+.col-doc-nit {
+    width: 130px;
+}
+
+.col-valor {
+    width: 110px;
+    text-align: right;
+}
+
+.col-fecha {
+    width: 100px;
+}
+
+.col-estado {
+    width: 120px;
+}
+
+.col-depto {
+    width: 110px;
+}
+
+.col-enlace {
+    width: 60px;
+}
+
+.loader-center {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-secondary);
+}
+
+.filter-input-full {
+    width: 100%;
+}
+
+.filters-inline {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+.filters-button-primary {
+    flex: 2;
+    padding: 1rem;
+}
+
+.filters-button-secondary {
+    flex: 1;
+    padding: 1rem;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.budget-source {
+    font-size: 0.8rem;
+    margin-top: 10px;
+    line-height: 1.2;
+}
+
+.dashboard-split {
+    background: var(--bg-surface);
+}
+
+.muted-inline-small {
+    font-size: 0.8rem;
+}
+
+.detail-loading {
+    text-align: center;
+    padding: 30px;
+    color: var(--text-secondary);
+}
+
+.table-spacer-top {
+    margin-top: 1.5rem;
+}

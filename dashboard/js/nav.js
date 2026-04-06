@@ -1,9 +1,20 @@
 // nav.js — Navbar compartida inyectada en todas las páginas
 (function () {
+    const ensureJsRenderedCss = () => {
+        if (document.querySelector('link[data-js-rendered-css="1"]')) return;
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = '/dashboard/css/js-rendered.css?v=1';
+        link.dataset.jsRenderedCss = '1';
+        document.head.appendChild(link);
+    };
+
+    ensureJsRenderedCss();
+
     const NAV_HTML = `
 <header class="navbar">
   <div class="container">
-    <a class="logo" href="/dashboard" style="text-decoration:none;display:flex;align-items:center;gap:8px;">
+    <a class="logo nav-logo-link" href="/dashboard">
       <span class="logo-icon">🔍</span>
       <span class="logo-text">CorupCol</span>
     </a>

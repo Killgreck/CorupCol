@@ -11,6 +11,7 @@ import webbrowser
 import threading
 
 PORT = 8080
+HOST = os.environ.get("CORUPCOL_LOCAL_HOST", "127.0.0.1")
 DASHBOARD_DIR = os.path.join(os.path.dirname(__file__), "dashboard")
 
 class Handler(http.server.SimpleHTTPRequestHandler):
@@ -25,12 +26,12 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 def abrir_navegador():
     import time
     time.sleep(0.8)
-    webbrowser.open(f"http://localhost:{PORT}")
+    webbrowser.open(f"http://{HOST}:{PORT}")
 
 print(f"╔══════════════════════════════════════════════╗")
 print(f"║        CorupCol — Servidor Local              ║")
 print(f"╠══════════════════════════════════════════════╣")
-print(f"║  URL:  http://localhost:{PORT}                   ║")
+print(f"║  URL:  http://{HOST}:{PORT}              ║")
 print(f"║  Dir:  {DASHBOARD_DIR[:38]}  ║")
 print(f"╠══════════════════════════════════════════════╣")
 print(f"║  Ctrl+C para detener                         ║")
@@ -38,7 +39,7 @@ print(f"╚═══════════════════════
 
 threading.Thread(target=abrir_navegador, daemon=True).start()
 
-with socketserver.TCPServer(("", PORT), Handler) as httpd:
+with socketserver.TCPServer((HOST, PORT), Handler) as httpd:
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:

@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             td = document.createElement('td');
             const dias = parseInt(row['ct.dias_adicionados'] || row.dias_prorroga) || 0;
-            td.innerHTML = `<span class="badge ${dias > 365 ? 'badge-red' : 'badge-orange'}">${dias.toLocaleString('es-CO')} días</span>`;
+            td.innerHTML = `<span class="badge ${dias > 365 ? 'badge-red' : 'badge-orange'} js-small-badge">${dias.toLocaleString('es-CO')} días</span>`;
             tr.appendChild(td);
 
             td = document.createElement('td');

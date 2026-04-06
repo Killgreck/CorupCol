@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css?v=5">
+    <link rel="stylesheet" href="css/dashboard-pages.css?v=1">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"
         integrity="sha384-NrKB+u6Ts6AtkIhwPixiKTzgSKNblyhlk0Sohlgar9UHUBzai/sgnNNWWd291xqt"
         crossorigin="anonymous"></script>
@@ -22,7 +23,7 @@
         <div class="container">
             <div class="contexto-header text-center">
                 <h2 class="section-title">🇨🇴 Explorar por Contexto Político</h2>
-                <p class="section-desc mx-auto" style="max-width:800px;">
+                <p class="section-desc mx-auto max-w-800">
                     Selecciona un periodo político o rango de fechas para ver los hallazgos
                     y conocer quién gobernaba durante la suscripción de los contratos.
                 </p>
@@ -31,33 +32,33 @@
             <div class="filtros-grid">
                 <div class="filtro-group">
                     <label for="filtro-fecha-inicio" class="filtro-label">Desde:</label>
-                    <input type="date" id="filtro-fecha-inicio" class="search-input" style="width:100%">
+                    <input type="date" id="filtro-fecha-inicio" class="search-input filter-input-full">
                 </div>
                 <div class="filtro-group">
                     <label for="filtro-fecha-fin" class="filtro-label">Hasta:</label>
-                    <input type="date" id="filtro-fecha-fin" class="search-input" style="width:100%">
+                    <input type="date" id="filtro-fecha-fin" class="search-input filter-input-full">
                 </div>
                 <div class="filtro-group">
                     <label for="filtro-presidente" class="filtro-label">Presidente de la Rep.:</label>
-                    <select id="filtro-presidente" class="search-input" style="width:100%">
+                    <select id="filtro-presidente" class="search-input filter-input-full">
                         <option value="">Todos los periodos</option>
                     </select>
                 </div>
                 <div class="filtro-group">
                     <label for="filtro-departamento" class="filtro-label">Gobernador en depto:</label>
-                    <select id="filtro-departamento" class="search-input" style="width:100%" disabled>
+                    <select id="filtro-departamento" class="search-input filter-input-full" disabled>
                         <option value="">Seleccione Departamento</option>
                     </select>
                 </div>
                 <div class="filtro-group">
                     <label for="filtro-ciudad" class="filtro-label">Alcalde en ciudad:</label>
-                    <select id="filtro-ciudad" class="search-input" style="width:100%" disabled>
+                    <select id="filtro-ciudad" class="search-input filter-input-full" disabled>
                         <option value="">Seleccione Ciudad</option>
                     </select>
                 </div>
-                <div class="filtro-group btn-group" style="display:flex;gap:10px;align-items:flex-end;">
-                    <button id="btn-aplicar-filtros" class="btn-primary" style="flex:2;padding:1rem">Filtrar</button>
-                    <button id="btn-limpiar-filtros" class="btn-secondary" style="flex:1;padding:1rem" aria-label="Limpiar filtros">✕</button>
+                <div class="filtro-group btn-group filters-inline">
+                    <button id="btn-aplicar-filtros" class="btn-primary filters-button-primary">Filtrar</button>
+                    <button id="btn-limpiar-filtros" class="btn-secondary filters-button-secondary" aria-label="Limpiar filtros">✕</button>
                 </div>
             </div>
 
@@ -75,7 +76,7 @@
                     <h2 class="section-title">📰 Hallazgos en el Periodo Seleccionado</h2>
                     <p class="section-desc" id="ctx-narrativas-count"></p>
                 </div>
-                <a href="/dashboard/hallazgos.html" class="btn-secondary" style="white-space:nowrap">Ver todos los hallazgos →</a>
+                <a href="/dashboard/hallazgos.html" class="btn-secondary nowrap">Ver todos los hallazgos →</a>
             </div>
             <div id="ctx-narrativas-grid" class="narrativas-grid"></div>
         </div>
@@ -126,7 +127,7 @@
         </div>
         <div id="timeline-modal-detalle"></div>
         <div class="timeline-modal-footer">
-            <span class="text-secondary" style="font-size:0.8rem;">Valores en billones COP &nbsp;·&nbsp; Fuente: SECOP I/II</span>
+            <span class="text-secondary note-xsmall">Valores en billones COP &nbsp;·&nbsp; Fuente: SECOP I/II</span>
         </div>
     </div>
 </div>

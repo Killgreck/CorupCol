@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css?v=5">
+    <link rel="stylesheet" href="css/dashboard-pages.css?v=1">
 </head>
 <body>
 <script src="js/nav.js?v=5"></script>
@@ -19,7 +20,7 @@
         <div class="container">
             <div class="busqueda-header text-center">
                 <h1 class="section-title">🔎 Búsqueda en Base de Datos</h1>
-                <p class="section-desc mx-auto" style="max-width:700px;">
+                <p class="section-desc mx-auto max-w-700">
                     Busca en <strong>17.8 millones de contratos</strong> (SECOP I + II, 2000–2026).
                     Por <strong>nombre de empresa</strong>, <strong>NIT</strong>, <strong>cédula</strong>
                     o cualquier <strong>palabra clave del objeto contratado</strong>.
@@ -33,40 +34,40 @@
                 <button class="search-btn" id="busqueda-btn">Buscar</button>
             </div>
 
-            <div id="busqueda-error" style="display:none;padding:12px 16px;background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.4);border-radius:6px;color:#f85149;margin-bottom:1rem;"></div>
+            <div id="busqueda-error" class="search-error"></div>
 
             <div class="busqueda-meta">
                 <span id="busqueda-count" class="text-secondary mono">Cargando…</span>
-                <span class="text-secondary" style="font-size:0.8em;">· SECOP I + II · 2000–2026</span>
+                <span class="text-secondary note-xsmall">· SECOP I + II · 2000–2026</span>
             </div>
 
-            <div id="busqueda-empty" style="display:none;padding:40px;text-align:center;color:var(--text-secondary);">
-                <p style="font-size:1.1em;">Sin resultados para esa búsqueda.</p>
-                <p style="font-size:0.9em;margin-top:8px;">Intenta con un NIT diferente o verifica la ortografía.</p>
+            <div id="busqueda-empty" class="search-empty">
+                <p class="search-empty-title">Sin resultados para esa búsqueda.</p>
+                <p class="search-empty-subtitle">Intenta con un NIT diferente o verifica la ortografía.</p>
             </div>
 
-            <div class="table-responsive" style="margin-top:1.5rem;">
+            <div class="table-responsive table-spacer-top">
                 <table class="data-table busqueda-table">
                     <thead>
                         <tr>
-                            <th style="width:80px">Fuente</th>
+                            <th class="col-fuente">Fuente</th>
                             <th>Objeto / Lo que hace</th>
                             <th>Entidad</th>
-                            <th style="width:120px">NIT Entidad</th>
+                            <th class="col-nit-entidad">NIT Entidad</th>
                             <th>Contratista</th>
-                            <th style="width:130px">Doc / NIT</th>
-                            <th style="width:110px;text-align:right">Valor</th>
-                            <th style="width:100px">Fecha</th>
-                            <th style="width:120px">Estado</th>
-                            <th style="width:110px">Departamento</th>
-                            <th style="width:60px">Enlace</th>
+                            <th class="col-doc-nit">Doc / NIT</th>
+                            <th class="col-valor">Valor</th>
+                            <th class="col-fecha">Fecha</th>
+                            <th class="col-estado">Estado</th>
+                            <th class="col-depto">Departamento</th>
+                            <th class="col-enlace">Enlace</th>
                         </tr>
                     </thead>
                     <tbody id="busqueda-tbody"></tbody>
                 </table>
             </div>
 
-            <div id="busqueda-loader" style="text-align:center;padding:20px;color:var(--text-secondary);">
+            <div id="busqueda-loader" class="loader-center">
                 <span class="mono">Cargando…</span>
             </div>
         </div>

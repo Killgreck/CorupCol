@@ -10,11 +10,41 @@ const escapeHtml = (str) => {
         .replace(/'/g, '&#39;');
 };
 
+const ensureJsRenderedCss = () => {
+    if (document.querySelector('link[data-js-rendered-css="1"]')) return;
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = '/dashboard/css/js-rendered.css?v=1';
+    link.dataset.jsRenderedCss = '1';
+    document.head.appendChild(link);
+};
+ensureJsRenderedCss();
+
+const safeExternalUrl = (rawUrl) => {
+    if (!rawUrl) return null;
+    try {
+        const url = new URL(String(rawUrl), window.location.origin);
+        const allowedHosts = new Set([
+            'community.secop.gov.co',
+            'www.datos.gov.co',
+            'datos.gov.co',
+            'www.colombiacompra.gov.co',
+            'colombiacompra.gov.co',
+        ]);
+        if (url.protocol !== 'https:' || !allowedHosts.has(url.hostname)) {
+            return null;
+        }
+        return url.href;
+    } catch (_) {
+        return null;
+    }
+};
+window.safeExternalUrl = safeExternalUrl;
+
 // ── Carga robusta de datos ─────────────────────────────────────────────────
 const dashboardDataCandidates = (path) => {
     const clean = String(path || '').replace(/^\/+/, '').replace(/^data\//, '');
     return [
-        `/static_dashboard/data/${clean}`,
         `/dashboard/data/${clean}`,
         `/data/${clean}`
     ];
@@ -109,20 +139,21 @@ const mostrarTablaDetalle = (container, periodoData, periodo, nit) => {
         const valor = c.valor_del_contrato
             ? `$${parseFloat(c.valor_del_contrato).toLocaleString('es-CO', { minimumFractionDigits: 0 })}`
             : '—';
-        const url = c.urlproceso
-            ? `<a href="${escapeHtml(c.urlproceso)}" target="_blank" rel="noopener noreferrer" class="detalle-link">Ver SECOP</a>`
+        const safeUrl = safeExternalUrl(c.urlproceso);
+        const url = safeUrl
+            ? `<a href="${escapeHtml(safeUrl)}" target="_blank" rel="noopener noreferrer" class="detalle-link">Ver SECOP</a>`
             : '—';
         tr.innerHTML = `
-            <td class="mono" style="white-space:nowrap">${escapeHtml(c.id_contrato || '—')}</td>
+            <td class="mono js-nowrap">${escapeHtml(c.id_contrato || '—')}</td>
             <td class="detalle-objeto">${escapeHtml(c.objeto_del_contrato || c.descripcion_del_proceso || '—')}</td>
             <td>${escapeHtml(c.nombre_entidad || '—')}</td>
             <td>${escapeHtml(c.proveedor_adjudicado || '—')}</td>
-            <td class="mono" style="white-space:nowrap">${escapeHtml(valor)}</td>
-            <td style="white-space:nowrap">${escapeHtml(c.fecha_de_firma || '—')}</td>
-            <td style="white-space:nowrap">${escapeHtml(c.fecha_de_inicio_del_contrato || '—')}</td>
-            <td style="white-space:nowrap">${escapeHtml(c.fecha_de_fin_del_contrato || '—')}</td>
+            <td class="mono js-nowrap">${escapeHtml(valor)}</td>
+            <td class="js-nowrap">${escapeHtml(c.fecha_de_firma || '—')}</td>
+            <td class="js-nowrap">${escapeHtml(c.fecha_de_inicio_del_contrato || '—')}</td>
+            <td class="js-nowrap">${escapeHtml(c.fecha_de_fin_del_contrato || '—')}</td>
             <td><span class="badge ${c.estado_contrato === 'Celebrado' ? 'badge-green' : 'badge-orange'}">${escapeHtml(c.estado_contrato || '—')}</span></td>
-            <td style="font-size:0.8em">${escapeHtml(c.modalidad_de_contratacion || '—')}</td>
+            <td class="js-small">${escapeHtml(c.modalidad_de_contratacion || '—')}</td>
             <td class="mono">${escapeHtml(String(c.dias_adicionados || '0'))}</td>
             <td>${url}</td>`;
         tbody.appendChild(tr);
@@ -204,7 +235,7 @@ const renderTimelineGraph = (canvas, nit) => {
             }
         }
     });
-    canvas.style.cursor = 'pointer';
+    canvas.classList.add('js-cursor-pointer');
     return chart;
 };
 

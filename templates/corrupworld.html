@@ -11,138 +11,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <!-- FontAwesome Flags (via Open Source SVG alternatives or emoji for quick mockup) -->
-    <style>
-        .hero {
-            padding: 8rem 0 6rem;
-            text-align: center;
-        }
-
-        .hero-title {
-            font-size: 4.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(120deg, var(--color-azul), #79c0ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .country-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-
-        .country-card {
-            background-color: var(--bg-surface);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 2.5rem 2rem;
-            text-align: center;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .country-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-            border-color: #30363d;
-        }
-
-        .country-card.active {
-            border-color: rgba(56, 139, 253, 0.4);
-        }
-
-        .country-card.active:hover {
-            border-color: var(--color-azul);
-            box-shadow: 0 10px 20px rgba(56, 139, 253, 0.15);
-        }
-
-        .country-card.coming-soon {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .country-card.coming-soon:hover {
-            transform: none;
-            box-shadow: none;
-            border-color: var(--border-color);
-        }
-
-        .flag-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
-        }
-
-        .country-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .country-desc {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
-            flex-grow: 1;
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .status-active {
-            background-color: rgba(56, 139, 253, 0.15);
-            color: var(--color-azul);
-            border: 1px solid rgba(56, 139, 253, 0.3);
-        }
-
-        .status-soon {
-            background-color: rgba(255, 255, 255, 0.05);
-            color: var(--text-secondary);
-            border: 1px solid var(--border-color);
-        }
-
-        .features-section {
-            background-color: rgba(13, 17, 23, 0.5);
-            padding: 4rem 0;
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            text-align: center;
-        }
-
-        .feature-item h3 {
-            font-size: 1.2rem;
-            color: var(--text-primary);
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--color-azul);
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('public_assets', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('public_assets', filename='css/corrupworld.css') }}">
 </head>
 
 <body>
@@ -170,7 +40,7 @@
     </header>
 
     <!-- Paises -->
-    <section class="container" style="padding-top: 2rem;">
+    <section class="container section-padding-top">
         <div class="text-center mb-0">
             <h2 class="section-title">Red Global de Datos</h2>
             <p class="section-desc mx-auto">Selecciona una región para explorar los contratos públicos, identificar
@@ -215,7 +85,7 @@
     <!-- Features -->
     <section class="features-section" id="about">
         <div class="container">
-            <div class="text-center" style="margin-bottom: 3rem;">
+            <div class="text-center features-heading">
                 <h2 class="section-title">Tecnología contra la Corrupción</h2>
             </div>
             <div class="feature-grid">
@@ -248,9 +118,9 @@
     </section>
 
     <!-- Footer -->
-    <footer class="footer" style="margin-top: 0;">
+    <footer class="footer footer-compact">
         <div class="container">
-            <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+            <div class="footer-bottom footer-bottom-compact">
                 <p>&copy; 2026 <span class="tagline">CorrupWorld</span>. Herramienta Open Source bajo licencia MIT.</p>
                 <div>
                     Construido con Python, Flask, D3.js y Neo4j.

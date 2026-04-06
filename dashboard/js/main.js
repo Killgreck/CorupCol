@@ -61,12 +61,12 @@ document.addEventListener('DOMContentLoaded', () => {
         showLoadingState();
         try {
             const [statsRes, carruselRes, nepotismoRes, sobrecostosRes, narrativasRes, timelinesRes] = await Promise.all([
-                fetch('/static_dashboard/data/stats.json'),
-                fetch('/static_dashboard/data/carrusel.json'),
-                fetch('/static_dashboard/data/nepotismo.json'),
-                fetch('/static_dashboard/data/sobrecostos.json'),
-                fetch('/static_dashboard/data/narrativas.json'),
-                fetch('/static_dashboard/data/timelines.json').catch(() => null)
+                fetch('/dashboard/data/stats.json'),
+                fetch('/dashboard/data/carrusel.json'),
+                fetch('/dashboard/data/nepotismo.json'),
+                fetch('/dashboard/data/sobrecostos.json'),
+                fetch('/dashboard/data/narrativas.json'),
+                fetch('/dashboard/data/timelines.json').catch(() => null)
             ]);
 
             const stats = await statsRes.json();
@@ -273,8 +273,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const pct = maxVal > 0 ? (numVal / maxVal) * 100 : 0;
                     const barContainer = document.createElement('div');
-                    barContainer.className = 'value-bar-container';
-                    barContainer.innerHTML = `<div class="value-bar" style="width: ${pct}%"></div>`;
+                    barContainer.className = 'value-bar-container js-value-bar-container';
+                    const fill = document.createElement('div');
+                    fill.className = 'value-bar js-value-bar-fill';
+                    fill.style.width = `${pct}%`;
+                    barContainer.appendChild(fill);
                     td.appendChild(barContainer);
                 } else {
                     td.textContent = val !== undefined && val !== null ? val : 'N/A';
@@ -356,7 +359,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const fetchDetalleContratos = async (nit) => {
         if (_contratoCache[nit] !== undefined) return _contratoCache[nit];
         try {
-            const res = await fetch(`/static_dashboard/data/contratos/${escapeHtml(nit)}.json`);
+            const res = await fetch(`/dashboard/data/contratos/${encodeURIComponent(nit)}.json`);
             if (!res.ok) throw new Error('not found');
             _contratoCache[nit] = await res.json();
         } catch (_) {
@@ -415,20 +418,21 @@ document.addEventListener('DOMContentLoaded', () => {
             const valor = c.valor_del_contrato
                 ? `$${parseFloat(c.valor_del_contrato).toLocaleString('es-CO', {minimumFractionDigits: 0})}`
                 : '—';
-            const url = c.urlproceso
-                ? `<a href="${escapeHtml(c.urlproceso)}" target="_blank" rel="noopener noreferrer" class="detalle-link">Ver SECOP</a>`
+            const safeUrl = typeof safeExternalUrl === 'function' ? safeExternalUrl(c.urlproceso) : null;
+            const url = safeUrl
+                ? `<a href="${escapeHtml(safeUrl)}" target="_blank" rel="noopener noreferrer" class="detalle-link">Ver SECOP</a>`
                 : '—';
             tr.innerHTML = `
-                <td class="mono" style="white-space:nowrap">${escapeHtml(c.id_contrato || '—')}</td>
+                <td class="mono js-nowrap">${escapeHtml(c.id_contrato || '—')}</td>
                 <td class="detalle-objeto">${escapeHtml(c.objeto_del_contrato || c.descripcion_del_proceso || '—')}</td>
                 <td>${escapeHtml(c.nombre_entidad || '—')}</td>
                 <td>${escapeHtml(c.proveedor_adjudicado || '—')}</td>
-                <td class="mono" style="white-space:nowrap">${escapeHtml(valor)}</td>
-                <td style="white-space:nowrap">${escapeHtml(c.fecha_de_firma || '—')}</td>
-                <td style="white-space:nowrap">${escapeHtml(c.fecha_de_inicio_del_contrato || '—')}</td>
-                <td style="white-space:nowrap">${escapeHtml(c.fecha_de_fin_del_contrato || '—')}</td>
+                <td class="mono js-nowrap">${escapeHtml(valor)}</td>
+                <td class="js-nowrap">${escapeHtml(c.fecha_de_firma || '—')}</td>
+                <td class="js-nowrap">${escapeHtml(c.fecha_de_inicio_del_contrato || '—')}</td>
+                <td class="js-nowrap">${escapeHtml(c.fecha_de_fin_del_contrato || '—')}</td>
                 <td><span class="badge ${c.estado_contrato === 'Celebrado' ? 'badge-green' : 'badge-orange'}">${escapeHtml(c.estado_contrato || '—')}</span></td>
-                <td style="font-size:0.8em">${escapeHtml(c.modalidad_de_contratacion || '—')}</td>
+                <td class="js-small">${escapeHtml(c.modalidad_de_contratacion || '—')}</td>
                 <td class="mono">${escapeHtml(String(c.dias_adicionados || '0'))}</td>
                 <td>${url}</td>`;
             tbody.appendChild(tr);
@@ -520,7 +524,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Cursor pointer al pasar sobre barras
-        canvas.style.cursor = 'pointer';
+        canvas.classList.add('js-cursor-pointer');
         return chart;
     };
 
@@ -952,9 +956,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Let's assume the build script moved them or we fetch them relative.
                 // It's safer to fetch the JSONs we already have and convert them to CSV string here using JSZip
                 const [carruselRes, nepotismoRes, sobrecostosRes] = await Promise.all([
-                    fetch('/static_dashboard/data/carrusel.json'),
-                    fetch('/static_dashboard/data/nepotismo.json'),
-                    fetch('/static_dashboard/data/sobrecostos.json')
+                    fetch('/dashboard/data/carrusel.json'),
+                    fetch('/dashboard/data/nepotismo.json'),
+                    fetch('/dashboard/data/sobrecostos.json')
                 ]);
 
                 const c_data = await carruselRes.json();

@@ -5,117 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión - CorupCol</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <style>
-        .auth-container {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            background: radial-gradient(circle at 50% 0%, rgba(56, 139, 253, 0.1) 0%, transparent 50%);
-        }
-
-        .auth-card {
-            background-color: var(--bg-surface);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 3rem;
-            width: 100%;
-            max-width: 450px;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .auth-header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
-
-        .auth-title {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .form-control {
-            width: 100%;
-            background-color: rgba(13, 17, 23, 0.5);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            padding: 0.75rem 1rem;
-            border-radius: 6px;
-            font-family: inherit;
-            transition: var(--transition);
-            box-sizing: border-box;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--color-azul);
-            box-shadow: 0 0 0 3px rgba(56, 139, 253, 0.2);
-        }
-
-        .btn-block {
-            width: 100%;
-            padding: 0.75rem;
-            margin-top: 1rem;
-            font-size: 1rem;
-        }
-
-        .auth-footer {
-            margin-top: 2rem;
-            text-align: center;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-
-        .flash-messages {
-            margin-bottom: 1.5rem;
-        }
-
-        .flash-message {
-            padding: 0.75rem 1rem;
-            border-radius: 6px;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .flash-message.error {
-            border-left: 4px solid var(--color-alerta);
-            background-color: rgba(230, 57, 70, 0.1);
-            color: #ff7b72;
-        }
-
-        .flash-message.success {
-            border-left: 4px solid #3fb950;
-            background-color: rgba(63, 185, 80, 0.1);
-            color: #3fb950;
-        }
-
-        .flash-message.warning {
-            border-left: 4px solid #d29922;
-            background-color: rgba(210, 153, 34, 0.1);
-            color: #e3b341;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('public_assets', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('public_assets', filename='css/auth.css') }}">
 </head>
 
 <body>
     <div class="auth-container">
         <div class="auth-card">
             <div class="auth-header">
-                <div class="logo justify-center mb-0" style="justify-content: center;">
+                <div class="logo justify-center mb-0">
                     <span class="logo-text text-accent">CorupCol</span>
                 </div>
                 <h2 class="auth-title">Acceso al Sistema</h2>
@@ -150,7 +48,7 @@
                         minlength="8" maxlength="128">
                 </div>
                 <button type="submit" class="btn-lg btn-primary btn-block justify-center"
-                    style="justify-content: center;">Iniciar Sesión</button>
+                    >Iniciar Sesión</button>
             </form>
 
             <div class="auth-footer">

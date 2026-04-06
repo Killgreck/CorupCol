@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (count) count.textContent = `${data.length} hallazgo${data.length !== 1 ? 's' : ''} en el periodo`;
 
         if (!data.length) {
-            grid.innerHTML = '<p class="text-secondary" style="padding:20px;text-align:center;">No se encontraron hallazgos para el periodo seleccionado.</p>';
+            grid.innerHTML = '<p class="text-secondary js-notice">No se encontraron hallazgos para el periodo seleccionado.</p>';
             section?.classList.remove('hidden');
             return;
         }
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (data.length > 12) {
             grid.insertAdjacentHTML('beforeend', `
-            <p class="text-secondary" style="grid-column:1/-1;text-align:center;padding:12px;">
+            <p class="text-secondary js-section-notice">
                 Mostrando 12 de ${data.length} resultados.
                 <a href="/dashboard/hallazgos.html">Ver todos en Hallazgos →</a>
             </p>`);

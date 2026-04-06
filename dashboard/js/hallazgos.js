@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (e) {
             console.error('Error cargando hallazgos:', e);
             const grid = document.getElementById('narrativas-grid');
-            if (grid) grid.innerHTML = '<p class="text-secondary" style="padding:20px;text-align:center;">Error al cargar hallazgos. Verifica que los datos estén disponibles.</p>';
+            if (grid) grid.innerHTML = '<p class="text-secondary js-error-state">Error al cargar hallazgos. Verifica que los datos estén disponibles.</p>';
         }
     };
 
