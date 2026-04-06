@@ -1,5 +1,8 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory
+import sqlite3
+import re
+from pathlib import Path
+from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from flask_wtf import CSRFProtect
@@ -242,6 +245,108 @@ def serve_dashboard_assets(filename):
 @app.route('/')
 def corrupworld_index():
     return render_template('corrupworld.html')
+
+
+# ---------------------------------------------------------------------------
+# API: Búsqueda SECOP (FTS5 SQLite)
+# ---------------------------------------------------------------------------
+_SEARCH_DB = Path(__file__).parent / 'instance' / 'search.db'
+_SEARCH_COLS = ('id','objeto','entidad','nit_entidad','contratista',
+                'doc_contratista','valor','fecha','estado',
+                'depto','ciudad','url','fuente','numero')
+
+def _get_search_conn():
+    conn = sqlite3.connect(_SEARCH_DB, check_same_thread=False)
+    conn.row_factory = sqlite3.Row
+    conn.execute('PRAGMA query_only=ON')
+    return conn
+
+
+def _sanitize_fts(q: str) -> str:
+    """Convierte la query del usuario a una query FTS5 segura."""
+    q = q.strip()
+    if not q:
+        return ''
+    # Quitar caracteres especiales de FTS5 excepto espacios
+    q = re.sub(r'["\'\(\)\[\]\{\}\^\*\?\+\-\~\!\\]', ' ', q)
+    # Cada token con comillas para búsqueda de frase exacta si es un número,
+    # o prefijo para texto
+    tokens = q.split()
+    if not tokens:
+        return ''
+    # Si es un único número (NIT/cédula), buscar exact match en doc_contratista
+    if len(tokens) == 1 and tokens[0].isdigit():
+        return None  # señal para hacer búsqueda por columna
+    return ' '.join(f'"{t}"' for t in tokens if t)
+
+
+@app.route('/api/search')
+@login_required
+def api_search():
+    if not _SEARCH_DB.exists():
+        return jsonify({
+            'error': 'Índice de búsqueda no construido. Ejecuta: python3 scripts/construir_indice_search.py',
+            'results': [], 'total': 0, 'page': 1, 'pages': 0
+        }), 503
+
+    raw_q  = (request.args.get('q') or '').strip()
+    page   = max(1, int(request.args.get('page', 1) or 1))
+    limit  = min(100, max(10, int(request.args.get('limit', 50) or 50)))
+    offset = (page - 1) * limit
+
+    try:
+        conn = _get_search_conn()
+
+        if not raw_q:
+            # Sin query: mostrar contratos recientes
+            rows  = conn.execute(
+                'SELECT * FROM contratos ORDER BY fecha DESC LIMIT ? OFFSET ?',
+                (limit, offset)
+            ).fetchall()
+            total = conn.execute('SELECT COUNT(*) FROM contratos').fetchone()[0]
+
+        else:
+            fts_q = _sanitize_fts(raw_q)
+
+            if fts_q is None:
+                # Búsqueda por NIT/cédula exacta
+                rows  = conn.execute(
+                    'SELECT * FROM contratos WHERE doc_contratista=? ORDER BY fecha DESC LIMIT ? OFFSET ?',
+                    (raw_q, limit, offset)
+                ).fetchall()
+                total = conn.execute(
+                    'SELECT COUNT(*) FROM contratos WHERE doc_contratista=?', (raw_q,)
+                ).fetchone()[0]
+
+            elif not fts_q.strip('"').strip():
+                rows  = []
+                total = 0
+
+            else:
+                rows  = conn.execute('''
+                    SELECT c.* FROM contratos c
+                    JOIN contratos_fts f ON c.id = f.rowid
+                    WHERE contratos_fts MATCH ?
+                    ORDER BY rank
+                    LIMIT ? OFFSET ?
+                ''', (fts_q, limit, offset)).fetchall()
+                total = conn.execute('''
+                    SELECT COUNT(*) FROM contratos c
+                    JOIN contratos_fts f ON c.id = f.rowid
+                    WHERE contratos_fts MATCH ?
+                ''', (fts_q,)).fetchone()[0]
+
+        conn.close()
+        return jsonify({
+            'results': [dict(r) for r in rows],
+            'total':   total,
+            'page':    page,
+            'pages':   max(1, (total + limit - 1) // limit),
+            'query':   raw_q,
+        })
+
+    except Exception as e:
+        return jsonify({'error': str(e), 'results': [], 'total': 0, 'page': 1, 'pages': 0}), 500
 
 
 # ---------------------------------------------------------------------------

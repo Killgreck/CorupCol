@@ -1,12 +1,5 @@
 // shared.js — Utilidades compartidas entre todas las páginas del dashboard
 
-// Fetch genérico para JSON del dashboard
-const fetchDashboardJSON = (filename) =>
-    fetch(`/static_dashboard/data/${filename}`).then(r => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}: ${filename}`);
-        return r.json();
-    });
-
 const escapeHtml = (str) => {
     if (str === null || str === undefined) return '';
     return String(str)

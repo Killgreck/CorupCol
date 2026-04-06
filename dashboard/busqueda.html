@@ -20,9 +20,9 @@
             <div class="busqueda-header text-center">
                 <h1 class="section-title">🔎 Búsqueda en Base de Datos</h1>
                 <p class="section-desc mx-auto" style="max-width:700px;">
-                    Busca por <strong>nombre de empresa</strong>, <strong>NIT</strong>, <strong>cédula</strong>
-                    o cualquier <strong>palabra clave</strong>. Carga todos los registros de carrusel,
-                    nepotismo y prórrogas. Click en "Ver contratos" para ver el detalle individual.
+                    Busca en <strong>17.8 millones de contratos</strong> (SECOP I + II, 2000–2026).
+                    Por <strong>nombre de empresa</strong>, <strong>NIT</strong>, <strong>cédula</strong>
+                    o cualquier <strong>palabra clave del objeto contratado</strong>.
                 </p>
             </div>
 
@@ -33,9 +33,11 @@
                 <button class="search-btn" id="busqueda-btn">Buscar</button>
             </div>
 
+            <div id="busqueda-error" style="display:none;padding:12px 16px;background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.4);border-radius:6px;color:#f85149;margin-bottom:1rem;"></div>
+
             <div class="busqueda-meta">
                 <span id="busqueda-count" class="text-secondary mono">Cargando…</span>
-                <span class="text-secondary" style="font-size:0.8em;">· Datos: Carrusel + Nepotismo + Prórrogas</span>
+                <span class="text-secondary" style="font-size:0.8em;">· SECOP I + II · 2000–2026</span>
             </div>
 
             <div id="busqueda-empty" style="display:none;padding:40px;text-align:center;color:var(--text-secondary);">
@@ -47,21 +49,25 @@
                 <table class="data-table busqueda-table">
                     <thead>
                         <tr>
-                            <th style="width:110px">Tipo</th>
-                            <th>Nombre / Empresa</th>
-                            <th style="width:140px">NIT / CC / ID</th>
-                            <th>Lo que hace / Objeto / Patrón</th>
-                            <th style="width:130px">Valor Estimado</th>
-                            <th style="width:130px">Contratos</th>
+                            <th style="width:80px">Fuente</th>
+                            <th>Objeto / Lo que hace</th>
+                            <th>Entidad</th>
+                            <th style="width:120px">NIT Entidad</th>
+                            <th>Contratista</th>
+                            <th style="width:130px">Doc / NIT</th>
+                            <th style="width:110px;text-align:right">Valor</th>
+                            <th style="width:100px">Fecha</th>
+                            <th style="width:120px">Estado</th>
+                            <th style="width:110px">Departamento</th>
+                            <th style="width:60px">Enlace</th>
                         </tr>
                     </thead>
                     <tbody id="busqueda-tbody"></tbody>
                 </table>
             </div>
 
-            <!-- Sentinel para scroll infinito -->
-            <div id="busqueda-loader" style="display:none;text-align:center;padding:20px;color:var(--text-secondary);">
-                <span class="mono">Cargando más resultados…</span>
+            <div id="busqueda-loader" style="text-align:center;padding:20px;color:var(--text-secondary);">
+                <span class="mono">Cargando…</span>
             </div>
         </div>
     </section>
@@ -72,7 +78,7 @@
         <div class="footer-grid">
             <div class="footer-col">
                 <h3>CorupCol · Búsqueda</h3>
-                <p>Busca en todos los registros de anomalías detectadas por inteligencia artificial.</p>
+                <p>17.8M contratos SECOP I + II (2000–2026) indexados con FTS5 SQLite.</p>
             </div>
             <div class="footer-col">
                 <h3>Cómo buscar</h3>
