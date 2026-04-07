@@ -372,11 +372,13 @@ def api_search():
             'results': [], 'total': 0, 'page': 1, 'pages': 0
         }), 503
 
-    raw_q      = (request.args.get('q') or '').strip()
-    page       = _parse_int_arg('page', 1, 1, 10_000)
-    limit      = _parse_int_arg('limit', 50, 10, 100)
-    offset     = (page - 1) * limit
+    raw_q       = (request.args.get('q') or '').strip()
+    page        = _parse_int_arg('page', 1, 1, 10_000)
+    limit       = _parse_int_arg('limit', 50, 10, 100)
+    offset      = (page - 1) * limit
     known_total = _parse_int_arg('known_total', -1, -1, 50_000_000)
+    FTS_CAP     = 50_000
+    approximate = False
 
     try:
         conn = _get_search_conn()
@@ -408,29 +410,39 @@ def api_search():
                 total = 0
 
             else:
+                # FTS limitado a 50K matches — evita full-scan en queries genéricas
+                FTS_CAP = 50_000
                 rows  = conn.execute('''
                     SELECT c.* FROM contratos c
-                    JOIN contratos_fts f ON c.id = f.rowid
-                    WHERE contratos_fts MATCH ?
-                    ORDER BY rank
+                    WHERE c.id IN (
+                        SELECT rowid FROM contratos_fts
+                        WHERE contratos_fts MATCH ?
+                        LIMIT ?
+                    )
+                    ORDER BY c.fecha DESC
                     LIMIT ? OFFSET ?
-                ''', (fts_q, limit, offset)).fetchall()
-                # En páginas > 1 el cliente ya conoce el total — evitar FTS COUNT costoso
+                ''', (fts_q, FTS_CAP, limit, offset)).fetchall()
+                # COUNT también limitado al cap
                 if known_total >= 0 and page > 1:
                     total = known_total
                 else:
                     total = conn.execute('''
-                        SELECT COUNT(*) FROM contratos c
-                        JOIN contratos_fts f ON c.id = f.rowid
-                        WHERE contratos_fts MATCH ?
-                    ''', (fts_q,)).fetchone()[0]
+                        SELECT COUNT(*) FROM (
+                            SELECT rowid FROM contratos_fts
+                            WHERE contratos_fts MATCH ?
+                            LIMIT ?
+                        )
+                    ''', (fts_q, FTS_CAP)).fetchone()[0]
+                    if total >= FTS_CAP:
+                        approximate = True
 
         return jsonify({
-            'results': [dict(r) for r in rows],
-            'total':   total,
-            'page':    page,
-            'pages':   max(1, (total + limit - 1) // limit),
-            'query':   raw_q,
+            'results':     [dict(r) for r in rows],
+            'total':       total,
+            'approximate': approximate,
+            'page':        page,
+            'pages':       max(1, (total + limit - 1) // limit),
+            'query':       raw_q,
         })
 
     except Exception:

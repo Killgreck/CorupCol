@@ -137,8 +137,9 @@ document.addEventListener('DOMContentLoaded', () => {
             renderPager();
 
             if (countEl) {
+                const prefix = data.approximate ? '~' : '';
                 countEl.textContent = q
-                    ? `${data.total.toLocaleString('es-CO')} resultado${data.total !== 1 ? 's' : ''} · pág ${_page}/${_totalPages}`
+                    ? `${prefix}${data.total.toLocaleString('es-CO')} resultado${data.total !== 1 ? 's' : ''} · pág ${_page}/${_totalPages}`
                     : `${data.total.toLocaleString('es-CO')} contratos · pág ${_page}/${_totalPages}`;
             }
 

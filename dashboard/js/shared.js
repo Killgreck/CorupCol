@@ -101,14 +101,20 @@ const fetchDetalleContratos = async (nit) => {
 
 // ── Tabla de detalle de contratos ───────────────────────────────────────────
 const mostrarTablaDetalle = (container, periodoData, periodo, nit) => {
-    const prev = container.querySelector('.detalle-contratos-wrapper');
-    if (prev) prev.remove();
+    container.querySelectorAll('.detalle-contratos-wrapper, .detalle-sin-datos').forEach(el => el.remove());
+
+    // Expandir chart-wrapper si está clipped (carruseles/nepotismo inline)
+    const chartWrapper = container.closest('.chart-container-wrapper');
+    const expandWrapper = () => {
+        if (chartWrapper) chartWrapper.style.maxHeight = chartWrapper.scrollHeight + 'px';
+    };
 
     if (!periodoData || periodoData.length === 0) {
         const msg = document.createElement('p');
         msg.className = 'detalle-sin-datos';
         msg.textContent = `Sin detalle individual disponible para ${periodo}.`;
         container.appendChild(msg);
+        expandWrapper();
         return;
     }
 
@@ -162,6 +168,7 @@ const mostrarTablaDetalle = (container, periodoData, periodo, nit) => {
     tableWrap.appendChild(table);
     wrapper.appendChild(tableWrap);
     container.appendChild(wrapper);
+    expandWrapper();
     wrapper.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 };
 
